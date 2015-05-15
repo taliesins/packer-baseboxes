@@ -4,9 +4,9 @@
     "boot_wait": "5m",
     "disk_size": 61440,
     "floppy_files": [
-      "./windows-2012R2-serverdatacenter-amd64/autounattend.xml"
-      "./scripts/microsoft-updates.ps1",
-      "./scripts/win-updates.ps1"
+      "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
+      "./common/microsoft-updates.ps1",
+      "./common/win-updates.ps1"
     ],
     "guest_os_type": "windows8srv-64",
     "tools_upload_flavor": "windows",
@@ -30,9 +30,9 @@
   "provisioners": [{
     "type": "powershell",
     "scripts": [
-      "common/install-chef.ps1",
-      "common/install-7zip.ps1",
-      "common/install-vmware-tools.ps1"
+      "./common/install-chef.ps1",
+      "./common/install-7zip.ps1",
+      "./common/install-vmware-tools.ps1"
     ]
   }],
   "post-processors": [
