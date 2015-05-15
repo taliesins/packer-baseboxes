@@ -1,0 +1,45 @@
+{
+  "builders": [{
+    "type": "vmware-windows-iso",
+    "boot_wait": "5m",
+    "disk_size": 61440,
+    "floppy_files": [
+      "./windows-2012R2-serverdatacenter-amd64/autounattend.xml"
+      "./scripts/microsoft-updates.ps1",
+      "./scripts/win-updates.ps1"
+    ],
+    "guest_os_type": "windows8srv-64",
+    "tools_upload_flavor": "windows",
+    "headless": false,
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "458ff91f8abc21b75cb544744bf92e6a",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_wait_timeout": "4h",
+    "shutdown_command": "shutdown -a; shutdown /s /t 1 /c \"Packer Shutdown\" /f /d p:4:1",
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "4096",
+      "numvcpus": "4",
+      "virtualHW.version": "11",
+      "scsi0.virtualDev": "lsisas1068"
+    }
+  }],
+  "provisioners": [{
+    "type": "powershell",
+    "scripts": [
+      "common/install-chef.ps1",
+      "common/install-7zip.ps1",
+      "common/install-vmware-tools.ps1"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_windows-2012r2_chef-11.12.4.box"
+    }
+  ]
+}
