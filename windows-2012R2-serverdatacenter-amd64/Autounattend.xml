@@ -242,9 +242,14 @@
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxProcessesPerShell="25"}</CommandLine>
                     <Description>Win RM MaxProcessesPerShell</Description>
-                    <Order>23</Order>
+                    <Order>24</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>%SystemRoot%\System32\reg.exe ADD "HKLM\System\CurrentControlSet\Services\Netlogon\Parameters" /v DisablePasswordChange /t REG_DWORD /d 1 /f</CommandLine>
+                    <Description>Turn off computer password</Description>
+                    <Order>25</Order>
+                </SynchronousCommand>                
                          
                 <!-- WITHOUT WINDOWS UPDATES -->
                 <!--
@@ -257,6 +262,12 @@
                 -->
                 <!-- END WITHOUT WINDOWS UPDATES -->
                 <!-- WITH WINDOWS UPDATES -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\set-power-config.ps1</CommandLine>
+                    <Order>97</Order>
+                    <Description>Turn off all power saving and timeouts</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>                
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\microsoft-updates.ps1</CommandLine>
                     <Order>98</Order>

@@ -5,6 +5,7 @@
     "disk_size": 61440,
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
+      "./common/set-power-config.ps1",
       "./common/microsoft-updates.ps1",
       "./common/win-updates.ps1"
     ],
@@ -30,16 +31,20 @@
   "provisioners": [{
     "type": "powershell",
     "scripts": [
-      "./common/install-chef.ps1",
       "./common/install-7zip.ps1",
-      "./common/install-vmware-tools.ps1"
+      "./common/install-vmware-tools.ps1",    
+      "./common/install-chef.ps1",
+      "./common/install-diskcleanup.ps1",
+      "./common/cleanup.ps1",
+      "./common/install-ultradefrag.ps1",
+      "./common/install-sdelete.ps1"
     ]
   }],
   "post-processors": [
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{.Provider}}_windows-2012r2_chef-11.12.4.box"
+      "output": "{{.Provider}}_windows-2012r2_chef.box"
     }
   ]
 }
