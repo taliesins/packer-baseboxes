@@ -51,3 +51,8 @@ if ((Get-CimInstance win32_operatingsystem).version -eq '6.3.9600') {
     "Free Space Before: {0}" -f $FreespaceBefore
     "Free Space After: {0}" -f $FreespaceAfter
 }
+
+@('Desktop-Experience',
+  'InkAndHandwritingServices',
+  'Server-Media-Foundation',
+  'Powershell-ISE') | Remove-WindowsFeature
