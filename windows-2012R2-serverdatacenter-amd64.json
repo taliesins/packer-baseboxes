@@ -5,12 +5,12 @@
     "disk_size": 61440,
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
+      "./windows-2012R2-serverdatacenter-amd64/unattend.xml",
       "./common/set-power-config.ps1",
       "./common/microsoft-updates.ps1",
       "./common/win-updates.ps1"
     ],
     "guest_os_type": "windows8srv-64",
-    "tools_upload_flavor": "windows",
     "headless": false,
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
     "iso_checksum_type": "md5",
@@ -18,7 +18,7 @@
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_wait_timeout": "4h",
-    "shutdown_command": "shutdown -a; shutdown /s /t 1 /c \"Packer Shutdown\" /f /d p:4:1",
+    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown /unattend:a:/unattend.xml",
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
@@ -30,14 +30,17 @@
   }],
   "provisioners": [{
     "type": "powershell",
+    "elevated_user":"vagrant",
+    "elevated_password":"vagrant",
     "scripts": [
       "./common/install-7zip.ps1",
       "./common/install-vmware-tools.ps1",    
       "./common/install-chef.ps1",
-      "./common/install-diskcleanup.ps1",
+      "./common/compile-dotnet-assemblies.ps1",
+      "./common/diskcleanup.ps1",
       "./common/cleanup.ps1",
-      "./common/install-ultradefrag.ps1",
-      "./common/install-sdelete.ps1"
+      "./common/ultradefrag.ps1",
+      "./common/sdelete.ps1"
     ]
   }],
   "post-processors": [
