@@ -19,7 +19,7 @@
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_wait_timeout": "4h",
-    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown /unattend:a:/unattend.xml",
+    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown",
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
