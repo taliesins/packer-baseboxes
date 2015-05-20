@@ -1,2 +1,4 @@
-sc config winrm start= auto
-net start winrm
+$configureServiceStartup = "sc.exe config winrm start= auto"
+Invoke-Expression -Command $configureServiceStartup -ErrorAction Stop
+
+start-service winrm
