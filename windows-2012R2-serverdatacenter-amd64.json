@@ -1,7 +1,7 @@
 {
   "builders": [{
     "type": "vmware-windows-iso",
-    "boot_wait": "5m",
+    "boot_wait": "30m",
     "disk_size": 61440,
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
