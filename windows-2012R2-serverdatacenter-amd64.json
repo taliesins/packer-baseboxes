@@ -40,7 +40,8 @@
       "./common/compile-dotnet-assemblies.ps1",
       "./common/cleanup.ps1",
       "./common/ultradefrag.ps1",
-      "./common/sdelete.ps1"
+      "./common/sdelete.ps1",
+      "./common/set-unattend.ps1"
     ]
   }],
   "post-processors": [
