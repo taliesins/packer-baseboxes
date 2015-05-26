@@ -274,6 +274,18 @@
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c del /Q /F c:\windows\system32\sysprep\unattend.xml</CommandLine>
+                    <Description>Remove sysprep unattend</Description>
+                    <Order>101</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c del /Q /F c:\windows\panther\unattend.xml</CommandLine>
+                    <Description>Remove panther unattend</Description>
+                    <Order>102</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
                 <!-- END WITH WINDOWS UPDATES -->
             </FirstLogonCommands>
             <OOBE>
