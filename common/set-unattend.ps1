@@ -1,1 +1,1 @@
-cp a:\unattend.xml c:\
+cp a:\phase2-unattend.xml c:\unattend.xml

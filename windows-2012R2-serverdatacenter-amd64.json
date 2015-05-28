@@ -5,7 +5,7 @@
     "disk_size": 61440,
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
-      "./windows-2012R2-serverdatacenter-amd64/unattend.xml",
+      "./windows-2012R2-serverdatacenter-amd64/phase2-unattend.xml",
       "./common/set-power-config.ps1",
       "./common/microsoft-updates.ps1",
       "./common/win-updates.ps1",
@@ -19,14 +19,17 @@
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_wait_timeout": "4h",
-    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown",
+    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown /unattend:C:/unattend.xml",
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "4096",
       "numvcpus": "4",
       "virtualHW.version": "11",
-      "scsi0.virtualDev": "lsisas1068"
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"vmnet8"
     }
   }],
   "provisioners": [{
