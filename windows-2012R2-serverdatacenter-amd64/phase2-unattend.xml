@@ -61,8 +61,6 @@
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
-            <RegisteredOrganization />
-            <RegisteredOwner />
             <DisableAutoDaylightTimeSet>true</DisableAutoDaylightTimeSet>
             <TimeZone>Coordinated Universal Time</TimeZone>
             <VisualEffects>
