@@ -9,7 +9,8 @@
       "./common/set-power-config.ps1",
       "./common/microsoft-updates.ps1",
       "./common/win-updates.ps1",
-      "./common/enable-winrm.ps1"
+      "./common/enable-winrm.ps1",
+      "./common/run-sysprep.ps1"
     ],
     "guest_os_type": "windows8srv-64",
     "headless": false,
@@ -19,7 +20,7 @@
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_wait_timeout": "4h",
-    "shutdown_command": "c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /quiet /shutdown",
+    "shutdown_command": "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -File 'a:\\run-sysprep.ps1'",
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
@@ -43,8 +44,7 @@
       "./common/compile-dotnet-assemblies.ps1",
       "./common/cleanup.ps1",
       "./common/ultradefrag.ps1",
-      "./common/sdelete.ps1",
-      "./common/set-unattend.ps1"
+      "./common/sdelete.ps1"
     ]
   }],
   "post-processors": [
