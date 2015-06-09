@@ -5,7 +5,7 @@
     "disk_size": 61440,
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
-      "./windows-2012R2-serverdatacenter-amd64/phase2-unattend.xml",
+      "./windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
       "./common/set-power-config.ps1",
       "./common/microsoft-updates.ps1",
       "./common/win-updates.ps1",

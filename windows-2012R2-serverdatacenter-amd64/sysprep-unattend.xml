@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
-    <settings pass="offlineServicing">
-        <component language="neutral" name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <EnableLUA>false</EnableLUA>
-        </component>
-    </settings>
     <settings pass="generalize">
         <component language="neutral" name="Microsoft-Windows-Security-SPP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <SkipRearm>1</SkipRearm>
-        </component>
-    </settings>
-    <settings pass="specialize">
-        <component language="neutral" name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <SkipAutoActivation>true</SkipAutoActivation>
-        </component>
-        <component language="neutral" name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <CEIPEnabled>0</CEIPEnabled>
-        </component>
-        <component language="neutral" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ComputerName>*</ComputerName>
-            <!-- <ProductKey>W3GGN-FT8W3-Y4M27-J84CP-Q3VJ9</ProductKey> -->
-            <RegisteredOrganization>Vagrant</RegisteredOrganization>
-            <RegisteredOwner>Vagrant</RegisteredOwner>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -45,14 +26,14 @@
             </OOBE>
             <UserAccounts>
                 <AdministratorPassword>
-                    <Value>dgBhAGcAcgBhAG4AdABBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByAFAAYQBzAHMAdwBvAHIAZAA=</Value>
-                    <PlainText>false</PlainText>
+                    <Value>vagrant</Value>
+                    <PlainText>true</PlainText>
                 </AdministratorPassword>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
                         <Password>
-                            <Value>dgBhAGcAcgBhAG4AdABQAGEAcwBzAHcAbwByAGQA</Value>
-                            <PlainText>false</PlainText>
+                            <Value>vagrant</Value>
+                            <PlainText>true</PlainText>
                         </Password>
                         <Group>administrators</Group>
                         <DisplayName>Vagrant</DisplayName>
@@ -68,5 +49,4 @@
             </VisualEffects>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/9600.16384.winblue_rtm.130821-1623_x64fre_server_eval_en-us-irm_sss_x64free_en-us_dv5_slipstream/sources/install.wim#Windows Server 2012 R2 SERVERDATACENTER" xmlns:cpi="urn:schemas-microsoft-com:cpi" /> 
 </unattend>
