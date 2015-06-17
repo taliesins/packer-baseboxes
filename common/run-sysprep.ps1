@@ -10,7 +10,7 @@ if (!(test-path c:\windows\panther\unattend)) {
 	mkdir c:\windows\panther\unattend
 }
 
-cp C:\sysprep-unattend.xml c:\windows\panther\unattend\unattend.xml
+cp A:\sysprep-unattend.xml c:\windows\panther\unattend\unattend.xml
 
 $result = Stop-Computer -Force
 
