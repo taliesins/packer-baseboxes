@@ -1,4 +1,6 @@
- c:/windows/system32/sysprep/sysprep.exe /generalize /oobe /mode:vm /quiet /quit
+
+&c:\windows\system32\sysprep\sysprep.exe /generalize /oobe /mode:vm /quiet /quit
+Write-Host "sysprep exit code was $LASTEXITCODE"
 
 @('c:\unattend.xml', 'c:\windows\panther\unattend\unattend.xml', 'c:\windows\panther\unattend.xml', 'c:\windows\system32\sysprep\unattend.xml') | %{
 	if (test-path $_){
@@ -6,12 +8,12 @@
 	}	
 }
 
-if (!(test-path c:\windows\panther\unattend)) {
-	mkdir c:\windows\panther\unattend
+if (!(test-path 'c:\windows\panther\unattend')) {
+     New-Item -path 'c:\windows\panther\unattend' -type directory
 }
 
-cp A:\sysprep-unattend.xml c:\windows\panther\unattend\unattend.xml
+Copy-Item 'a:\sysprep-unattend.xml' 'c:\windows\panther\unattend\unattend.xml'
 
-$result = Stop-Computer -Force
+&shutdown -s
 
 exit 0 
