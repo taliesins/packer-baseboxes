@@ -7,12 +7,12 @@
     "floppy_files": [
       "./windows-2012R2-serverdatacenter-amd64/autounattend.xml",
       "./windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
-      "./common/set-power-config.ps1",
-      "./common/microsoft-updates.ps1",
-      "./common/win-updates.ps1",
-      "./common/enable-winrm.ps1",
-      "./common/run-sysprep.ps1",
-      "./common/run-sysprep.cmd"
+      "./windows/common/set-power-config.ps1",
+      "./windows/common/microsoft-updates.ps1",
+      "./windows/common/win-updates.ps1",
+      "./windows/common/enable-winrm.ps1",
+      "./windows/common/run-sysprep.ps1",
+      "./windows/common/run-sysprep.cmd"
     ],
     "guest_os_type": "windows8srv-64",
     "headless": false,
@@ -40,13 +40,13 @@
     "elevated_user":"vagrant",
     "elevated_password":"vagrant",
     "scripts": [
-      "./common/install-7zip.ps1",
-      "./common/install-vmware-tools.ps1",    
-      "./common/install-chef.ps1",
-      "./common/compile-dotnet-assemblies.ps1",
-      "./common/cleanup.ps1",
-      "./common/ultradefrag.ps1",
-      "./common/sdelete.ps1"
+      "./windows/common/install-7zip.ps1",
+      "./windows/common/install-vmware-tools.ps1",    
+      "./windows/common/install-chef.ps1",
+      "./windows/common/compile-dotnet-assemblies.ps1",
+      "./windows/common/cleanup.ps1",
+      "./windows/common/ultradefrag.ps1",
+      "./windows/common/sdelete.ps1"
     ]
   }],
   "post-processors": [
