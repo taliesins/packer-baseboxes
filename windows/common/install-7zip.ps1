@@ -4,7 +4,7 @@ $msi_file_name = "7z$version-x64.msi"
 if ($ENV:HttpIp){
     $httpIp = $ENV:HttpIp
     $httpPort = $ENV:HttpPort
-    $download_url = "http://$httpIp:$httpPort/$msi_file_name"
+    $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
     $download_url = "http://downloads.sourceforge.net/sevenzip/$msi_file_name"
 }
