@@ -10,4 +10,5 @@ if ($ENV:HttpIp){
 }
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "C:\Windows\Temp\$msi_file_name")
-Start-Process 'msiexec' -ArgumentList '/qb /i C:\\Windows\\Temp\\$msi_file_name' -NoNewWindow -Wait
+
+&msiexec /i "C:\Windows\Temp\$msi_file_name" /quiet /qn /norestart
