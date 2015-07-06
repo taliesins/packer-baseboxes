@@ -6,7 +6,7 @@ if ($ENV:HttpIp){
     $httpPort = $ENV:HttpPort
     $download_url = "http://$($httpIp):$($httpPort)/$iso_name"
 } else {
-    $download_url = "https://packages.vmware.com/tools/esx/latest/windows/x64/$iso_name"
+    $download_url = "http://packages.vmware.com/tools/esx/latest/windows/x64/$iso_name"
 }
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "c:\windows\temp\$iso_name")
