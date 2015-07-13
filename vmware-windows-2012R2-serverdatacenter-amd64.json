@@ -10,7 +10,6 @@
       "./windows/common/set-power-config.ps1",
       "./windows/common/microsoft-updates.ps1",
       "./windows/common/win-updates.ps1",
-      "./windows/common/enable-winrm.ps1",
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd"
     ],
