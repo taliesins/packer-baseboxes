@@ -1,6 +1,7 @@
 {
   "builders": [
   {
+    "VMName":"windows2012r2",
     "type": "vmware-windows-iso",
     "boot_wait": "5s",
     "disk_size": 61440,
@@ -53,7 +54,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": true,
+      "keep_input_artifact": false,
       "output": "{{.Provider}}_windows-2012r2_chef.box"
     }
   ]
