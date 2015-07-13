@@ -1,7 +1,7 @@
 {
   "builders": [
   {
-    "VMName":"windows2012r2",
+    "vm_name":"windows2012r2",
     "type": "virtualbox-iso",
     "boot_wait": "5s",
     "disk_size": 61440,
