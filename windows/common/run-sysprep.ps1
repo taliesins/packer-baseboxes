@@ -12,8 +12,11 @@ if (!(test-path 'c:\windows\panther\unattend')) {
      New-Item -path 'c:\windows\panther\unattend' -type directory
 }
 
-Copy-Item 'a:\sysprep-unattend.xml' 'c:\windows\panther\unattend\unattend.xml'
-
+if (Test-Path 'a:\sysprep-unattend.xml'){
+	Copy-Item 'a:\sysprep-unattend.xml' 'c:\windows\panther\unattend\unattend.xml'
+} else {
+	Copy-Item 'f:\sysprep-unattend.xml' 'c:\windows\panther\unattend\unattend.xml'	
+}
 &shutdown -s
 
 exit 0 

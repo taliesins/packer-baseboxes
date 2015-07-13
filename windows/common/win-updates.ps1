@@ -12,6 +12,12 @@ function LogWrite {
    Write-Host $logstring
 }
 
+function EnableWinRm {
+    $configureServiceStartup = "sc.exe config winrm start= auto"
+    Invoke-Expression -Command $configureServiceStartup -ErrorAction Stop
+    start-service winrm
+}
+
 function Check-ContinueRestartOrEnd() {
     $RegistryKey = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
     $RegistryEntry = "InstallWindowsUpdates"
@@ -30,10 +36,10 @@ function Check-ContinueRestartOrEnd() {
                 Install-WindowsUpdates
             } elseif ($script:Cycles -gt $global:MaxCycles) {
                 LogWrite "Exceeded Cycle Count - Stopping"
-                Invoke-Expression "a:\enable-winrm.ps1"
+                EnableWinRm
             } else {
                 LogWrite "Done Installing Windows Updates"
-                Invoke-Expression "a:\enable-winrm.ps1"
+                EnableWinRm
             }
         }
         1 {
@@ -125,7 +131,7 @@ function Install-WindowsUpdates() {
         LogWrite 'No updates available to install...'
         $global:MoreUpdates=0
         $global:RestartRequired=0
-        Invoke-Expression "a:\enable-winrm.ps1"
+        EnableWinRm
         break
     }
 
