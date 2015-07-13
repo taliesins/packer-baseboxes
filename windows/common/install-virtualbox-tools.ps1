@@ -1,4 +1,4 @@
-$version = '4.3.28'
+$version = '4.3.30'
 $iso_name = "VBoxGuestAdditions_$version.iso"
 
 if ($ENV:HttpIp){
