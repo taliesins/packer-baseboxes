@@ -31,9 +31,10 @@
                         <ModifyPartition wcm:action="add">
                             <Active>true</Active>
                             <Format>NTFS</Format>
-                            <Label>System</Label>
+                            <Label>WINRE</Label>
                             <Order>1</Order>
                             <PartitionID>1</PartitionID>
+                            <TypeID>0x27</TypeID>
                         </ModifyPartition>
                         <ModifyPartition wcm:action="add">
                             <Format>NTFS</Format>
@@ -41,6 +42,7 @@
                             <Letter>C</Letter>
                             <Order>2</Order>
                             <PartitionID>2</PartitionID>
+                            <Active>true</Active>
                         </ModifyPartition>
                     </ModifyPartitions>
                     <DiskID>0</DiskID>
@@ -68,7 +70,7 @@
                     <CreatePartitions>
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
-                            <Size>300</Size>
+                            <Size>350</Size>
                             <Type>Primary</Type>
                         </CreatePartition>
                         <CreatePartition wcm:action="add">
