@@ -1,0 +1,59 @@
+{
+  "builders": [
+  {
+    "vm_name":"windows10",
+    "type": "virtualbox-iso",
+    "boot_wait": "5s",
+    "disk_size": 61440,
+    "headless": false,
+    "floppy_files": [
+      "./windows/windows-10-amd64/autounattend.xml",
+      "./windows/windows-10-amd64/sysprep-unattend.xml",
+      "./windows/common/set-power-config.ps1",
+      "./windows/common/microsoft-updates.ps1",
+      "./windows/common/win-updates.ps1",
+      "./windows/common/run-sysprep.ps1",
+      "./windows/common/run-sysprep.cmd",
+      "./windows/common/oracle-cert.cer"
+    ],    
+    "http_directory": "./windows/common/http/",
+    "iso_url": "en-gb_windows_10_enterprise_n_x64_dvd_6852546.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "2A820E60D59C1E2866BD4B0BFD4BC6C2DA29F8A5",					 
+    "communicator":"winrm",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout": "4h",
+    "shutdown_command": "a:\\run-sysprep.cmd",   
+    "guest_os_type": "Windows2012_64",
+    "vboxmanage": [
+      [
+        "modifyvm","{{.Name}}","--memory","4096"
+      ],
+      [
+        "modifyvm","{{.Name}}","--cpus","4"
+      ]
+    ]
+  }],
+  "provisioners": [{
+    "type": "powershell",
+    "elevated_user":"vagrant",
+    "elevated_password":"vagrant",
+    "scripts": [
+      "./windows/common/install-7zip.ps1",
+      "./windows/common/install-virtualbox-tools.ps1",
+      "./windows/common/install-chef.ps1",
+      "./windows/common/compile-dotnet-assemblies.ps1",
+      "./windows/common/cleanup.ps1",
+      "./windows/common/ultradefrag.ps1",
+      "./windows/common/sdelete.ps1"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_windows-10_chef.box"
+    }
+  ]
+}
