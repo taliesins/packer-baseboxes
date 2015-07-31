@@ -216,10 +216,6 @@ function Check-WindowsUpdates() {
     }
 }
 
-EnableWinRm
-
-return
-
 $script:ScriptName = $MyInvocation.MyCommand.ToString()
 $script:ScriptPath = $MyInvocation.MyCommand.Path
 $script:UpdateSession = New-Object -ComObject 'Microsoft.Update.Session'

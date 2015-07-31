@@ -6,7 +6,7 @@ if ($ENV:HttpIp){
     $httpPort = $ENV:HttpPort
     $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
-    $download_url = "http://downloads.sourceforge.net/sevenzip/$msi_file_name"
+    $download_url = "http://www.7-zip.org/a/$msi_file_name"
 }
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "C:\Windows\Temp\$msi_file_name")

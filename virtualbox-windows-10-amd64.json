@@ -6,6 +6,7 @@
     "boot_wait": "5s",
     "disk_size": 61440,
     "headless": false,
+    "guest_additions_mode":"disable",
     "floppy_files": [
       "./windows/windows-10-amd64/autounattend.xml",
       "./windows/windows-10-amd64/sysprep-unattend.xml",
