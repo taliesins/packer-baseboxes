@@ -17,9 +17,9 @@
       "./windows/common/oracle-cert.cer"
     ],    
     "http_directory": "./windows/common/http/",
-    "iso_url": "en-gb_windows_10_enterprise_n_x64_dvd_6852546.iso",
+    "iso_url": "en_windows_10_enterprise_x64_dvd_6851151.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "2A820E60D59C1E2866BD4B0BFD4BC6C2DA29F8A5",					 
+    "iso_checksum": "30AD1CDF5D0670F12788005131E24862F6AB8AAB",					 
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",

@@ -5,6 +5,8 @@ param($global:RestartRequired=0,
 
 $Logfile = "C:\Windows\Temp\win-updates.log"
 
+
+
 function LogWrite {
    Param ([string]$logstring)
    $now = Get-Date -format s
@@ -214,6 +216,10 @@ function Check-WindowsUpdates() {
     }
 }
 
+EnableWinRm
+
+return
+
 $script:ScriptName = $MyInvocation.MyCommand.ToString()
 $script:ScriptPath = $MyInvocation.MyCommand.Path
 $script:UpdateSession = New-Object -ComObject 'Microsoft.Update.Session'
@@ -222,7 +228,7 @@ $script:WebProxy = New-Object -ComObject 'Microsoft.Update.WebProxy'
 $script:WebProxyBypass = New-Object -ComObject 'Microsoft.Update.StringColl'
 $script:WebProxyBypass.Add("*.localtest.me")
 $script:WebProxy.AutoDetect = $false
-$script:WebProxy.Address = '192.168.224.157:3142'
+$script:WebProxy.Address = '192.168.224.138:3142'
 #$script:WebProxy.Username = strProxyUsername
 #$script:WebProxy.SetPassword(strProxyPasswd)
 $script:WebProxy.BypassProxyOnLocal = $true
