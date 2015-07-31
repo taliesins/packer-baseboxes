@@ -14,7 +14,8 @@
       "./windows/common/win-updates.ps1",
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd",
-      "./windows/common/oracle-cert.cer"
+      "./windows/common/oracle-cert.cer",
+	  "./windows/common/fixnetwork.ps1"
     ],    
     "http_directory": "./windows/common/http/",
     "iso_url": "en_windows_10_enterprise_x64_dvd_6851151.iso",
