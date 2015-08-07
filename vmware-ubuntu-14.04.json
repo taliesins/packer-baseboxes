@@ -2,8 +2,11 @@
   "builders": [
   {
     "vm_name":"ubuntu-trusty",
-    "type": "hyperv-iso",
+    "type": "vmware-windows-iso",
+    "boot_wait": "5s",
     "disk_size": 61440,
+    "http_directory": "./linux/ubuntu/http/",
+    "guest_os_type": "ubuntu-64",
     "headless": false,
     "iso_url": "ubuntu-14.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
@@ -11,9 +14,7 @@
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
-    "ssh_timeout" : "4h",
-    "http_directory": "./linux/ubuntu/http/",
-    "boot_wait": "5s",
+    "ssh_timeout": "4h",
     "boot_command": [
       "<esc><esc><enter><wait>",
       "/install/vmlinuz ",
@@ -24,12 +25,19 @@
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
       "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
       "initrd=/install/initrd.gz -- <enter>"
-    ],
+    ],  
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "ram_size_mb": 4096,
-    "cpu": 4,
-    "generation": 1,
-    "switch_name":"LAN"
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "4096",
+      "numvcpus": "4",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"vmnet8"
+    }
   }],
   "provisioners": [{
     "type": "shell",
@@ -46,7 +54,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": true,
+      "keep_input_artifact": false,
       "output": "{{.Provider}}_ubuntu-14.04_chef.box"
     }
   ]
