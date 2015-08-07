@@ -220,16 +220,28 @@ $script:ScriptName = $MyInvocation.MyCommand.ToString()
 $script:ScriptPath = $MyInvocation.MyCommand.Path
 $script:UpdateSession = New-Object -ComObject 'Microsoft.Update.Session'
 $script:UpdateSession.ClientApplicationID = 'Packer Windows Update Installer'
-$script:WebProxy = New-Object -ComObject 'Microsoft.Update.WebProxy'
-$script:WebProxyBypass = New-Object -ComObject 'Microsoft.Update.StringColl'
-$script:WebProxyBypass.Add("*.localtest.me")
-$script:WebProxy.AutoDetect = $false
-$script:WebProxy.Address = '192.168.224.138:3142'
-#$script:WebProxy.Username = strProxyUsername
-#$script:WebProxy.SetPassword(strProxyPasswd)
-$script:WebProxy.BypassProxyOnLocal = $true
-$script:WebProxy.BypassList = $script:WebProxyBypass
-$script:UpdateSession.WebProxy = $script:WebProxy
+
+$proxyServerAddress = ""
+$proxyServerUsername = ""
+$proxyServerPassword = ""
+
+if ($proxyServerAddress) {
+    $script:WebProxy = New-Object -ComObject 'Microsoft.Update.WebProxy'
+    $script:WebProxyBypass = New-Object -ComObject 'Microsoft.Update.StringColl'
+    $script:WebProxyBypass.Add("*.localtest.me")
+    $script:WebProxy.AutoDetect = $false
+    $script:WebProxy.Address = $proxyServerAddress
+    if ($proxyServerUsername) {
+        $script:WebProxy.Username = $proxyServerUsername
+    }
+    if ($proxyServerPassword) {
+        $script:WebProxy.SetPassword($proxyServerPassword)
+    }
+    $script:WebProxy.BypassProxyOnLocal = $true
+    $script:WebProxy.BypassList = $script:WebProxyBypass
+    $script:UpdateSession.WebProxy = $script:WebProxy
+}
+
 $script:UpdateSearcher = $script:UpdateSession.CreateUpdateSearcher()
 $script:SearchResult = New-Object -ComObject 'Microsoft.Update.UpdateColl'
 $script:Cycles = 0
