@@ -12,7 +12,8 @@
       "./windows/common/microsoft-updates.ps1",
       "./windows/common/win-updates.ps1",
       "./windows/common/run-sysprep.ps1",
-      "./windows/common/run-sysprep.cmd"
+      "./windows/common/run-sysprep.cmd",
+      "./windows/common/fixnetwork.ps1"
     ],
     "http_directory": "./windows/common/http/",
     "guest_os_type": "windows8srv-64",
@@ -30,7 +31,7 @@
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "4096",
       "numvcpus": "4",
-      "virtualHW.version": "11",
+      "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068",
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
