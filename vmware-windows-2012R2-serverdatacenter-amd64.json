@@ -2,7 +2,7 @@
   "builders": [
   {
     "vm_name":"windows2012r2",
-    "type": "vmware-windows-iso",
+    "type": "vmware-iso",
     "boot_wait": "5s",
     "disk_size": 61440,
     "floppy_files": [

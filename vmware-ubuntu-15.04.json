@@ -2,7 +2,7 @@
   "builders": [
   {
     "vm_name":"ubuntu-vivid",
-    "type": "vmware-windows-iso",
+    "type": "vmware-iso",
     "boot_wait": "5s",
     "disk_size": 61440,
     "http_directory": "./linux/ubuntu/http/",
@@ -28,6 +28,7 @@
     ],    
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
     "skip_compaction": false,
+    "tools_upload_flavor": "linux",
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "4096",
