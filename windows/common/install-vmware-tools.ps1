@@ -1,4 +1,4 @@
-$version = '9.4.12-2627939'
+$version = '9.10.1-2791197'
 $iso_name = 'VMware-tools-windows-$version.iso'
 
 if ($ENV:HttpIp){
