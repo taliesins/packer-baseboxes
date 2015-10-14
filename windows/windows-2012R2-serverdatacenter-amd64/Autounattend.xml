@@ -216,20 +216,20 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm quickconfig -q</CommandLine>
-                    <Description>winrm quickconfig -q</Description>
+                    <CommandLine>cmd.exe /c winrm quickconfig -quiet</CommandLine>
+                    <Description>winrm quickconfig -quiet</Description>
                     <Order>10</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c net stop winrm /y</CommandLine>
-                    <Description>Stop Win RM Service </Description>
+                    <CommandLine>cmd.exe /c winrm quickconfig -transport:http -quiet</CommandLine>
+                    <Description>winrm quickconfig -transport:http -quiet</Description>
                     <Order>11</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>                
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm quickconfig -transport:http</CommandLine>
-                    <Description>winrm quickconfig -transport:http</Description>
+                    <CommandLine>cmd.exe /c net stop winrm /y</CommandLine>
+                    <Description>Stop Win RM Service </Description>
                     <Order>12</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
@@ -281,6 +281,27 @@
                     <Order>20</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+
+                <!-- POWER SETTINGS -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c powershell -Command "powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</CommandLine>
+                    <Description>Set powercfg policy</Description>
+                    <Order>25</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c powershell -Command "powercfg -change -monitor-timeout-ac 0"</CommandLine>
+                    <Description>Set powercfg policy</Description>
+                    <Order>26</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c powershell -Command "powercfg -hibernate OFF"</CommandLine>
+                    <Description>Set powercfg policy</Description>
+                    <Order>27</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>                             
+
 
                 <!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
