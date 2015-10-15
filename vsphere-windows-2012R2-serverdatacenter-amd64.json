@@ -1,15 +1,14 @@
  {
   "variables": {
-    "vsphere_host": "",
-    "vsphere_datacenter": "",
-    "vsphere_cluster": "",
-    "vsphere_resource_pool": "",
-    "vsphere_datastore": "",
-    "vsphere_vm_network": "",
-    "vsphere_username": "",
-    "vsphere_password": ""
+    "vsphere_host": "{{env `vsphere_host`}}",
+    "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
+    "vsphere_cluster": "{{env `vsphere_cluster`}}",
+    "vsphere_resource_pool": "{{env `vsphere_resource_pool`}}",
+    "vsphere_datastore": "{{env `vsphere_datastore`}}",
+    "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
+    "vsphere_username": "{{env `vsphere_username`}}",
+    "vsphere_password": "{{env `vsphere_password`}}"
   },
-
   "builders": [
   {
     "vm_name":"windows2012r2",
