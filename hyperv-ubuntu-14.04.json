@@ -7,7 +7,7 @@
     "headless": false,
     "iso_url": "ubuntu-14.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "3BFA6EAC84D527380D0CC52DB9092CDE127F161E",
+    "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",

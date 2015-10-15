@@ -16,6 +16,7 @@
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd",
       "./windows/common/oracle-cert.cer",
+      "./windows/common/enablewinrm.ps1",      
       "./windows/common/fixnetwork.ps1"
     ],    
     "http_directory": "./windows/common/http/",
