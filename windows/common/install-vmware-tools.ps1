@@ -1,4 +1,4 @@
-$version = '9.10.1-2791197'
+$version = '9.4.15-2827462'
 $iso_name = 'VMware-tools-windows-$version.iso'
 
 if ($ENV:HttpIp){
@@ -6,7 +6,7 @@ if ($ENV:HttpIp){
     $httpPort = $ENV:HttpPort
     $download_url = "http://$($httpIp):$($httpPort)/$iso_name"
 } else {
-    $download_url = "http://packages.vmware.com/tools/esx/latest/windows/x64/$iso_name"
+    $download_url = "https://packages.vmware.com/tools/esx/5.5u3/windows/x64/$iso_name"
 }
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "c:\windows\temp\$iso_name")
