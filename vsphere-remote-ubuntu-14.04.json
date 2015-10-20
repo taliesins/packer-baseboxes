@@ -1,0 +1,77 @@
+{
+  "variables": {
+    "vsphere_host": "{{env `vsphere_host`}}",
+    "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
+    "vsphere_cluster": "{{env `vsphere_cluster`}}",
+    "vsphere_resource_pool": "{{env `vsphere_resource_pool`}}",
+    "vsphere_datastore": "{{env `vsphere_datastore`}}",
+    "vsphere_cache_datastore": "{{env `vsphere_datastore`}}",
+    "vsphere_cache_directory": "iso_cache",
+    "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
+    "vsphere_username": "{{env `vsphere_username`}}",
+    "vsphere_password": "{{env `vsphere_password`}}"
+  },
+
+  "builders": [
+  {
+    "vm_name":"ubuntu-trusty",
+    "remote_type":"esx5",
+    "remote_host":"{{user `vsphere_cluster`}}",
+    "remote_datastore":"{{user `vsphere_datastore`}}",
+    "remote_cache_datastore":"{{user `vsphere_cache_datastore`}}",
+    "remote_cache_directory":"{{user `vsphere_cache_directory`}}",
+    "remote_username":"{{user `vsphere_username`}}",
+    "remote_password": "{{user `vsphere_password`}}",
+    "type": "vmware-iso",
+    "boot_wait": "5s",
+    "disk_size": 20000,
+    "http_directory": "./linux/ubuntu/http/",
+    "guest_os_type": "ubuntu-64",
+    "headless": false,
+    "iso_url": "c:/iso/ubuntu-14.04.3-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout": "4h",
+    "boot_command": [
+      "<esc><esc><enter><wait>",
+      "/install/vmlinuz ",
+      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],  
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "2048",
+      "numvcpus": "2",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"{{user `vsphere_vm_network`}}"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vmware.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+  ]
+}
