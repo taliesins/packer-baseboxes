@@ -25,10 +25,12 @@
     "type": "vmware-iso",
     "boot_wait": "5s",
     "disk_size": 20000,
-    "http_directory": "./linux/ubuntu/http/",
+        "floppy_files": [
+      "./linux/ubuntu/http/preseed.cfg"
+    ],   
     "guest_os_type": "ubuntu-64",
     "headless": false,
-    "iso_url": "c:/iso/ubuntu-14.04.3-server-amd64.iso",
+    "iso_url": "ubuntu-14.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
     "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
     "communicator":"ssh",
@@ -38,7 +40,7 @@
     "boot_command": [
       "<esc><esc><enter><wait>",
       "/install/vmlinuz ",
-      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "preseed/file=/floppy/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
@@ -54,9 +56,10 @@
       "numvcpus": "2",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
-      "ethernet0.vnet":"{{user `vsphere_vm_network`}}"
+      "ethernet0.networkName":"{{user `vsphere_vm_network`}}"
     }
   }],
   "provisioners": [{

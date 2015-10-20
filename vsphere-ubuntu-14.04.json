@@ -16,7 +16,9 @@
     "type": "vmware-iso",
     "boot_wait": "5s",
     "disk_size": 20000,
-    "http_directory": "./linux/ubuntu/http/",
+    "floppy_files": [
+      "./linux/ubuntu/http/preseed.cfg"
+    ],   
     "guest_os_type": "ubuntu-64",
     "headless": false,
     "iso_url": "ubuntu-14.04.3-server-amd64.iso",
@@ -29,7 +31,7 @@
     "boot_command": [
       "<esc><esc><enter><wait>",
       "/install/vmlinuz ",
-      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "preseed/file=/floppy/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
