@@ -26,8 +26,8 @@
       "initrd=/install/initrd.gz -- <enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "ram_size_mb": 4096,
-    "cpu": 4,
+    "ram_size_mb": 2048,
+    "cpu": 2,
     "generation": 1,
     "switch_name":"LAN"
   }],

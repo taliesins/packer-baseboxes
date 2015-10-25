@@ -30,10 +30,10 @@
     "guest_os_type": "Ubuntu_64",
     "vboxmanage": [
       [
-        "modifyvm","{{.Name}}","--memory","4096"
+        "modifyvm","{{.Name}}","--memory","2048"
       ],
       [
-        "modifyvm","{{.Name}}","--cpus","4"
+        "modifyvm","{{.Name}}","--cpus","2"
       ]
     ]
   }],

@@ -22,8 +22,8 @@
     "winrm_password": "vagrant",
     "winrm_timeout" : "4h",
     "shutdown_command": "f:\\run-sysprep.cmd",  
-    "ram_size_mb": 4096,
-    "cpu": 4,
+    "ram_size_mb": 2048,
+    "cpu": 2,
     "generation": 2,
     "switch_name":"LAN",
     "enable_secure_boot":true
