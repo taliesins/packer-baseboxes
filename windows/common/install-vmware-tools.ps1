@@ -11,6 +11,6 @@ if ($ENV:HttpIp){
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "c:\windows\temp\$iso_name")
 &"c:\7-zip\7z.exe" x "c:\windows\temp\$iso_name" -oc:\windows\temp\vmware -aoa | Out-Host
-&"c:\windows\temp\vmware\setup.exe" /S /v`"/qn REBOOT=R`" | Out-Host
+&"c:\windows\temp\vmware\setup.exe" /S /v`"/qn REBOOT=R ADDLOCAL=ALL`" | Out-Host
 
 exit 0
