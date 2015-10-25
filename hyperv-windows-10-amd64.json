@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+  },
   "builders": [
   {
     "vm_name":"windows10",
@@ -25,7 +28,7 @@
     "ram_size_mb": 2048,
     "cpu": 2,
     "generation": 2,
-    "switch_name":"LAN",
+    "switch_name":"{{user `hyperv_switchname`}}",
     "enable_secure_boot":true
   }],
   "provisioners": [{
