@@ -1,2 +1,8 @@
 /output-vmware-windows-iso
 /packer_cache
+windows/windows-10-amd64/answer.iso
+9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.iso
+en-gb_windows_10_enterprise_n_x64_dvd_6852546.iso
+/.aptcache
+/en_windows_10_enterprise_x64_dvd_6851151.iso
+virtualbox_windows-10_chef.box

@@ -1,0 +1,84 @@
+{
+  "variables": {
+    "vsphere_host": "{{env `vsphere_host`}}",
+    "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
+    "vsphere_cluster": "{{env `vsphere_cluster`}}",
+    "vsphere_resource_pool": "{{env `vsphere_resource_pool`}}",
+    "vsphere_datastore": "{{env `vsphere_datastore`}}",
+    "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
+    "vsphere_username": "{{env `vsphere_username`}}",
+    "vsphere_password": "{{env `vsphere_password`}}"
+  },
+
+  "builders": [
+  {
+    "vm_name":"ubuntu-trusty",
+    "type": "vmware-iso",
+    "boot_wait": "5s",
+    "disk_size": 20000,
+    "floppy_files": [
+      "./linux/ubuntu/http/preseed.cfg"
+    ],   
+    "guest_os_type": "ubuntu-64",
+    "headless": false,
+    "iso_url": "ubuntu-14.04.3-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout": "4h",
+    "boot_command": [
+      "<esc><esc><enter><wait>",
+      "/install/vmlinuz ",
+      "preseed/file=/floppy/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],  
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "2048",
+      "numvcpus": "2",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"vmnet8"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vmware.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vsphere",
+      "host": "{{user `vsphere_host`}}",
+      "username" : "{{user `vsphere_username`}}",
+      "password": "{{user `vsphere_password`}}",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster" : "{{user `vsphere_cluster`}}",
+      "resource_pool" : "{{user `vsphere_resource_pool`}}",
+      "datastore" : "{{user `vsphere_datastore`}}",
+      "vm_name" : "basebox-ubuntu-trusty",
+      "vm_network" : "{{user `vsphere_vm_network`}}",
+      "insecure" : "true"
+    }
+  ]
+}

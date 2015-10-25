@@ -1,0 +1,51 @@
+{
+  "builders": [
+  {
+    "vm_name":"windows2012r2",
+    "type": "hyperv-iso",
+    "disk_size": 61440,
+    "floppy_files": [],
+    "secondary_iso_images": [
+      "./windows/windows-2012R2-serverdatacenter-amd64/answer.iso"
+    ],
+    "http_directory": "./windows/common/http/",
+    "boot_wait": "0s",
+    "boot_command": [
+      "a<wait>a<wait>a"
+    ],
+    "headless": false,
+    "iso_url": "9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "3cf2ab57f962409a4a43ddd83497a3938f27fdf7",
+    "communicator":"winrm",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "winrm_timeout" : "4h",
+    "shutdown_command": "f:\\run-sysprep.cmd",  
+    "ram_size_mb": 4096,
+    "cpu": 4,
+    "generation": 2,
+    "switch_name":"LAN",
+    "enable_secure_boot":true
+  }],
+  "provisioners": [{
+    "type": "powershell",
+    "elevated_user":"vagrant",
+    "elevated_password":"vagrant",
+    "scripts": [
+      "./windows/common/install-7zip.ps1",
+      "./windows/common/install-chef.ps1",
+      "./windows/common/compile-dotnet-assemblies.ps1",
+      "./windows/common/cleanup.ps1",
+      "./windows/common/ultradefrag.ps1",
+      "./windows/common/sdelete.ps1"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_windows-2012r2_chef.box"
+    }
+  ]
+}
