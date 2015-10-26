@@ -19,20 +19,23 @@
     "boot_wait": "5s",
     "boot_command": [
       "<esc><esc><enter><wait>",
-      "/install/vmlinuz ",
+      "set gfxpayload=keep<enter><wait>",
+      "linux /install/vmlinuz ",
       "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-      "initrd=/install/initrd.gz -- <enter>"
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter><wait>",
+      "initrd /install/initrd.gz<enter><wait>",
+      "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
     "ram_size_mb": 2048,
     "cpu": 2,
-    "generation": 1,
-    "switch_name":"{{user `hyperv_switchname`}}"
+    "generation": 2,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
   }],
   "provisioners": [{
     "type": "shell",
