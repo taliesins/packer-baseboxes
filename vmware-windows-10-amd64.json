@@ -30,8 +30,8 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "4096",
-      "numvcpus": "4",
+      "memsize": "2048",
+      "numvcpus": "2",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068",
       "ethernet0.present": "TRUE",
