@@ -17,9 +17,9 @@
       "a<wait>a<wait>a"
     ],
     "headless": false,
-    "iso_url": "en_windows_10_enterprise_x64_dvd_6851151.iso",
+    "iso_url": "10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "30AD1CDF5D0670F12788005131E24862F6AB8AAB",
+    "iso_checksum": "56ab095075be28a90bc0b510835280975c6bb2ce",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
