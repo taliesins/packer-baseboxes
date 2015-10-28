@@ -4,13 +4,13 @@
   },
   "builders": [
   {
-    "vm_name":"ubuntu-vivid",
+    "vm_name":"ubuntu-wily",
     "type": "hyperv-iso",
     "disk_size": 21440,
     "headless": false,
-    "iso_url": "ubuntu-15.04-server-amd64.iso",
+    "iso_url": "ubuntu-15.10-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
+    "iso_checksum": "478446F33E336A98D5868C0B353D0D347E8A7262",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -26,8 +26,8 @@
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter><wait>",
-      "initrd /install/initrd.gz<enter><wait>",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
+      "initrd /install/initrd.gz<enter>",
       "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
@@ -53,7 +53,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "{{.Provider}}_ubuntu-15.04_chef.box"
+      "output": "{{.Provider}}_ubuntu-15.10_chef.box"
     }
   ]
 }
