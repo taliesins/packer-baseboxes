@@ -4,8 +4,9 @@
     "vm_name":"windows2012r2",
     "type": "virtualbox-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
-    "headless": false,
+    "disk_size": 21440,
+    "headless": true,
+    "guest_additions_mode":"disable",
     "floppy_files": [
       "./windows/windows-2012R2-serverdatacenter-amd64/autounattend.xml",
       "./windows/windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
