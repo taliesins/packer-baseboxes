@@ -4,8 +4,8 @@
     "vm_name":"ubuntu-vivid",
     "type": "virtualbox-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
-    "headless": false,
+    "disk_size": 21440,
+    "headless": true,
     "guest_additions_mode":"disable",
     "http_directory": "./linux/ubuntu/http/",
     "iso_url": "ubuntu-15.04-server-amd64.iso",
@@ -30,10 +30,10 @@
     "guest_os_type": "Ubuntu_64",
     "vboxmanage": [
       [
-        "modifyvm","{{.Name}}","--memory","4096"
+        "modifyvm","{{.Name}}","--memory","2048"
       ],
       [
-        "modifyvm","{{.Name}}","--cpus","4"
+        "modifyvm","{{.Name}}","--cpus","2"
       ]
     ]
   }],
