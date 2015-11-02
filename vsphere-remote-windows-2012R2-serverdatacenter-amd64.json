@@ -34,7 +34,7 @@
       "./windows/common/run-sysprep.cmd",
       "./windows/common/enablewinrm.ps1",
       "./windows/common/fixnetwork.ps1",
-      "./windows/common/vmware/drivers/pvscsi",
+      "./windows/common/vmware/drivers/pvscsi64",
       "./windows/common/vmware/drivers/vmxnet3"
     ],
     "guest_os_type": "windows8srv-64",
