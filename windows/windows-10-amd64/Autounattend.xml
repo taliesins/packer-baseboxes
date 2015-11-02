@@ -220,7 +220,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>				
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\fixnetwork.ps1) ELSE (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\fixnetwork.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (powershell -File a:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (powershell -File e:\fixnetwork.ps1) ELSE (powershell -File f:\fixnetwork.ps1))</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -228,7 +228,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enablewinrm.ps1) ELSE (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\enablewinrm.s1)</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (powershell -File a:\enablewinrm.ps1) ELSE (IF EXIST e:\enablewinrm.ps1 (powershell -File e:\enablewinrm.ps1) ELSE (powershell -File f:\enablewinrm.ps1))</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -348,19 +348,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\set-power-config.ps1) ELSE (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\set-power-config.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (powershell -File a:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (powershell -File e:\set-power-config.ps1) ELSE (powershell -File f:\set-power-config.ps1))</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\microsoft-updates.ps1) ELSE (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\microsoft-updates.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (powershell -File a:\microsoft-updates.ps1) ELSE (IF EXIST e:\microsoft-updates.ps1 (powershell -File e:\microsoft-updates.ps1) ELSE (powershell -File f:\microsoft-updates.ps1))</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1) ELSE (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\win-updates.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (powershell -File a:\win-updates.ps1) ELSE (IF EXIST e:\win-updates.ps1 (powershell -File e:\win-updates.ps1) ELSE (powershell -File f:\win-updates.ps1))</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>
