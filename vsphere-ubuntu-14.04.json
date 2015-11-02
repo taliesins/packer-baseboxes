@@ -22,7 +22,7 @@
     "guest_os_type": "ubuntu-64",
     "headless": true,
     "iso_url": "ubuntu-14.04.3-server-amd64.iso",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
     "communicator":"ssh",
     "ssh_username": "vagrant",

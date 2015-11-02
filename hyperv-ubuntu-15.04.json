@@ -6,7 +6,7 @@
     "disk_size": 61440,
     "headless": false,
     "iso_url": "ubuntu-15.04-server-amd64.iso",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
     "communicator":"ssh",
     "ssh_username": "vagrant",
