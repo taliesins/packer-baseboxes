@@ -38,7 +38,7 @@
       "./windows/common/vmware/drivers/vmxnet3"
     ],
     "guest_os_type": "windows8srv-64",
-    "headless": false,
+    "headless": true,
     "iso_url": "9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.ISO",
     "iso_checksum_type": "sha1",
     "iso_checksum": "3cf2ab57f962409a4a43ddd83497a3938f27fdf7",
