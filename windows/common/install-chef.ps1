@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $version = '12.4.0-1'
 $msi_file_name = "chef-client-$($version).msi"
 

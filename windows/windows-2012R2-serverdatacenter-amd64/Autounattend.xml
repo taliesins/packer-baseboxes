@@ -202,13 +202,13 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>cmd.exe /c powershell -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\SysWOW64\cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>C:\Windows\SysWOW64\cmd.exe /c powershell -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -236,19 +236,19 @@
 
                 <!-- POWER SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</CommandLine>
+                    <CommandLine>cmd.exe /c powershell -Command "$ProgressPreference='SilentlyContinue';powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</CommandLine>
                     <Description>Set powercfg policy</Description>
                     <Order>25</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -change -monitor-timeout-ac 0"</CommandLine>
+                    <CommandLine>cmd.exe /c powershell -Command "$ProgressPreference='SilentlyContinue';powercfg -change -monitor-timeout-ac 0"</CommandLine>
                     <Description>Set powercfg policy</Description>
                     <Order>26</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -hibernate OFF"</CommandLine>
+                    <CommandLine>cmd.exe /c powershell -Command "$ProgressPreference='SilentlyContinue';powercfg -hibernate OFF"</CommandLine>
                     <Description>Set powercfg policy</Description>
                     <Order>27</Order>
                     <RequiresUserInput>true</RequiresUserInput>

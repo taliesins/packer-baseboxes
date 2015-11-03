@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $version = '938'
 $msi_file_name = "7z$version-x64.msi"
 

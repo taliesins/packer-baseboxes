@@ -1,3 +1,5 @@
+$ProgressPreference="SilentlyContinue"
+
 &c:\windows\system32\sysprep\sysprep.exe /generalize /oobe /mode:vm /quiet /quit
 Write-Host "sysprep exit code was $LASTEXITCODE"
 
