@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 #http://support.microsoft.com/kb/2570538
 #http://robrelyea.wordpress.com/2007/07/13/may-be-helpful-ngen-exe-executequeueditems/
 

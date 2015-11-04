@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $version = '9.4.15-2827462'
 $iso_name = 'VMware-tools-windows-$version.iso'
 

@@ -1,10 +1,20 @@
-{
+ {
+  "variables": {
+    "vsphere_host": "{{env `vsphere_host`}}",
+    "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
+    "vsphere_cluster": "{{env `vsphere_cluster`}}",
+    "vsphere_resource_pool": "{{env `vsphere_resource_pool`}}",
+    "vsphere_datastore": "{{env `vsphere_datastore`}}",
+    "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
+    "vsphere_username": "{{env `vsphere_username`}}",
+    "vsphere_password": "{{env `vsphere_password`}}"
+  },
   "builders": [
   {
     "vm_name":"windows10",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": 40000,
     "floppy_files": [
       "./windows/windows-10-amd64/autounattend.xml",
       "./windows/windows-10-amd64/sysprep-unattend.xml",
@@ -14,13 +24,14 @@
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd",
       "./windows/common/enablewinrm.ps1",      
-      "./windows/common/fixnetwork.ps1"
+      "./windows/common/fixnetwork.ps1",
+      "./windows/common/vmware/drivers/pvscsi",
+      "./windows/common/vmware/drivers/vmxnet3"
     ],
-    "http_directory": "./windows/common/http/",
     "guest_os_type": "windows8srv-64",
-    "headless": true,
+    "headless": false,
     "iso_url": "en_windows_10_enterprise_x64_dvd_6851151.iso",
-    "iso_checksum_type": "none",
+    "iso_checksum_type": "sha1",
     "iso_checksum": "30AD1CDF5D0670F12788005131E24862F6AB8AAB",
     "communicator":"winrm",
     "winrm_username": "vagrant",
@@ -32,11 +43,12 @@
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "2048",
       "numvcpus": "2",
+      "virtualhw.productcompatibility" : "esx",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "pvscsi",
       "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
-      "ethernet0.connectionType":"custom",      
+      "ethernet0.connectionType":"custom",
       "ethernet0.vnet":"vmnet8"
     }
   }],
@@ -56,9 +68,17 @@
   }],
   "post-processors": [
     {
-      "type": "vagrant",
-      "keep_input_artifact": false,
-      "output": "{{.Provider}}_windows-10_chef.box"
+      "type": "vsphere",
+      "host": "{{user `vsphere_host`}}",
+      "username" : "{{user `vsphere_username`}}",
+      "password": "{{user `vsphere_password`}}",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster" : "{{user `vsphere_cluster`}}",
+      "resource_pool" : "{{user `vsphere_resource_pool`}}",
+      "datastore" : "{{user `vsphere_datastore`}}",
+      "vm_name" : "basebox-windows10",
+      "vm_network" : "{{user `vsphere_vm_network`}}",
+      "insecure" : "true"
     }
   ]
 }

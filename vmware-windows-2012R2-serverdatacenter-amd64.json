@@ -33,7 +33,8 @@
       "memsize": "2048",
       "numvcpus": "2",
       "virtualHW.version": "10",
-      "scsi0.virtualDev": "lsisas1068",
+      "scsi0.virtualDev": "pvscsi",
+      "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
       "ethernet0.vnet":"vmnet8"

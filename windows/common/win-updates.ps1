@@ -1,11 +1,10 @@
+
 param($global:RestartRequired=0,
         $global:MoreUpdates=0,
         $global:MaxCycles=5,
         $MaxUpdatesPerCycle=500)
-
+$ProgressPreference="SilentlyContinue"
 $Logfile = "C:\Windows\Temp\win-updates.log"
-
-
 
 function LogWrite {
    Param ([string]$logstring)

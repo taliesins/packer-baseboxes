@@ -1,4 +1,5 @@
-﻿#http://gregramsey.net
+﻿$ProgressPreference="SilentlyContinue"
+#http://gregramsey.net
 #more info here:
 #http://support.microsoft.com/kb/253597
 
