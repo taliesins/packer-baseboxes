@@ -1,0 +1,228 @@
+
+;pvscsi.inf
+;This file contains the information required to load the driver for the VMware PVSCSI Controller
+; Copyright (c) 2001 - 2013, VMware, Inc.
+
+[version]
+Signature="$Windows NT$"
+Class=SCSIAdapter
+ClassGuid={4D36E97B-E325-11CE-BFC1-08002BE10318}
+Provider=%VMWARE%
+DriverVer=09/28/2012,1.2.3.0
+CatalogFile=pvscsi.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1 = %DSKID1%,pvscsi.sys,,
+
+[SourceDisksFiles]
+pvscsi.sys = 1,,
+
+
+
+
+
+
+
+
+[Manufacturer]
+%VMWARE%=pvscsi,NTx86.5.2,NTx86.6
+
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+; IA-64 is unsupported, as are older versions of Windows on all platforms.
+
+[pvscsi]
+
+
+
+
+
+
+
+
+
+
+[pvscsi.NTx86.5.2]
+%DEVICE%=DDInstall.x86,         PCI\VEN_15AD&DEV_07C0
+
+[pvscsi.NTx86.6]
+%DEVICE%=DDInstall.x86.vista,   PCI\VEN_15AD&DEV_07C0
+
+
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+
+
+[DDInstall.x86.NT]
+CopyFiles=pvscsi.x86.CopyFiles
+
+[DDInstall.x86.vista.NT]
+CopyFiles=pvscsi.x86.CopyFiles
+
+
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+
+
+
+[DDInstall.x86.vista.NT.HW]
+AddReg=enableMSI.reg
+Include=machine.inf
+Needs=PciIoSpaceNotRequired
+
+
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+
+
+[pvscsi.x86.CopyFiles]
+pvscsi.sys,,,2
+
+
+
+
+
+
+
+
+; ##################################################
+
+
+
+[DDInstall.x86.NT.Services]
+AddService=pvscsi,2,Service_Install.x86,EventLog_Install
+
+[DDInstall.x86.vista.NT.Services]
+AddService=pvscsi,2,Service_Install.x86,EventLog_Install
+
+
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+[DestinationDirs]
+
+pvscsi.x86.CopyFiles = 12
+
+
+
+DefaultDestDir=12
+
+; ##################################################
+
+
+[Service_Install.x86]
+
+
+
+DisplayName=%pvscsi.DiskName%
+ServiceType=1     ; %SERVICE_KERNEL_DRIVER%
+StartType=0       ; %SERVICE_BOOT_START%
+ErrorControl=1    ; %SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\pvscsi.sys
+LoadOrderGroup=SCSI Miniport
+
+; We need to force the use of \Driver\pvscsi32 as the driver object name,
+; otherwise the crash dump driver loader functions cannot find the driver.
+; StartName entry defined in the INF format is supposed to facilitate that,
+; but at least on win2k3sp2-32 and win2k8-datacenter-32 the driver installer
+; interpretes StartName as the name of the account to start the service under,
+; which is an incorrect interpretation for SERVICE_KERNEL_DRIVER type. As a
+; work around ObjectName registry entry is added directly using brute-force.
+
+AddReg=busTypeSAS,pnpsafe_pci_addreg
+DelReg=driverObjectName.del
+
+
+
+
+
+
+
+
+
+; ##################################################
+
+[busTypeSAS]
+HKR, "Parameters", "BusType", 0x00010001, 0x0000000A     ; BusTypeSAS
+
+[enableMSI.reg]
+HKR, Interrupt Management,, %FLG_ADDREG_KEYONLY%
+HKR, Interrupt Management\MessageSignaledInterruptProperties,, %FLG_ADDREG_KEYONLY%
+HKR, Interrupt Management\MessageSignaledInterruptProperties, MSISupported, \
+     %FLG_ADDREG_TYPE_DWORD%, 1
+HKR, Interrupt Management\MessageSignaledInterruptProperties, MessageNumberLimit, \
+     %FLG_ADDREG_TYPE_DWORD%, 1
+
+[pnpsafe_pci_addreg]
+HKR, "Parameters\PnpInterface", "5", 0x00010001, 0x00000001
+
+[driverObjectName.del]
+HKR, , "ObjectName"
+
+[EventLog_Install]
+AddReg = EventLog_AddReg
+
+[EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+[VMwarePathInfo]
+OriginalInfSourcePath = %1%
+
+[strings]
+pvscsi.DiskName="pvscsi Storage Controller Driver"
+VMWARE="VMware, Inc."
+DEVICE="VMware PVSCSI Controller"
+DSKID1="VMware PVSCSI Controller Installation Disk 1"
+REG_SZ=0x00000000
+REG_EXPAND_SZ=0x00020000
+REG_DWORD=0x00010001
+FLG_ADDREG_KEYONLY = 0x00000010
+FLG_ADDREG_TYPE_DWORD = 0x00010001
