@@ -15,6 +15,7 @@
   "builders": [
   {
     "vm_name":"{{user `vm_name`}}",
+    "output_directory": "output-{{user `vm_name`}}",
     "remote_type":"esx5",
     "remote_host":"{{user `vsphere_cluster`}}",
     "remote_datastore":"{{user `vsphere_datastore`}}",
@@ -77,5 +78,5 @@
     ]
   }],
   "post-processors": [
-      ]
+  ]
 }
