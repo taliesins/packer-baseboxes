@@ -12,10 +12,9 @@
     "vsphere_username": "{{env `vsphere_username`}}",
     "vsphere_password": "{{env `vsphere_password`}}"
   },
-
   "builders": [
   {
-    "vm_name":"{{env `vm_name`}}",
+    "vm_name":"{{user `vm_name`}}",
     "remote_type":"esx5",
     "remote_host":"{{user `vsphere_cluster`}}",
     "remote_datastore":"{{user `vsphere_datastore`}}",
