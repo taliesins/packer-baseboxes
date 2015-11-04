@@ -1,5 +1,6 @@
 {
   "variables": {
+    "vm_name": "{{env `vm_name`}}",
     "vsphere_host": "{{env `vsphere_host`}}",
     "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
     "vsphere_cluster": "{{env `vsphere_cluster`}}",
@@ -14,7 +15,7 @@
 
   "builders": [
   {
-    "vm_name":"ubuntu-trusty",
+    "vm_name":"{{env `vm_name`}}",
     "remote_type":"esx5",
     "remote_host":"{{user `vsphere_cluster`}}",
     "remote_datastore":"{{user `vsphere_datastore`}}",
