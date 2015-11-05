@@ -66,7 +66,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows 10 Enterprise Evaluation</Value>
+                            <Value>Windows 10 Enterprise</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -136,7 +136,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows 10 Enterprise Evaluation</Value>
+                            <Value>Windows 10 Enterprise</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -402,5 +402,5 @@
             <EnableLUA>false</EnableLUA>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/en_windows_10_enterprise_x64_dvd_6851151/sources/install.wim#Windows 10 Enterprise Evaluation" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/en_windows_10_enterprise_x64_dvd_6851151/sources/install.wim#Windows 10 Enterprise" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
