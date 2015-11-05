@@ -165,7 +165,7 @@
             <OEMInformation>
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
-            <ComputerName>vagrant-10</ComputerName>
+            <ComputerName>nl-ams-basebox2</ComputerName>
             <TimeZone>Coordinated Universal Time</TimeZone>
             <RegisteredOwner />
         </component>
