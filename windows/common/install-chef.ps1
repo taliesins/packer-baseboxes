@@ -14,5 +14,5 @@ if ($ENV:HttpIp){
 
 $argumentList = '/quiet /qn /norestart /i "C:\Windows\Temp\' + $msi_file_name + '"'
 
-$process = Start-Process -FilePath "msiexec" -ArgumentList $parameters -NoNewWindow -PassThru -Wait
+$process = Start-Process -FilePath "msiexec" -ArgumentList $argumentList -NoNewWindow -PassThru -Wait
 $process.ExitCode
