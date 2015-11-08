@@ -1,0 +1,101 @@
+{
+  "variables": {
+    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+  },
+  "builders": [
+  {
+    "vm_name":"pfsense",
+    "type": "hyperv-iso",
+    "disk_size": 11440,
+    "headless": false,
+    "guest_additions_mode":"disable",
+    "iso_url": "pfSense.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "971180ccff57fbd7af925bf09f24c7a0c99ccbb5",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout" : "4h",
+    "http_directory": "./pfsense/http/",
+    "boot_wait": "1s",
+    "boot_command": [
+      "1",
+      "<wait10><wait10><wait><wait>I",
+      "<wait10><wait5><tab><tab><tab><wait><enter>",
+      "<wait5><enter>",
+      "<wait5><enter>",
+      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><enter>",
+      "<wait10><wait10><wait10><enter>",
+      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+      
+      "<wait5>n<wait><enter><wait>",
+      "<wait>hn0<wait><enter><wait>",
+      "<wait><enter><wait>",
+      "<wait>y<wait><enter>",
+      "<wait10><wait10><wait10><wait10>",
+
+      "<wait>8<enter>",
+      "<wait>echo \"cdcontrol eject\" >> /etc/rc.shutdown<wait><enter>",
+      "<wait>exit<wait><enter><wait5>",
+      "<wait>5<enter>",
+      "<wait>y<enter>",
+      "<wait10><wait10><wait10><wait10><wait10>",
+      "<wait10><wait10><wait10><wait10><wait10>",
+      "<wait10><wait10><wait10><wait10><wait10>",
+      "<wait10><wait10><wait10><wait10><wait10>",
+      "<wait10><wait10>",
+
+      "<wait5>n<wait><enter><wait>",
+      "<wait>hn0<wait><enter><wait>",
+      "<wait><enter><wait>",
+      "<wait>y<wait><enter>",
+      "<wait10><wait10><wait10><wait10>",
+
+      "<wait>8<enter>",
+      "<wait>rehash<wait><enter>",
+      "<wait>pw usermod root -h 0<wait><enter>",
+      "<wait>vagrant<wait><enter>", 
+      "<wait>pw adduser vagrant -m -s /usr/local/bin/bash<wait><enter>",
+      "<wait>pw usermod vagrant -h 0<wait><enter>",
+      "<wait>vagrant<wait><enter>",
+      "<wait>pw group mod wheel -m vagrant<wait><enter>",
+      "<wait>echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers<wait><enter>",
+      "<wait>chmod 0440 /usr/local/etc/sudoers<wait><enter>",
+
+      "<wait>cd /tmp<wait><enter>",
+      "<wait>pkg help<wait><enter><wait>y<wait><enter><wait5>",
+      "<wait>pkg update<enter><wait10><wait10><wait10>",
+      "<wait>pkg install -y sudo bash curl<wait><enter><wait10><wait10><wait10>",
+
+      "<wait>echo  'rm -rf /var/db/hyperv/pool' >> /etc/rc.conf.local<wait><enter>",
+      "<wait>echo  'hv_kvp_daemon' >> /etc/rc.conf.local<wait><enter>",
+      
+      "<wait>exit<wait><enter><wait5>",
+      "<wait>14<enter>",
+      "<wait>y<enter>",
+      "<wait>5<enter>",
+      "<wait>y<enter>"
+    ],
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -p now",
+    "ram_size_mb": 2048,
+    "cpu": 2,
+    "generation": 1,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'",
+    "scripts": [
+      "./pfsense/common/vagrant.sh",
+      "./pfsense/common/chef.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": true,
+      "output": "{{.Provider}}_pfsense-2.2.5_chef.box"
+    }
+  ]
+}
