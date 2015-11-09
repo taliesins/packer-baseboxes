@@ -214,7 +214,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff"</CommandLine>
+                    <CommandLine>cmd.exe /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f</CommandLine>
                     <Description>Network prompt</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -329,21 +329,9 @@
                     <Description>Disable password expiration for vagrant user</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxShellsPerUser="30"}</CommandLine>
-                    <Description>Win RM MaxShellsPerUser</Description>
-                    <Order>57</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxProcessesPerShell="25"}</CommandLine>
-                    <Description>Win RM MaxProcessesPerShell</Description>
-                    <Order>58</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
                     <CommandLine>%SystemRoot%\System32\reg.exe ADD "HKLM\System\CurrentControlSet\Services\Netlogon\Parameters" /v DisablePasswordChange /t REG_DWORD /d 1 /f</CommandLine>
                     <Description>Turn off computer password</Description>
-                    <Order>59</Order>
+                    <Order>57</Order>
                 </SynchronousCommand>
 
                 <!-- WITH WINDOWS UPDATES -->
