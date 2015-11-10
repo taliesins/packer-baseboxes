@@ -4,7 +4,7 @@
     "vm_name":"ubuntu-vivid",
     "type": "virtualbox-iso",
     "boot_wait": "5s",
-    "disk_size": 21440,
+    "disk_size": 61440,
     "headless": true,
     "guest_additions_mode":"disable",
     "http_directory": "./linux/ubuntu/http/",
