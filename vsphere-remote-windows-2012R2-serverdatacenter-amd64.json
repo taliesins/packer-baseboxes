@@ -25,7 +25,8 @@
     "remote_password": "{{user `vsphere_password`}}",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 40000,
+    "disk_size": 61440,
+    "disk_type_id": "thin",
     "floppy_files": [
       "./windows/windows-2012R2-serverdatacenter-amd64/autounattend.xml",
       "./windows/windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
