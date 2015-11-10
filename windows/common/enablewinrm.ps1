@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
 $username = "vagrant"

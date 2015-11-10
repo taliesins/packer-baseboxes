@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $version = '12.4.0-1'
 $msi_file_name = "chef-client-$($version).msi"
 
@@ -11,4 +12,7 @@ if ($ENV:HttpIp){
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "C:\Windows\Temp\$msi_file_name")
 
-&msiexec /i "C:\Windows\Temp\$msi_file_name" /quiet /qn /norestart
+$argumentList = '/quiet /qn /norestart /i "C:\Windows\Temp\' + $msi_file_name + '"'
+
+$process = Start-Process -FilePath "msiexec" -ArgumentList $argumentList -NoNewWindow -PassThru -Wait
+$process.ExitCode

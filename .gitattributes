@@ -1,0 +1,9 @@
+pvscsi.cat binary
+pvscsi.inf binary
+pvscsi.sys binary
+txtsetup.oem binary
+vmxnet3n61x64.sys binary
+vmxnet3n61x86.sys binary
+vmxnet3ndis6.cat binary
+vmxnet3ndis6.inf binary
+vmxnet3ndis6ver.dll binary

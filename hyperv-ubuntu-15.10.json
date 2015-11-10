@@ -4,14 +4,14 @@
   },
   "builders": [
   {
-    "vm_name":"ubuntu-trusty",
+    "vm_name":"ubuntu-wily",
     "type": "hyperv-iso",
     "disk_size": 21440,
     "headless": false,
     "guest_additions_mode":"disable",
-    "iso_url": "ubuntu-14.04.3-server-amd64.iso",
-    "iso_checksum_type": "none",
-    "iso_checksum": "0501C446929F713EB162AE2088D8DC8B6426224A",
+    "iso_url": "ubuntu-15.10-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "478446F33E336A98D5868C0B353D0D347E8A7262",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -20,15 +20,15 @@
     "boot_wait": "5s",
     "boot_command": [
       "<esc><esc><enter><wait>",
-      "set gfxpayload=keep<enter><wait>",
+      "set gfxpayload=1024x768<enter>",
       "linux /install/vmlinuz ",
       "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter><wait>",
-      "initrd /install/initrd.gz<enter><wait>",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
+      "initrd /install/initrd.gz<enter>",
       "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
@@ -54,7 +54,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "{{.Provider}}_ubuntu-14.04_chef.box"
+      "output": "{{.Provider}}_ubuntu-15.10_chef.box"
     }
   ]
 }

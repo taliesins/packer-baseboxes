@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 $version = '6.1.0'
 $msi_file_name = "ultradefrag-portable-$($version).bin.amd64.zip"
 $download_url = "http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-6.1.0.bin.amd64.zip"

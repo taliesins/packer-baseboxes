@@ -1,9 +1,12 @@
 {
+  "variables": {
+    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+  },
   "builders": [
   {
     "vm_name":"windows2012r2",
     "type": "hyperv-iso",
-    "disk_size": 61440,
+    "disk_size": 41440,
     "floppy_files": [],
     "secondary_iso_images": [
       "./windows/windows-2012R2-serverdatacenter-amd64/answer.iso"
@@ -11,21 +14,22 @@
     "http_directory": "./windows/common/http/",
     "boot_wait": "0s",
     "boot_command": [
-      "a<wait>a<wait>a"
+      "a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"
     ],
     "headless": false,
+    "guest_additions_mode":"disable",
     "iso_url": "9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.ISO",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "3cf2ab57f962409a4a43ddd83497a3938f27fdf7",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "winrm_timeout" : "4h",
-    "shutdown_command": "f:\\run-sysprep.cmd",  
-    "ram_size_mb": 4096,
-    "cpu": 4,
+    "shutdown_command": "IF EXIST a:\\run-sysprep.cmd (CALL a:\\run-sysprep.cmd) ELSE (IF EXIST e:\\run-sysprep.cmd (CALL e:\\run-sysprep.cmd) ELSE (CALL f:\\run-sysprep.cmd)) &IF \"%ERRORLEVEL%\" == \"0\" (ECHO \"Shutdown script succeeded with exit code = %ERRORLEVEL%\" &EXIT 0) ELSE (ECHO \"Shutdown script failed with exit code = %ERRORLEVEL%\" &EXIT %ERRORLEVEL%)",
+    "ram_size_mb": 2048,
+    "cpu": 2,
     "generation": 2,
-    "switch_name":"LAN",
+    "switch_name":"{{user `hyperv_switchname`}}",
     "enable_secure_boot":true
   }],
   "provisioners": [{

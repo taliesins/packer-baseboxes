@@ -1,11 +1,10 @@
+
 param($global:RestartRequired=0,
         $global:MoreUpdates=0,
         $global:MaxCycles=5,
         $MaxUpdatesPerCycle=500)
-
+$ProgressPreference="SilentlyContinue"
 $Logfile = "C:\Windows\Temp\win-updates.log"
-
-
 
 function LogWrite {
    Param ([string]$logstring)
@@ -132,9 +131,6 @@ function Install-WindowsUpdates() {
     if ($UpdatesToInstall.Count -eq 0) {
         LogWrite 'No updates available to install...'
         $global:MoreUpdates=0
-        $global:RestartRequired=0
-        EnableWinRm
-        break
     }
 
     if ($rebootMayBeRequired) {

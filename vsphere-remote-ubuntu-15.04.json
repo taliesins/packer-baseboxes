@@ -1,4 +1,4 @@
- {
+{
   "variables": {
     "vm_name": "{{env `vm_name`}}",
     "vsphere_host": "{{env `vsphere_host`}}",
@@ -28,36 +28,36 @@
     "disk_size": 61440,
     "disk_type_id": "thin",
     "floppy_files": [
-      "./windows/windows-2012R2-serverdatacenter-amd64/autounattend.xml",
-      "./windows/windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
-      "./windows/common/set-power-config.ps1",
-      "./windows/common/microsoft-updates.ps1",
-      "./windows/common/win-updates.ps1",
-      "./windows/common/run-sysprep.ps1",
-      "./windows/common/run-sysprep.cmd",
-      "./windows/common/enablewinrm.ps1",
-      "./windows/common/fixnetwork.ps1",
-      "./windows/common/vmware/drivers/pvscsi64",
-      "./windows/common/vmware/drivers/vmxnet3"
-    ],
-    "guest_os_type": "windows8srv-64",
-    "headless": true,
-    "iso_url": "9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.ISO",
-    "iso_checksum_type": "none",
-    "iso_checksum": "3cf2ab57f962409a4a43ddd83497a3938f27fdf7",
-    "communicator":"winrm",
-    "winrm_username": "vagrant",
-    "winrm_password": "vagrant",
-    "winrm_timeout": "4h",
-    "shutdown_command": "a:\\run-sysprep.cmd",   
+      "./linux/ubuntu/http/preseed.cfg"
+    ],   
+    "guest_os_type": "ubuntu-64",
+    "headless": false,
+    "iso_url": "ubuntu-15.04-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout": "4h",
+    "boot_command": [
+      "<esc><esc><enter><wait>",
+      "/install/vmlinuz ",
+      "preseed/file=/floppy/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],  
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
       "memsize": "2048",
       "numvcpus": "2",
-      "virtualhw.productcompatibility" : "esx",
       "virtualHW.version": "10",
-      "scsi0.virtualDev": "pvscsi",
+      "scsi0.virtualDev": "lsisas1068",
       "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
@@ -87,17 +87,16 @@
     }
   }],
   "provisioners": [{
-    "type": "powershell",
-    "elevated_user":"vagrant",
-    "elevated_password":"vagrant",
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
     "scripts": [
-      "./windows/common/install-7zip.ps1",
-      "./windows/common/install-vmware-tools.ps1",    
-      "./windows/common/install-chef.ps1",
-      "./windows/common/compile-dotnet-assemblies.ps1",
-      "./windows/common/cleanup.ps1",
-      "./windows/common/ultradefrag.ps1",
-      "./windows/common/sdelete.ps1"
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vmware.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
     ]
   }],
   "post-processors": [

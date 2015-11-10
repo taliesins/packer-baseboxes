@@ -1,12 +1,16 @@
 {
+  "variables": {
+    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+  },
   "builders": [
   {
     "vm_name":"ubuntu-vivid",
     "type": "hyperv-iso",
-    "disk_size": 61440,
+    "disk_size": 21440,
     "headless": false,
+    "guest_additions_mode":"disable",
     "iso_url": "ubuntu-15.04-server-amd64.iso",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
     "communicator":"ssh",
     "ssh_username": "vagrant",
@@ -16,20 +20,23 @@
     "boot_wait": "5s",
     "boot_command": [
       "<esc><esc><enter><wait>",
-      "/install/vmlinuz ",
+      "set gfxpayload=1024x768<enter>",
+      "linux /install/vmlinuz ",
       "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-      "initrd=/install/initrd.gz -- <enter>"
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter><wait>",
+      "initrd /install/initrd.gz<enter><wait>",
+      "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "ram_size_mb": 4096,
-    "cpu": 4,
-    "generation": 1,
-    "switch_name":"LAN"
+    "ram_size_mb": 2048,
+    "cpu": 2,
+    "generation": 2,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
   }],
   "provisioners": [{
     "type": "shell",

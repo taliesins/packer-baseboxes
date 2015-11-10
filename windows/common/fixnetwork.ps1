@@ -1,3 +1,4 @@
+$ProgressPreference="SilentlyContinue"
 # You cannot enable Windows PowerShell Remoting on network connections that are set to Public
 # Spin through all the network locations and if they are set to Public, set them to Private
 # using the INetwork interface:
