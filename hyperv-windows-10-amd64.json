@@ -19,7 +19,7 @@
     "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "56ab095075be28a90bc0b510835280975c6bb2ce",
     "communicator":"winrm",
     "winrm_username": "vagrant",

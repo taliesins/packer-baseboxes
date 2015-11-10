@@ -131,9 +131,6 @@ function Install-WindowsUpdates() {
     if ($UpdatesToInstall.Count -eq 0) {
         LogWrite 'No updates available to install...'
         $global:MoreUpdates=0
-        $global:RestartRequired=0
-        EnableWinRm
-        break
     }
 
     if ($rebootMayBeRequired) {

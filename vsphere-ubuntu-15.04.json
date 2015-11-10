@@ -15,7 +15,7 @@
     "vm_name":"ubuntu-trusty",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 20000,
+    "disk_size": 61440,
     "floppy_files": [
       "./linux/ubuntu/http/preseed.cfg"
     ],   
@@ -51,6 +51,28 @@
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
       "ethernet0.vnet":"vmnet8"
+    },
+    "vmx_data_post": {
+      "ide0:0.startConnected": "FALSE",
+      "ide0:1.startConnected": "FALSE",
+      "ide1:0.startConnected": "FALSE",
+      "ide1:1.startConnected": "FALSE",
+      "ide0:0.deviceType": "cdrom-raw",
+      "ide0:1.deviceType": "cdrom-raw",
+      "ide1:0.deviceType": "cdrom-raw",
+      "ide1:1.deviceType": "cdrom-raw",
+      "ide0:0.clientDevice": "TRUE",
+      "ide0:1.clientDevice": "TRUE",
+      "ide1:0.clientDevice": "TRUE",
+      "ide1:1.clientDevice": "TRUE",
+      "ide0:0.present": "FALSE",
+      "ide0:1.present": "FALSE",
+      "ide1:0.present": "TRUE",
+      "ide1:1.present": "FALSE",
+      "ide0:0.fileName": "emptyBackingString",
+      "ide0:1.fileName": "emptyBackingString",
+      "ide1:0.fileName": "emptyBackingString",
+      "ide1:1.fileName": "emptyBackingString"
     }
   }],
   "provisioners": [{
@@ -78,7 +100,8 @@
       "datastore" : "{{user `vsphere_datastore`}}",
       "vm_name" : "basebox-ubuntu-trusty",
       "vm_network" : "{{user `vsphere_vm_network`}}",
-      "insecure" : "true"
+      "insecure" : "true",
+      "disk_mode" : "thin"
     }
   ]
 }

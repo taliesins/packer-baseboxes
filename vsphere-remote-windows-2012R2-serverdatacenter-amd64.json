@@ -1,6 +1,7 @@
  {
   "variables": {
-   "vsphere_host": "{{env `vsphere_host`}}",
+    "vm_name": "{{env `vm_name`}}",
+    "vsphere_host": "{{env `vsphere_host`}}",
     "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
     "vsphere_cluster": "{{env `vsphere_cluster`}}",
     "vsphere_resource_pool": "{{env `vsphere_resource_pool`}}",
@@ -13,7 +14,8 @@
   },
   "builders": [
   {
-    "vm_name":"windows2012r2",
+    "vm_name":"{{user `vm_name`}}",
+    "output_directory": "output-{{user `vm_name`}}",
     "remote_type":"esx5",
     "remote_host":"{{user `vsphere_cluster`}}",
     "remote_datastore":"{{user `vsphere_datastore`}}",
@@ -23,7 +25,8 @@
     "remote_password": "{{user `vsphere_password`}}",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 40000,
+    "disk_size": 61440,
+    "disk_type_id": "thin",
     "floppy_files": [
       "./windows/windows-2012R2-serverdatacenter-amd64/autounattend.xml",
       "./windows/windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
@@ -34,13 +37,13 @@
       "./windows/common/run-sysprep.cmd",
       "./windows/common/enablewinrm.ps1",
       "./windows/common/fixnetwork.ps1",
-      "./windows/common/vmware/drivers/pvscsi",
+      "./windows/common/vmware/drivers/pvscsi64",
       "./windows/common/vmware/drivers/vmxnet3"
     ],
     "guest_os_type": "windows8srv-64",
-    "headless": false,
+    "headless": true,
     "iso_url": "9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5_slipstream.ISO",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "3cf2ab57f962409a4a43ddd83497a3938f27fdf7",
     "communicator":"winrm",
     "winrm_username": "vagrant",
@@ -59,6 +62,28 @@
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
       "ethernet0.networkName":"{{user `vsphere_vm_network`}}"
+    },
+    "vmx_data_post": {
+      "ide0:0.startConnected": "FALSE",
+      "ide0:1.startConnected": "FALSE",
+      "ide1:0.startConnected": "FALSE",
+      "ide1:1.startConnected": "FALSE",
+      "ide0:0.deviceType": "cdrom-raw",
+      "ide0:1.deviceType": "cdrom-raw",
+      "ide1:0.deviceType": "cdrom-raw",
+      "ide1:1.deviceType": "cdrom-raw",
+      "ide0:0.clientDevice": "TRUE",
+      "ide0:1.clientDevice": "TRUE",
+      "ide1:0.clientDevice": "TRUE",
+      "ide1:1.clientDevice": "TRUE",
+      "ide0:0.present": "FALSE",
+      "ide0:1.present": "FALSE",
+      "ide1:0.present": "TRUE",
+      "ide1:1.present": "FALSE",
+      "ide0:0.fileName": "emptyBackingString",
+      "ide0:1.fileName": "emptyBackingString",
+      "ide1:0.fileName": "emptyBackingString",
+      "ide1:1.fileName": "emptyBackingString"
     }
   }],
   "provisioners": [{
@@ -76,5 +101,5 @@
     ]
   }],
   "post-processors": [
-      ]
+  ]
 }
