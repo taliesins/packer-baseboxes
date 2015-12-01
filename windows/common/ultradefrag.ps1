@@ -1,7 +1,7 @@
 $ProgressPreference="SilentlyContinue"
-$version = '6.1.0'
+$version = '6.1.1'
 $msi_file_name = "ultradefrag-portable-$($version).bin.amd64.zip"
-$download_url = "http://downloads.sourceforge.net/ultradefrag/ultradefrag-portable-6.1.0.bin.amd64.zip"
+$download_url = "http://skylink.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"
 $download_path = "C:\Windows\Temp\$msi_file_name"
 $install_path = "C:\Windows\Temp\ultradefrag"
 
