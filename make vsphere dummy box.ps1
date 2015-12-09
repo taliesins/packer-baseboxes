@@ -1,4 +1,4 @@
-﻿$dummy_box_path = 'vsphere-dummy.box'
+﻿$dummy_box_path = 'vsphere_dummy.box'
 $dummy_path = 'vsphere_dummy_box'
 
 if (test-path $dummy_box_path){
