@@ -62,9 +62,7 @@
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"custom",
       "ethernet0.dvs.switchId":"4c 99 22 50 18 10 58 08-b5 82 0b d7 b6 1a 58 4a",
-      "ethernet0.dvs.portgroupId" : "dvportgroup-5911",
-      "ethernet0.dvs.portId" : "260",
-      "ethernet0.dvs.connectionId" : "747507807"
+      "ethernet0.dvs.portgroupId" : "dvportgroup-5911"
     },
     "vmx_data_post": {
       "ide0:0.startConnected": "FALSE",
