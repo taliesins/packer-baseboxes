@@ -28,11 +28,11 @@ if (Get-Command "Get-NetConnectionProfile" -ErrorAction SilentlyContinue){
         Write-Host "$networkName category was previously set to $category"
 
         try{
-            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private
+            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private -Confirm:$true
         } catch {
-            Get-NetAdapter -InterfaceIndex $interfaceIndex | Disable-NetAdapter
-            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private
-            Get-NetAdapter -InterfaceIndex $interfaceIndex | Enable-NetAdapter
+            Get-NetAdapter -InterfaceIndex $interfaceIndex | Disable-NetAdapter -Confirm:$true
+            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private -Confirm:$true
+            Get-NetAdapter -InterfaceIndex $interfaceIndex | Enable-NetAdapter -Confirm:$true
         }
 
 
