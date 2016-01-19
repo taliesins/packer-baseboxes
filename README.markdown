@@ -12,29 +12,29 @@ Windows baseboxes are also sysprepped so they should be safe to spin up.
 
 # Templates
 * Windows Server 2012
-** HyperV
-** Virtual Box
-** Vmware
-** VSphere via Vmware
-** VSphere directly
+ * HyperV
+ * Virtual Box
+ * Vmware
+ * VSphere via Vmware
+ * VSphere directly
 * Windows 10
-** HyperV
-** Virtual Box
-** Vmware
-** VSphere via Vmware
-** VSphere directly
+ * HyperV
+ * Virtual Box
+ * Vmware
+ * VSphere via Vmware
+ * VSphere directly
 * Ubuntu 14.04
-** HyperV
-** Virtual Box
-** Vmware
-** VSphere via Vmware
-** VSphere directly
+ * HyperV
+ * Virtual Box
+ * Vmware
+ * VSphere via Vmware
+ * VSphere directly
 * Ubuntu 15.04
-** HyperV
-** Virtual Box
-** Vmware
-** VSphere via Vmware
-** VSphere directly
+ * HyperV
+ * Virtual Box
+ * Vmware
+ * VSphere via Vmware
+ * VSphere directly
 
 ## Source
 Clone to repository locally: `git clone git@github.com:taliesins/packer-baseboxes.git`

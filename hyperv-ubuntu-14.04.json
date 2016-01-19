@@ -19,7 +19,7 @@
     "http_directory": "./linux/ubuntu/http/",
     "boot_wait": "5s",
     "boot_command": [
-      "<esc><esc><enter><wait>",
+      "<esc><wait10><esc><esc><enter><wait>",
       "set gfxpayload=keep<enter><wait>",
       "linux /install/vmlinuz ",
       "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
