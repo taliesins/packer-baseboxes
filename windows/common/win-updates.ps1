@@ -6,6 +6,9 @@ param($global:RestartRequired=0,
 $ProgressPreference="SilentlyContinue"
 $Logfile = "C:\Windows\Temp\win-updates.log"
 
+EnableWinRm
+exit 0
+
 function LogWrite {
    Param ([string]$logstring)
    $now = Get-Date -format s

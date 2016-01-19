@@ -72,8 +72,18 @@ if ($ENV:HttpIp){
     $download_url = "https://packages.vmware.com/tools/esx/5.5u3/windows/x64/$iso_name"
 }
 
+Write-Host "Downloading from $download_url to c:\windows\temp\$iso_name"
 Execute-DownloadUrl -downloadUrl $download_url -downloadPath "c:\windows\temp\$iso_name"
+
 Execute-Unzip -fileToUnzip "c:\windows\temp\$iso_name" -extractPath "c:\windows\temp\vmware"
+
+Write-Host "Start installing vmware"
 $process = Execute-Vmware -setupPath "c:\windows\temp\vmware\setup.exe"
+
+if ($process.ExitCode -eq 0){
+    Write-Host "Vmware installed"
+} else {
+    Write-Error "Vmware install failed"
+}
 
 exit $process.ExitCode
