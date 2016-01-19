@@ -1,4 +1,6 @@
 $ProgressPreference="SilentlyContinue"
+$ErrorActionPreference="Stop"
+
 # You cannot enable Windows PowerShell Remoting on network connections that are set to Public
 # Spin through all the network locations and if they are set to Public, set them to Private
 # using the INetwork interface:
@@ -14,11 +16,49 @@ if([environment]::OSVersion.version.Major -lt 6) { return }
 if(1,3,4,5 -contains (Get-WmiObject win32_computersystem).DomainRole) { return }
 
 # Get network connections
-$networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}"))
-$connections = $networkListManager.GetNetworkConnections()
 
-$connections |foreach {
-	Write-Host $_.GetNetwork().GetName()"category was previously set to"$_.GetNetwork().GetCategory()
-	$_.GetNetwork().SetCategory(1)
-	Write-Host $_.GetNetwork().GetName()"changed to category"$_.GetNetwork().GetCategory()
+if (Get-Command "Get-NetConnectionProfile" -ErrorAction SilentlyContinue){
+    $connections = Get-NetConnectionProfile
+
+    $connections |% {
+        $network = $_
+        $networkName = $network.Name
+        $category = $network.NetworkCategory
+        $interfaceIndex = $network.InterfaceIndex
+        Write-Host "$networkName category was previously set to $category"
+
+        try{
+            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private
+        } catch {
+            Get-NetAdapter -InterfaceIndex $interfaceIndex | Disable-NetAdapter
+            Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private
+            Get-NetAdapter -InterfaceIndex $interfaceIndex | Enable-NetAdapter
+        }
+
+
+        $network = Get-NetConnectionProfile -InterfaceIndex $interfaceIndex
+        $networkName = $network.Name
+        $category = $network.NetworkCategory
+
+        Write-Host "$networkName changed to category $category"
+    }
+} else {
+
+    $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}"))
+    $connections = $networkListManager.GetNetworkConnections()
+
+    $connections |% {
+        $network = $_.GetNetwork()
+        $networkName = $network.GetName()
+        $category = $network.GetCategory()
+	    Write-Host "$networkName category was previously set to $category"
+
+	    $_.GetNetwork().SetCategory(1)
+
+        $network = $_.GetNetwork()
+        $networkName = $network.GetName()
+        $category = $network.GetCategory()
+
+	    Write-Host "$networkName changed to category $category"
+    }
 }
