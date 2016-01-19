@@ -40,7 +40,7 @@ function Execute-Vmware(
     $cmd = $setupPath
 
     #Have left out VMXNet3 NIC driver, paravirtual SCSI driver, PS2 Mouse driver and shared folders
-    $cmdArgs = "/S /v`"/qn REBOOT=ReallySuppress ADDLOCAL=Audio,FileIntrospection,NetworkIntrospection,VSS,Perfmon,TrayIcon,Common,Drivers,MemCtl,MouseUsb,SVGA,VMCI,Toolbox,Plugins,Unity`""
+    $cmdArgs = "/S /l C:\Windows\Temp\vmware_tools.log /v`"/qn REBOOT=ReallySuppress ADDLOCAL=Audio,FileIntrospection,NetworkIntrospection,VSS,Perfmon,TrayIcon,Common,Drivers,MemCtl,MouseUsb,SVGA,VMCI,Toolbox,Plugins,Unity`""
 
     $pinfo = New-Object System.Diagnostics.ProcessStartInfo
     $pinfo.FileName = $cmd
@@ -54,7 +54,7 @@ function Execute-Vmware(
     $p.Start() | Out-Null
     $p.WaitForExit()
 
-    if ($p.ExitCode -ne 0){
+    if ($p.ExitCode -ne 0 -and $p.ExitCode -ne 3010){
         throw "Vmware install failed."
     }
 
@@ -82,8 +82,11 @@ $process = Execute-Vmware -setupPath "c:\windows\temp\vmware\setup.exe"
 
 if ($process.ExitCode -eq 0){
     Write-Host "Vmware installed"
+    exit 0
+} elseif ($process.ExitCode -eq 3010){
+    Write-Host "Vmware installed - but reboot required"    
+    exit 0
 } else {
     Write-Error "Vmware install failed"
+    exit $process.ExitCode
 }
-
-exit $process.ExitCode
