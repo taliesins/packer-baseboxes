@@ -138,28 +138,29 @@ function Install-WindowsUpdates() {
         $global:RestartRequired=1
     }
 
-    LogWrite 'Installing updates...'
+    if ($UpdatesToInstall.Count -eq 0) {
+        LogWrite 'Installing updates...'
 
-    $Installer = $script:UpdateSession.CreateUpdateInstaller()
-    $Installer.Updates = $UpdatesToInstall
-    $InstallationResult = $Installer.Install()
+        $Installer = $script:UpdateSession.CreateUpdateInstaller()
+        $Installer.Updates = $UpdatesToInstall
+        $InstallationResult = $Installer.Install()
 
-    LogWrite "Installation Result: $($InstallationResult.ResultCode)"
-    LogWrite "Reboot Required: $($InstallationResult.RebootRequired)"
-    LogWrite 'Listing of updates installed and individual installation results:'
-    if ($InstallationResult.RebootRequired) {
-        $global:RestartRequired=1
-    } else {
-        $global:RestartRequired=0
-    }
+        LogWrite "Installation Result: $($InstallationResult.ResultCode)"
+        LogWrite "Reboot Required: $($InstallationResult.RebootRequired)"
+        LogWrite 'Listing of updates installed and individual installation results:'
+        if ($InstallationResult.RebootRequired) {
+            $global:RestartRequired=1
+        } else {
+            $global:RestartRequired=0
+        }
 
-    for($i=0; $i -lt $UpdatesToInstall.Count; $i++) {
-        New-Object -TypeName PSObject -Property @{
-            Title = $UpdatesToInstall.Item($i).Title
-            Result = $InstallationResult.GetUpdateResult($i).ResultCode
+        for($i=0; $i -lt $UpdatesToInstall.Count; $i++) {
+            New-Object -TypeName PSObject -Property @{
+                Title = $UpdatesToInstall.Item($i).Title
+                Result = $InstallationResult.GetUpdateResult($i).ResultCode
+            }
         }
     }
-
     Check-ContinueRestartOrEnd
 }
 
