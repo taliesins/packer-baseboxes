@@ -138,7 +138,7 @@ function Install-WindowsUpdates() {
         $global:RestartRequired=1
     }
 
-    if ($UpdatesToInstall.Count -eq 0) {
+    if ($UpdatesToInstall.Count -gt 0) {
         LogWrite 'Installing updates...'
 
         $Installer = $script:UpdateSession.CreateUpdateInstaller()
