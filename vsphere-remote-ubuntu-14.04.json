@@ -42,7 +42,7 @@
     "boot_command": [
       "<esc><esc><enter><wait>",
       "/install/vmlinuz ",
-      "preseed/file=/floppy/preseed.cfg ",
+      "preseed/file=/floppy/preseed.cfg ipv6.disable=1 ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
