@@ -98,7 +98,7 @@ function SlurpOutput($l) {
   if (Test-Path $log) {
     Get-Content $log | select -skip $l | ForEach {
       $l += 1
-      "$_" | Out-File -Filepath "C:\enablewinrm.log" -Append
+      "$_" | Out-File -Filepath "$($env:TEMP)\enablewinrm.log" -Append
     }
   }
   return $l
