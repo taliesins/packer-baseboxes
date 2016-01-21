@@ -33,10 +33,6 @@ stop-service winrm
 cmd /c sc config winrm start= disabled
 '@
 
-
-Get-WmiObject -Class Win32_UserAccount -Filter  "LocalAccount='True'" > c:\localusers.txt
-
-
 $commandBytes = [System.Text.Encoding]::Unicode.GetBytes($script)
 $encodedCommand = [Convert]::ToBase64String($commandBytes)
 
@@ -87,8 +83,6 @@ $t.XmlText = @"
 </Task>
 "@
 
-"Got here " > c:\1.txt
-
 $f = $s.GetFolder("\")
 $f.RegisterTaskDefinition($name, $t, 6, $username, $password, 1, $null) | Out-Null
 $t = $f.GetTask("\$name")
@@ -110,21 +104,15 @@ function SlurpOutput($l) {
   return $l
 }
 
-"Got here " > c:\2.txt
-
 $line = 0
 do {
   Start-Sleep -m 100
   $line = SlurpOutput $line
 } while (!($t.state -eq 3))
 
-"Got here " > c:\3.txt
-
 $result = $t.LastTaskResult
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($s) | Out-Null
 
 cmd /c schtasks.exe /delete /TN "$name" /f
-
-"Got here " > c:\4.txt
 
 exit $result
