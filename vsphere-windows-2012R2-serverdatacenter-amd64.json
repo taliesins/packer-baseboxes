@@ -93,11 +93,7 @@
       "elevated_user":"vagrant",
       "elevated_password":"vagrant",
       "scripts": [
-        "./windows/common/install-chef.ps1",
-        "./windows/common/compile-dotnet-assemblies.ps1",
-        "./windows/common/cleanup.ps1",
-        "./windows/common/ultradefrag.ps1",
-        "./windows/common/sdelete.ps1"
+        "./windows/common/install-chef.ps1"
       ]
     }
   ],
