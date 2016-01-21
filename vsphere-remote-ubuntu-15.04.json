@@ -60,7 +60,8 @@
       "scsi0.virtualDev": "lsisas1068",
       "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
-      "ethernet0.connectionType":"custom",
+      "ethernet0.connectionType":"bridged",
+      "ethernet0.startConnected" : "TRUE",
       "ethernet0.dvs.switchId":"4c 99 22 50 18 10 58 08-b5 82 0b d7 b6 1a 58 4a",
       "ethernet0.dvs.portgroupId" : "dvportgroup-5911"
     },
