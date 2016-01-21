@@ -40,7 +40,7 @@
     "ssh_password": "vagrant",
     "ssh_timeout": "4h",
     "boot_command": [
-      "<esc><F6><wait><esc>",
+      "<esc><wait><F6><wait><esc><wait>",
       "<backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace>",
       "<backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace>",
       "<backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace><backspace>",
