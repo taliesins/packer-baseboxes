@@ -38,9 +38,9 @@
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
-    "ssh_timeout": "5s",
+    "ssh_timeout": "4h",
     "boot_command": [
-      "<esc><wait10><esc><esc><enter><wait>",
+      "<esc><esc><enter><wait>",
       "set gfxpayload=1024x768<enter>",
       "linux /install/vmlinuz ",
       "preseed/file=/floppy/preseed.cfg ",
