@@ -33,7 +33,7 @@
     "guest_os_type": "ubuntu-64",
     "headless": false,
     "iso_url": "ubuntu-15.10-server-amd64.iso",
-    "iso_checksum_type": "sha1",
+    "iso_checksum_type": "none",
     "iso_checksum": "478446F33E336A98D5868C0B353D0D347E8A7262",
     "communicator":"ssh",
     "ssh_username": "vagrant",
@@ -41,7 +41,6 @@
     "ssh_timeout": "4h",
     "boot_command": [
       "<esc><esc><enter><wait>",
-      "set gfxpayload=1024x768<enter>",
       "linux /install/vmlinuz ",
       "preseed/file=/floppy/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
