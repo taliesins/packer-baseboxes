@@ -46,7 +46,7 @@
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "<bs><bs><bs><bs>",
-      "/install/vmlinuz "
+      "/install/vmlinuz ",
       "preseed/file=/floppy/preseed.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{.Name}} ",
