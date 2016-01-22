@@ -44,7 +44,7 @@
     "headless": false,
     "iso_url": "10586.0.151029-1700.TH2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
     "iso_checksum_type": "none",
-    "iso_checksum": "1468A75E9B670A8D0FD469CDF48EA9740014BEE6",
+    "iso_checksum": "93845BBCC9677000DF76CB2A5267C8EB52995BAE",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
