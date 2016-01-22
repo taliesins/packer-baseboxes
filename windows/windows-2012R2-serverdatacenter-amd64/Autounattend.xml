@@ -202,13 +202,13 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c start /wait powershell -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force"</CommandLine>
+                    <CommandLine>cmd /c start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force"</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\SysWOW64\cmd /c start /wait powershell -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force"</CommandLine>
+                    <CommandLine>C:\Windows\SysWOW64\cmd /c start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force"</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -220,7 +220,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>               
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File a:\fixnetwork.ps1) ELSE (IF EXIST d:\fixnetwork.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File d:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File e:\fixnetwork.ps1) ELSE (powershell -NoProfile -ExecutionPolicy ByPass -File f:\fixnetwork.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\fixnetwork.ps1) ELSE (IF EXIST d:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\fixnetwork.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\fixnetwork.ps1)))</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -228,7 +228,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File a:\enablewinrm.ps1) ELSE (IF EXIST d:\enablewinrm.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File d:\enablewinrm.ps1) ELSE (IF EXIST e:\enablewinrm.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File e:\enablewinrm.ps1) ELSE (powershell -NoProfile -ExecutionPolicy ByPass -File f:\enablewinrm.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enablewinrm.ps1) ELSE (IF EXIST d:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\enablewinrm.ps1) ELSE (IF EXIST e:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\enablewinrm.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\enablewinrm.ps1)))</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -336,19 +336,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File a:\set-power-config.ps1) ELSE (IF EXIST d:\set-power-config.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File d:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File e:\set-power-config.ps1) ELSE (powershell -NoProfile -ExecutionPolicy ByPass -File f:\set-power-config.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\set-power-config.ps1) ELSE (IF EXIST d:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\set-power-config.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\set-power-config.ps1)))</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File a:\microsoft-updates.ps1) ELSE (IF EXIST d:\microsoft-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File d:\microsoft-updates.ps1) ELSE (IF EXIST e:\microsoft-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File e:\microsoft-updates.ps1) ELSE (powershell -NoProfile -ExecutionPolicy ByPass -File f:\microsoft-updates.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\microsoft-updates.ps1) ELSE (IF EXIST d:\microsoft-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\microsoft-updates.ps1) ELSE (IF EXIST e:\microsoft-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\microsoft-updates.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\microsoft-updates.ps1)))</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File a:\win-updates.ps1) ELSE (IF EXIST d:\win-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File d:\win-updates.ps1) ELSE (IF EXIST e:\win-updates.ps1 (powershell -NoProfile -ExecutionPolicy ByPass -File e:\win-updates.ps1) ELSE (powershell -NoProfile -ExecutionPolicy ByPass -File f:\win-updates.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1) ELSE (IF EXIST d:\win-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\win-updates.ps1) ELSE (IF EXIST e:\win-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\win-updates.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\win-updates.ps1)))</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>
