@@ -42,7 +42,7 @@
     ],
     "guest_os_type": "windows8srv-64",
     "headless": false,
-    "iso_url": "10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_url": "10586.0.151029-1700.TH2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
     "iso_checksum_type": "none",
     "iso_checksum": "1468A75E9B670A8D0FD469CDF48EA9740014BEE6",
     "communicator":"winrm",
