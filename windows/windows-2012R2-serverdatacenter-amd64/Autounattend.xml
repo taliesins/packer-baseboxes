@@ -15,14 +15,14 @@
             <DriverPaths>
                 <PathAndCredentials wcm:keyValue="1" wcm:action="add">
                     <!-- Start floppy for drivers -->
-                    <Path>a:\</Path> 
+                    <Path>a:\</Path>
                     <!-- Finish floppy for drivers -->
                     <!-- Start cdrom for drivers
                     <Path>f:\</Path> 
                     Finish cdrom for drivers -->
                 </PathAndCredentials>
             </DriverPaths>
-        </component>    
+        </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <!-- Start Non UEFI -->
             <DiskConfiguration>
@@ -176,9 +176,6 @@
             <IEHardenAdmin>false</IEHardenAdmin>
             <IEHardenUser>false</IEHardenUser>
         </component>
-        <component name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <DoNotOpenInitialConfigurationTasksAtLogon>true</DoNotOpenInitialConfigurationTasksAtLogon>
-        </component>
         <component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <SkipAutoActivation>true</SkipAutoActivation>
         </component>
@@ -190,7 +187,7 @@
             <HKLMProxyEnable>true</HKLMProxyEnable>
             <HKLMProxyServer>cachingproxy:3142</HKLMProxyServer>
         </component>    
-        Finish Setup cache proxy during installation --> 
+        Finish Setup cache proxy during installation -->
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <AutoLogon>
                 <Password>
@@ -218,14 +215,13 @@
                     <Description>Network prompt</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
+                </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\fixnetwork.ps1) ELSE (IF EXIST d:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\fixnetwork.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\fixnetwork.ps1)))</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enablewinrm.ps1) ELSE (IF EXIST d:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\enablewinrm.ps1) ELSE (IF EXIST e:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\enablewinrm.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\enablewinrm.ps1)))</CommandLine>
@@ -233,7 +229,6 @@
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-
                 <!-- POWER SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c start /wait powershell -Command "$ProgressPreference='SilentlyContinue';powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</CommandLine>
@@ -252,8 +247,7 @@
                     <Description>Set powercfg policy</Description>
                     <Order>27</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                             
-
+                </SynchronousCommand>
                 <!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes </CommandLine>
@@ -272,7 +266,7 @@
                     <Description>Win RM port open</Description>
                     <Order>32</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
+                </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow</CommandLine>
                     <Description>Win RM port open</Description>
@@ -284,14 +278,13 @@
                     <Description>Win RM port open</Description>
                     <Order>34</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>           
+                </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow</CommandLine>
                     <Description>ICMP open for ping</Description>
                     <Order>35</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-
                 <!-- WINDOWS SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f</CommandLine>
@@ -333,7 +326,6 @@
                     <Description>Turn off computer password</Description>
                     <Order>57</Order>
                 </SynchronousCommand>
-
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\set-power-config.ps1) ELSE (IF EXIST d:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File d:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File e:\set-power-config.ps1) ELSE (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File f:\set-power-config.ps1)))</CommandLine>
