@@ -4,6 +4,8 @@ $taskName = "EnableWinRM"
 $username = "vagrant"
 $password = "vagrant"
 
+"ok we got here" | Out-File -Filepath "$($env:TEMP)\gothere.log" -Append
+
 $script = @'
 Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name LocalAccountTokenFilterPolicy -Value 1 -Type DWord
 enable-psremoting -SkipNetworkProfileCheck -Force
