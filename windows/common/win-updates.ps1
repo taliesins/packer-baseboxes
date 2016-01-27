@@ -4,7 +4,9 @@ param($global:RestartRequired=0,
         $global:MaxCycles=5,
         $MaxUpdatesPerCycle=500)
         
+$ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
+
 $Logfile = "$env:TEMP\\win-updates.log"
 
 function LogWrite {
