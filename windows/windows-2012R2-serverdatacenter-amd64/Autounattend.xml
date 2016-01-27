@@ -202,13 +202,13 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\1.txt</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\SysWOW64\cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>C:\Windows\SysWOW64\cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\2.txt</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -220,7 +220,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>               
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\fixnetwork.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\fixnetwork.ps1) > c:\windows\temp\4.txt</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -228,7 +228,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\enablewinrm.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\enablewinrm.ps1) > c:\windows\temp\5.txt</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -316,19 +316,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\set-power-config.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\set-power-config.ps1) > c:\windows\temp\97.txt</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\microsoft-updates.ps1) </CommandLine>
+                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\microsoft-updates.ps1) > c:\windows\temp\98.txt </CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (start /wait C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\win-updates.ps1)</CommandLine>
+                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\win-updates.ps1) > c:\windows\temp\100.txt</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>
