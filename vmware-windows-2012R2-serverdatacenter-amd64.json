@@ -4,7 +4,7 @@
     "vm_name":"windows2012r2",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": 81440,
     "floppy_files": [
       "./windows/windows-2012R2-serverdatacenter-amd64/autounattend.xml",
       "./windows/windows-2012R2-serverdatacenter-amd64/sysprep-unattend.xml",
