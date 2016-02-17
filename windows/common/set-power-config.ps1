@@ -6,4 +6,4 @@ $ProgressPreference="SilentlyContinue"
 #Monitor timeout
 &powercfg -Change -monitor-timeout-ac 0
 &powercfg -Change -monitor-timeout-dc 0
-&powercfg -hibernate OF
+&powercfg -hibernate OFF
