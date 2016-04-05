@@ -1,3 +1,5 @@
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).txt" -Append
+
 $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
 
