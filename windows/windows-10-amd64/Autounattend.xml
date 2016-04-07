@@ -66,7 +66,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows 10 Enterprise Evaluation</Value>
+                            <Value>Windows 10 Enterprise</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -151,7 +151,7 @@
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <Key>VTNMT-2FMYP-QCY43-QR9VK-WTVCK</Key>
+                    <!-- <Key>VTNMT-2FMYP-QCY43-QR9VK-WTVCK</Key> -->
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -210,14 +210,14 @@
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-				<SynchronousCommand wcm:action="add">
+		        <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f</CommandLine>
                     <Description>Network prompt</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>				
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (powershell -File a:\fixnetwork.ps1) ELSE (IF EXIST d:\fixnetwork.ps1 (powershell -File d:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (powershell -File e:\fixnetwork.ps1) ELSE (powershell -File f:\fixnetwork.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=fixnetwork.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -File %i:\!FILE! > C:\windows\temp\BoxImageCreation_!FILE!.txt )))"</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -225,7 +225,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm quickconfig -q</CommandLine>
+                    <CommandLine>cmd.exe /c "winrm quickconfig -q"</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -401,19 +401,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (powershell -File a:\set-power-config.ps1) ELSE (IF EXIST d:\set-power-config.ps1 (powershell -File d:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (powershell -File e:\set-power-config.ps1) ELSE (powershell -File f:\set-power-config.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=set-power-config.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -File %i:\!FILE! > C:\windows\temp\BoxImageCreation_!FILE!.txt )))"</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (powershell -File a:\microsoft-updates.ps1) ELSE (IF EXIST d:\microsoft-updates.ps1 (powershell -File d:\microsoft-updates.ps1) ELSE (IF EXIST e:\microsoft-updates.ps1 (powershell -File e:\microsoft-updates.ps1) ELSE (powershell -File f:\microsoft-updates.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=microsoft-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -File %i:\!FILE! > C:\windows\temp\BoxImageCreation_!FILE!.txt )))"</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (powershell -File a:\win-updates.ps1) ELSE (IF EXIST d:\win-updates.ps1 (powershell -File d:\win-updates.ps1) ELSE (IF EXIST e:\win-updates.ps1 (powershell -File e:\win-updates.ps1) ELSE (powershell -File f:\win-updates.ps1)))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=win-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -File %i:\!FILE! > C:\windows\temp\BoxImageCreation_!FILE!.txt )))"</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>
