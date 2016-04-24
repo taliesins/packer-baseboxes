@@ -1,0 +1,60 @@
+{
+  "variables": {
+    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+  },
+  "builders": [
+  {
+    "vm_name":"ubuntu-xenial",
+    "type": "hyperv-iso",
+    "disk_size": 21440,
+    "headless": false,
+    "guest_additions_mode":"disable",
+    "iso_url": "ubuntu-16.04-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "70DB69379816B91EB01559212AE474A36ECEC9EF",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout" : "4h",
+    "http_directory": "./linux/ubuntu/http/",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<esc><wait10><esc><esc><enter><wait>",
+      "set gfxpayload=1024x768<enter>",
+      "linux /install/vmlinuz ",
+      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
+      "initrd /install/initrd.gz<enter>",
+      "boot<enter>"
+    ],
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+    "ram_size_mb": 2048,
+    "cpu": 2,
+    "generation": 2,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": true,
+      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
+    }
+  ]
+}
