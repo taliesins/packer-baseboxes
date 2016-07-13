@@ -10,7 +10,7 @@
     "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "pfSense-CE-2.3.1-RELEASE-amd64.iso",
-    "iso_checksum_type": "none",
+    "iso_checksum_type": "sha1",
     "iso_checksum": "0BC50F80FE22E54BCF696FA70DA19FCADA96CE99",
     "communicator":"ssh",
     "ssh_username": "vagrant",
