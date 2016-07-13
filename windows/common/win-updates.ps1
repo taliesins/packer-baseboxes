@@ -6,6 +6,7 @@ param($global:RestartRequired=0,
 $ProgressPreference="SilentlyContinue"
 $Logfile = "C:\Windows\Temp\win-updates.log"
 
+
 function LogWrite {
    Param ([string]$logstring)
    $now = Get-Date -format s
@@ -211,6 +212,10 @@ function Check-WindowsUpdates() {
         $global:MoreUpdates=0
     }
 }
+
+EnableWinRm
+
+exit 0
 
 $script:ScriptName = $MyInvocation.MyCommand.ToString()
 $script:ScriptPath = $MyInvocation.MyCommand.Path
