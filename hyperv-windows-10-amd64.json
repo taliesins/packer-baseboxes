@@ -1,5 +1,8 @@
 {
   "variables": {
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/B/B/3/BB3611B6-9781-437F-A293-AB43B85C2190/10586.0.151029-1700.TH2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "93845BBCC9677000DF76CB2A5267C8EB52995BAE",
     "hyperv_switchname": "{{env `hyperv_switchname`}}"
   },
   "builders": [
@@ -18,9 +21,9 @@
     ],
     "headless": false,
     "guest_additions_mode":"disable",
-    "iso_url": "http://care.dlservice.microsoft.com/dl/download/B/B/3/BB3611B6-9781-437F-A293-AB43B85C2190/10586.0.151029-1700.TH2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "93845BBCC9677000DF76CB2A5267C8EB52995BAE",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
