@@ -9,9 +9,9 @@
     "disk_size": 11440,
     "headless": false,
     "guest_additions_mode":"disable",
-    "iso_url": "pfSense.iso",
+    "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "971180ccff57fbd7af925bf09f24c7a0c99ccbb5",
+    "iso_checksum": "009abcebc2fee1a57a61631b9cd3d9fe5ac33f37",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -95,7 +95,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "{{.Provider}}_pfsense-2.2.5_chef.box"
+      "output": "{{.Provider}}_pfsense-2.3.2_chef.box"
     }
   ]
 }
