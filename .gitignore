@@ -17,3 +17,5 @@ virtualbox_windows-10_chef.box
 /pfSense.iso
 /ubuntu-15.04-server-amd64.iso
 /windows/windows-2012R2-serverdatacenter-amd64/answer.iso
+/*.ISO
+/*.iso
