@@ -6,7 +6,11 @@
   {
     "vm_name":"pfsense",
     "type": "hyperv-iso",
-    "disk_size": 11440,
+    "disk_size": 20000,
+    "floppy_files": [],
+    "secondary_iso_images": [
+      "./pfSense-CE-2.3.2-RELEASE-amd64.iso"
+    ],
     "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
@@ -20,31 +24,20 @@
     "boot_wait": "1s",
     "boot_command": [
       "1",
-      "<wait10><wait10><wait><wait>I",
-      "<wait10><wait5><tab><tab><tab><wait><enter>",
+      "<wait10><wait10><wait10><wait10><wait10><wait10>",
+      "<wait5><tab><tab><tab><wait><enter>",
       "<wait5><enter>",
       "<wait5><enter>",
-      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><enter>",
-      "<wait10><wait10><wait10><enter>",
+      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><enter>",
+      "<wait10><wait10><wait10><wait10><wait10><enter>",
+
       "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
-      
-      "<wait5>n<wait><enter><wait>",
-      "<wait>hn0<wait><enter><wait>",
-      "<wait><enter><wait>",
-      "<wait>y<wait><enter>",
-      "<wait10><wait10><wait10><wait10>",
+      "<wait><leftCtrlOn>c<leftCtrlOff>",
+      "<wait><enter>",
+      "<wait>clear<wait><enter>",
+      "<wait>cdcontrol eject && exit<wait><enter>",
 
-      "<wait>8<enter>",
-      "<wait>echo \"cdcontrol eject\" >> /etc/rc.shutdown<wait><enter>",
-      "<wait>exit<wait><enter><wait5>",
-      "<wait>5<enter>",
-      "<wait>y<enter>",
-      "<wait10><wait10><wait10><wait10><wait10>",
-      "<wait10><wait10><wait10><wait10><wait10>",
-      "<wait10><wait10><wait10><wait10><wait10>",
-      "<wait10><wait10><wait10><wait10><wait10>",
-      "<wait10><wait10>",
-
+      "<wait10><wait10><wait10><wait10><wait10><wait10>",
       "<wait5>n<wait><enter><wait>",
       "<wait>hn0<wait><enter><wait>",
       "<wait><enter><wait>",
@@ -63,13 +56,9 @@
       "<wait>chmod 0440 /usr/local/etc/sudoers<wait><enter>",
 
       "<wait>cd /tmp<wait><enter>",
-      "<wait>pkg help<wait><enter><wait>y<wait><enter><wait5>",
       "<wait>pkg update<enter><wait10><wait10><wait10>",
       "<wait>pkg install -y sudo bash curl<wait><enter><wait10><wait10><wait10>",
-
-      "<wait>echo  'rm -rf /var/db/hyperv/pool' >> /etc/rc.conf.local<wait><enter>",
-      "<wait>echo  'hv_kvp_daemon' >> /etc/rc.conf.local<wait><enter>",
-      
+            
       "<wait>exit<wait><enter><wait5>",
       "<wait>14<enter>",
       "<wait>y<enter>",
