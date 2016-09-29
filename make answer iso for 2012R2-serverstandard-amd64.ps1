@@ -1,4 +1,4 @@
-﻿$osFolder = 'windows-2012R2-serverdatacenter-amd64'
+﻿$osFolder = 'windows-2012R2-serverstandard-amd64'
 $isoFolder = 'answer-iso'
 if (test-path $isoFolder){
 	remove-item $isoFolder -Force -Recurse
