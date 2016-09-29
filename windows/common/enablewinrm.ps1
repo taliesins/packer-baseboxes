@@ -1,6 +1,7 @@
 $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
 
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
 
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
