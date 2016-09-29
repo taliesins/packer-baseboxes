@@ -272,6 +272,7 @@
                     <Order>13</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c net stop winrm </CommandLine>
                     <Description>Stop Win RM Service, so that packer doesn't connect to it half way through configuring it.</Description>
@@ -279,21 +280,21 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c sc config winrm start= disabled</CommandLine>
+                    <Description>Prevent Win RM Service from starting on reboot (Windows updates might reboot it), so that packer doesn't connect to it half way through configuring it.</Description>
+                    <Order>15</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes </CommandLine>
                     <Description>Win RM adv firewall enable</Description>
-                    <Order>15</Order>
+                    <Order>16</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5985 "Port 5985" </CommandLine>
                     <Description>Win RM port open</Description>
-                    <Order>16</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c sc config winrm start= disabled</CommandLine>
-                    <Description>Prevent Win RM Service from starting on reboot (Windows updates might reboot it), so that packer doesn't connect to it half way through configuring it.</Description>
                     <Order>17</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
