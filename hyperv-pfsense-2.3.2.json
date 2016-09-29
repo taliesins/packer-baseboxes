@@ -15,7 +15,7 @@
     "guest_additions_mode":"disable",
     "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "009abcebc2fee1a57a61631b9cd3d9fe5ac33f37",
+    "iso_checksum": "009ABCEBC2FEE1A57A61631B9CD3D9FE5AC33F37",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
