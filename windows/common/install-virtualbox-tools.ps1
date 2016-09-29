@@ -1,5 +1,5 @@
 $ProgressPreference="SilentlyContinue"
-$version = '5.0.16'
+$version = '5.1.6'
 $iso_name = "VBoxGuestAdditions_$version.iso"
 
 if ($ENV:HttpIp){
