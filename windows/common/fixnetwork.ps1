@@ -1,4 +1,8 @@
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).txt" -Append
+
+$ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
+
 # You cannot enable Windows PowerShell Remoting on network connections that are set to Public
 # Spin through all the network locations and if they are set to Public, set them to Private
 # using the INetwork interface:
@@ -14,11 +18,40 @@ if([environment]::OSVersion.version.Major -lt 6) { return }
 if(1,3,4,5 -contains (Get-WmiObject win32_computersystem).DomainRole) { return }
 
 # Get network connections
-$networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}"))
-$connections = $networkListManager.GetNetworkConnections()
 
-$connections |foreach {
-	Write-Host $_.GetNetwork().GetName()"category was previously set to"$_.GetNetwork().GetCategory()
-	$_.GetNetwork().SetCategory(1)
-	Write-Host $_.GetNetwork().GetName()"changed to category"$_.GetNetwork().GetCategory()
+if (Get-Command "Get-NetConnectionProfile" -ErrorAction SilentlyContinue){
+    $connections = Get-NetConnectionProfile
+
+    $connections |% {
+        $network = $_
+        $networkName = $network.Name
+        $category = $network.NetworkCategory
+        $interfaceIndex = $network.InterfaceIndex
+        Write-Host "$networkName category was previously set to $category"
+        Set-NetConnectionProfile -InterfaceIndex $interfaceIndex -NetworkCategory Private -Confirm:$false
+        $network = Get-NetConnectionProfile -InterfaceIndex $interfaceIndex
+        $networkName = $network.Name
+        $category = $network.NetworkCategory
+
+        Write-Host "$networkName changed to category $category"
+    }
+} else {
+
+    $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}"))
+    $connections = $networkListManager.GetNetworkConnections()
+
+    $connections |% {
+        $network = $_.GetNetwork()
+        $networkName = $network.GetName()
+        $category = $network.GetCategory()
+	    Write-Host "$networkName category was previously set to $category"
+
+	    $_.GetNetwork().SetCategory(1)
+
+        $network = $_.GetNetwork()
+        $networkName = $network.GetName()
+        $category = $network.GetCategory()
+
+	    Write-Host "$networkName changed to category $category"
+    }
 }

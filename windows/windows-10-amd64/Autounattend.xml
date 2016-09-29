@@ -136,7 +136,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows 10 Enterprise Evaluation Technical Preview</Value>
+                            <Value>Windows 10 Enterprise Evaluation</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -151,7 +151,7 @@
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <!--<Key>D2N9P-3P6X9-2R39C-7RTCD-MDVJX</Key>-->
+                    <!-- <Key>VTNMT-2FMYP-QCY43-QR9VK-WTVCK</Key> -->
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -175,9 +175,6 @@
         <component name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <IEHardenAdmin>false</IEHardenAdmin>
             <IEHardenUser>false</IEHardenUser>
-        </component>
-        <component name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <DoNotOpenInitialConfigurationTasksAtLogon>true</DoNotOpenInitialConfigurationTasksAtLogon>
         </component>
         <component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <SkipAutoActivation>true</SkipAutoActivation>
@@ -205,25 +202,25 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > %Temp%\1.txt</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\SysWOW64\cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <CommandLine>>%SystemRoot%\SysWOW64\cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > %Temp%\2.txt</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-				<SynchronousCommand wcm:action="add">
+		        <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f</CommandLine>
                     <Description>Network prompt</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>				
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\fixnetwork.ps1 (powershell -File a:\fixnetwork.ps1) ELSE (IF EXIST e:\fixnetwork.ps1 (powershell -File e:\fixnetwork.ps1) ELSE (powershell -File f:\fixnetwork.ps1))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=fixnetwork.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -231,31 +228,11 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\enablewinrm.ps1 (powershell -File a:\enablewinrm.ps1) ELSE (IF EXIST e:\enablewinrm.ps1 (powershell -File e:\enablewinrm.ps1) ELSE (powershell -File f:\enablewinrm.ps1))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=enablewinrm.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-
-                <!-- POWER SETTINGS -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</CommandLine>
-                    <Description>Set powercfg policy</Description>
-                    <Order>25</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -change -monitor-timeout-ac 0"</CommandLine>
-                    <Description>Set powercfg policy</Description>
-                    <Order>26</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c powershell -Command "powercfg -hibernate OFF"</CommandLine>
-                    <Description>Set powercfg policy</Description>
-                    <Order>27</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>   
+                </SynchronousCommand>  
 
 				<!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
@@ -339,19 +316,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\set-power-config.ps1 (powershell -File a:\set-power-config.ps1) ELSE (IF EXIST e:\set-power-config.ps1 (powershell -File e:\set-power-config.ps1) ELSE (powershell -File f:\set-power-config.ps1))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=set-power-config.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\microsoft-updates.ps1 (powershell -File a:\microsoft-updates.ps1) ELSE (IF EXIST e:\microsoft-updates.ps1 (powershell -File e:\microsoft-updates.ps1) ELSE (powershell -File f:\microsoft-updates.ps1))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=microsoft-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c IF EXIST a:\win-updates.ps1 (powershell -File a:\win-updates.ps1) ELSE (IF EXIST e:\win-updates.ps1 (powershell -File e:\win-updates.ps1) ELSE (powershell -File f:\win-updates.ps1))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=win-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>100</Order>
                     <RequiresUserInput>true</RequiresUserInput>

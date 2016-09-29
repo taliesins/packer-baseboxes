@@ -9,72 +9,73 @@
     "vsphere_username": "{{env `vsphere_username`}}",
     "vsphere_password": "{{env `vsphere_password`}}"
   },
-
-  "builders": [
-  {
-    "vm_name":"ubuntu-trusty",
-    "type": "vmware-iso",
-    "boot_wait": "5s",
-    "disk_size": 61440,
-    "floppy_files": [
-      "./linux/ubuntu/http/preseed.cfg"
-    ],   
-    "guest_os_type": "ubuntu-64",
-    "headless": false,
-    "iso_url": "ubuntu-15.04-server-amd64.iso",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
-    "communicator":"ssh",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
-    "ssh_timeout": "4h",
-    "boot_command": [
-      "<esc><esc><enter><wait>",
-      "/install/vmlinuz ",
-      "preseed/file=/floppy/preseed.cfg ",
-      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-      "hostname={{.Name}} ",
-      "fb=false debconf/frontend=noninteractive ",
-      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-      "initrd=/install/initrd.gz -- <enter>"
-    ],  
-    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "skip_compaction": false,
-    "vmx_data": {
-      "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "2048",
-      "numvcpus": "2",
-      "virtualHW.version": "10",
-      "scsi0.virtualDev": "lsisas1068",
-      "ethernet0.virtualDev": "vmxnet3",
-      "ethernet0.present": "TRUE",
-      "ethernet0.connectionType":"custom",
-      "ethernet0.vnet":"vmnet8"
-    },
-    "vmx_data_post": {
-      "ide0:0.startConnected": "FALSE",
-      "ide0:1.startConnected": "FALSE",
-      "ide1:0.startConnected": "FALSE",
-      "ide1:1.startConnected": "FALSE",
-      "ide0:0.deviceType": "cdrom-raw",
-      "ide0:1.deviceType": "cdrom-raw",
-      "ide1:0.deviceType": "cdrom-raw",
-      "ide1:1.deviceType": "cdrom-raw",
-      "ide0:0.clientDevice": "TRUE",
-      "ide0:1.clientDevice": "TRUE",
-      "ide1:0.clientDevice": "TRUE",
-      "ide1:1.clientDevice": "TRUE",
-      "ide0:0.present": "FALSE",
-      "ide0:1.present": "FALSE",
-      "ide1:0.present": "TRUE",
-      "ide1:1.present": "FALSE",
-      "ide0:0.fileName": "emptyBackingString",
-      "ide0:1.fileName": "emptyBackingString",
-      "ide1:0.fileName": "emptyBackingString",
-      "ide1:1.fileName": "emptyBackingString"
+  "builders": 
+  [
+    {
+      "vm_name":"ubuntu-trusty",
+      "type": "vmware-iso",
+      "boot_wait": "5s",
+      "disk_size": 61440,
+      "floppy_files": [
+        "./linux/ubuntu/http/preseed.cfg"
+      ],   
+      "guest_os_type": "ubuntu-64",
+      "headless": false,
+      "iso_url": "ubuntu-15.04-server-amd64.iso",
+      "iso_checksum_type": "sha1",
+      "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
+      "communicator":"ssh",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "4h",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "preseed/file=/floppy/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{.Name}} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],  
+      "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+      "skip_compaction": false,
+      "vmx_data": {
+        "gui.fitguestusingnativedisplayresolution": "FALSE",
+        "memsize": "2048",
+        "numvcpus": "2",
+        "virtualHW.version": "10",
+        "scsi0.virtualDev": "lsisas1068",
+        "ethernet0.virtualDev": "vmxnet3",
+        "ethernet0.present": "TRUE",
+        "ethernet0.connectionType":"custom",
+        "ethernet0.vnet":"vmnet8"
+      },
+      "vmx_data_post": {
+        "ide0:0.startConnected": "FALSE",
+        "ide0:1.startConnected": "FALSE",
+        "ide1:0.startConnected": "FALSE",
+        "ide1:1.startConnected": "FALSE",
+        "ide0:0.deviceType": "cdrom-raw",
+        "ide0:1.deviceType": "cdrom-raw",
+        "ide1:0.deviceType": "cdrom-raw",
+        "ide1:1.deviceType": "cdrom-raw",
+        "ide0:0.clientDevice": "TRUE",
+        "ide0:1.clientDevice": "TRUE",
+        "ide1:0.clientDevice": "TRUE",
+        "ide1:1.clientDevice": "TRUE",
+        "ide0:0.present": "FALSE",
+        "ide0:1.present": "FALSE",
+        "ide1:0.present": "TRUE",
+        "ide1:1.present": "FALSE",
+        "ide0:0.fileName": "emptyBackingString",
+        "ide0:1.fileName": "emptyBackingString",
+        "ide1:0.fileName": "emptyBackingString",
+        "ide1:1.fileName": "emptyBackingString"
+      }
     }
-  }],
+  ],
   "provisioners": [{
     "type": "shell",
     "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",

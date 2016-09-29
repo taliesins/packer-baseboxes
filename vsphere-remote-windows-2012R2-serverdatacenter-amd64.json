@@ -60,8 +60,10 @@
       "scsi0.virtualDev": "pvscsi",
       "ethernet0.virtualDev": "vmxnet3",
       "ethernet0.present": "TRUE",
-      "ethernet0.connectionType":"custom",
-      "ethernet0.networkName":"{{user `vsphere_vm_network`}}"
+      "ethernet0.connectionType":"bridged",
+      "ethernet0.startConnected" : "TRUE",
+      "ethernet0.dvs.switchId":"4c 99 22 50 18 10 58 08-b5 82 0b d7 b6 1a 58 4a",
+      "ethernet0.dvs.portgroupId" : "dvportgroup-5911"
     },
     "vmx_data_post": {
       "ide0:0.startConnected": "FALSE",
@@ -94,10 +96,13 @@
       "./windows/common/install-7zip.ps1",
       "./windows/common/install-vmware-tools.ps1",    
       "./windows/common/install-chef.ps1",
+      "./windows/common/install-openssh.ps1",
+      "./windows/common/install-rsync.ps1",
+      "./windows/common/install-sshkey.ps1",
       "./windows/common/compile-dotnet-assemblies.ps1",
       "./windows/common/cleanup.ps1",
       "./windows/common/ultradefrag.ps1",
-      "./windows/common/sdelete.ps1"
+      "./windows/common/sdelete.ps1"     
     ]
   }],
   "post-processors": [
