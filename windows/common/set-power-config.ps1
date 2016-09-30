@@ -1,7 +1,7 @@
-"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).txt" -Append
-
 $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
+
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
 
 #Set power configuration to High Performance
 &powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c

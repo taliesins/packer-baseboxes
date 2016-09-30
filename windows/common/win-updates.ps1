@@ -4,7 +4,7 @@ param($global:RestartRequired=0,
         $global:MaxCycles=5,
         $MaxUpdatesPerCycle=500)
 
-"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).txt" -Append
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
         
 $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
