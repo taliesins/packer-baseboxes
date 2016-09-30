@@ -220,7 +220,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>               
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  -File %i:\fixnetwork.ps1) > 04-BoxImageCreation_fixnetwork.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\fixnetwork.ps1 > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.txt) > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.scanning.txt</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -228,7 +228,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  -File %i:\enablewinrm.ps1) > 05-BoxImageCreation_enablewinrm.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\enablewinrm.ps1 > c:\windows\temp\05-BoxImageCreation_enablewinrm.ps1.txt) > c:\windows\temp\05-BoxImageCreation_enablewinrm.ps1.scanning.txt</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -316,19 +316,19 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  -File %i:\set-power-config.ps1) > 97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1 > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.txt) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  -File %i:\microsoft-updates.ps1) > 98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1 > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.txt) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  -File %i:\microsoft-updates.ps1) > 99-BoxImageCreation_win-updates.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\win-updates.ps1 > c:\windows\temp\99-BoxImageCreation_win-updates.ps1.txt) > c:\windows\temp\99-BoxImageCreation_win-updates.ps1.scanning.txt</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>99</Order>
                     <RequiresUserInput>true</RequiresUserInput>
