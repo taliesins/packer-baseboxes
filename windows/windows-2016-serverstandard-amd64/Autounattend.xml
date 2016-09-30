@@ -201,7 +201,18 @@
                 <Username>vagrant</Username>
             </AutoLogon>
             <FirstLogonCommands>
-            
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c c:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\01-BoxImageCreation_PowershellExecutionPolicy32.txt 2>&1</CommandLine>
+                    <Description>Set Execution Policy 64 Bit</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>c:\windows\SysWOW64\cmd.exe /c c:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\02-BoxImageCreation_PowershellExecutionPolicy64.txt 2>&1</CommandLine>
+                    <Description>Set Execution Policy 32 Bit</Description>
+                    <Order>2</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>            
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f</CommandLine>
                     <Description>Network prompt</Description>
@@ -209,7 +220,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>               
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /v /c "set FILE=fixnetwork.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))"</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=fixnetwork.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > c:\windows\temp\04-BoxImageCreation_!FILE!.txt 2>&1 )))"</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -217,11 +228,11 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /v /c "set FILE=enablewinrm.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))"</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=enablewinrm.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > c:\windows\temp\05-BoxImageCreation_!FILE!.txt 2>&1 )))"</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                          
+                </SynchronousCommand>                         
 
 
                 <!-- FIREWALL SETTINGS -->
@@ -306,21 +317,21 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /v /c "set FILE=set-power-config.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=set-power-config.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > c:\windows\temp\97-BoxImageCreation_!FILE!.txt 2>&1 )))"</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /v /c "set FILE=microsoft-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=microsoft-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > c:\windows\temp\98-BoxImageCreation_!FILE!.txt 2>&1 )))"</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /v /c "set FILE=win-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > %Temp%\BoxImageCreation_!FILE!.txt )))</CommandLine>
+                    <CommandLine>cmd.exe /v /c "set FILE=win-updates.ps1& (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO (IF EXIST %i:\!FILE! (powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File %i:\!FILE! > c:\windows\temp\99-BoxImageCreation_!FILE!.txt 2>&1 )))"</CommandLine>
                     <Description>Install Windows Updates</Description>
-                    <Order>100</Order>
+                    <Order>99</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
             </FirstLogonCommands>
