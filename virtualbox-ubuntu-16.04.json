@@ -1,0 +1,70 @@
+{
+  "variables": {
+    "vm_name": "ubuntu-xenial",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "DE5EE8665048F009577763EFBF4A6F0558833E59"
+  },
+  "builders": [
+  {
+    "vm_name":"{{user `vm_name`}}",
+    "type": "virtualbox-iso",
+    "boot_wait": "5s",
+    "disk_size": "{{user `disk_size`}}",
+    "headless": true,
+    "guest_additions_mode":"disable",
+    "http_directory": "./linux/ubuntu/http/",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",			 
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout": "4h",
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",   
+    "boot_command": [
+      "<esc><wait10><esc><esc><enter><wait>",
+      "set gfxpayload=1024x768<enter>",
+      "linux /install/vmlinuz ",
+      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
+      "initrd /install/initrd.gz<enter>",
+      "boot<enter>"
+    ],
+    "guest_os_type": "Ubuntu_64",
+    "vboxmanage": [
+      [
+        "modifyvm","{{.Name}}","--memory","{{user `ram_size_mb`}}"
+      ],
+      [
+        "modifyvm","{{.Name}}","--cpus","{{user `cpu`}}"
+      ]
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
+    }
+  ]
+}

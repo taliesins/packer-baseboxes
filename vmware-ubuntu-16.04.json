@@ -1,0 +1,74 @@
+{
+  "variables": {
+    "vm_name": "ubuntu-xenial",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "DE5EE8665048F009577763EFBF4A6F0558833E59"   
+  },  
+  "builders": [
+  {
+    "vm_name":"{{user `vm_name`}}",
+    "type": "vmware-iso",
+    "boot_wait": "5s",
+    "disk_size": "{{user `disk_size`}}",
+    "http_directory": "./linux/ubuntu/http/",
+    "guest_os_type": "ubuntu-64",
+    "headless": true,
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
+    "communicator":"ssh",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_timeout": "4h",
+    "boot_command": [
+      "<esc><wait10><esc><esc><enter><wait>",
+      "set gfxpayload=1024x768<enter>",
+      "linux /install/vmlinuz ",
+      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{.Name}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
+      "initrd /install/initrd.gz<enter>",
+      "boot<enter>"
+    ],  
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "{{user `ram_size_mb`}}",
+      "numvcpus": "{{user `cpu`}}",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"vmnet8"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vmware.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/chef.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
+    }
+  ]
+}
