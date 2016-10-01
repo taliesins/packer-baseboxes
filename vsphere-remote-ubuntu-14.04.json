@@ -1,6 +1,6 @@
 {
   "variables": {
-    "vm_name": "{{env `vm_name`}}",
+    "vm_name": "ubuntu-trusty",
     "cpu": "2",
     "ram_size_mb": "2048",
     "disk_size": "21440",
