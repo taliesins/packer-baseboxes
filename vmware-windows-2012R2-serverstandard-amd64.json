@@ -21,8 +21,7 @@
       "./windows/common/microsoft-updates.ps1",
       "./windows/common/win-updates.ps1",
       "./windows/common/run-sysprep.ps1",
-      "./windows/common/run-sysprep.cmd",
-      "./windows/common/enablewinrm.ps1",      
+      "./windows/common/run-sysprep.cmd",  
       "./windows/common/fixnetwork.ps1"
     ],
     "http_directory": "./windows/common/http/",

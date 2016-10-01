@@ -224,47 +224,15 @@
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-
-                <!-- WINRM SETTINGS -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\enablewinrm.ps1 ) > c:\windows\temp\05-BoxImageCreation_enablewinrm.ps1.scanning.txt</CommandLine>
-                    <Description>Enable WinRm</Description>
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                          
+                </SynchronousCommand>                       
 
                 <!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c netsh advfirewall firewall set rule group="remote administration" new enable=yes > c:\windows\temp\30-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM adv firewall enable</Description>
+                    <Description>Enable RDP</Description>
                     <Order>30</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow > c:\windows\temp\31-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>31</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh firewall add portopening TCP 5985 "Port 5985" > c:\windows\temp\32-BoxImageCreation.txt </CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>32</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow > c:\windows\temp\33-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>33</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh firewall add portopening TCP 5986 "Port 5986" > c:\windows\temp\34-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>34</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>           
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow > c:\windows\temp\35-BoxImageCreation.txt</CommandLine>
                     <Description>ICMP open for ping</Description>
