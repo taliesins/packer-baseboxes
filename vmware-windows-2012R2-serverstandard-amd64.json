@@ -1,10 +1,19 @@
 {
+    "variables": {
+    "vm_name": "windows2012r2",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "41440",
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C"    
+  },
   "builders": [
   {
-    "vm_name":"windows2012r2",
+    "vm_name":"{{user `vm_name`}}",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": "{{user `disk_size`}}",
     "floppy_files": [
       "./windows/windows-2012R2-serverstandard-amd64/autounattend.xml",
       "./windows/windows-2012R2-serverstandard-amd64/sysprep-unattend.xml",
@@ -19,9 +28,9 @@
     "http_directory": "./windows/common/http/",
     "guest_os_type": "windows8srv-64",
     "headless": true,
-    "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
@@ -30,8 +39,8 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "2048",
-      "numvcpus": "2",
+      "memsize": "{{user `ram_size_mb`}}",
+      "numvcpus": "{{user `cpu`}}",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "pvscsi",
       "ethernet0.virtualDev": "vmxnet3",

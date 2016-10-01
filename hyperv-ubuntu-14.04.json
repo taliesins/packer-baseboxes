@@ -1,17 +1,24 @@
 {
   "variables": {
+    "vm_name": "ubuntu-trusty",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F",    
     "hyperv_switchname": "{{env `hyperv_switchname`}}"
   },
   "builders": [
   {
-    "vm_name":"ubuntu-trusty",
+    "vm_name":"{{user `vm_name`}}",
     "type": "hyperv-iso",
-    "disk_size": 21440,
+    "disk_size": "{{user `disk_size`}}",
     "headless": false,
     "guest_additions_mode":"disable",
-    "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -32,8 +39,8 @@
       "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "ram_size_mb": 2048,
-    "cpu": 2,
+    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "cpu": "{{user `cpu`}}",
     "generation": 2,
     "switch_name":"{{user `hyperv_switchname`}}",
     "enable_secure_boot":false

@@ -1,5 +1,9 @@
 {
   "variables": {
+    "vm_name": "windows2012r2",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "41440",
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
     "iso_checksum_type": "sha1",
     "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C",
@@ -7,9 +11,9 @@
   },
   "builders": [
   {
-    "vm_name":"windows2012r2",
+    "vm_name":"{{user `vm_name`}}",
     "type": "hyperv-iso",
-    "disk_size": 41440,
+    "disk_size": "{{user `disk_size`}}",
     "floppy_files": [],
     "secondary_iso_images": [
       "./windows/windows-2012R2-serverstandard-amd64/answer.iso"
@@ -29,8 +33,8 @@
     "winrm_password": "vagrant",
     "winrm_timeout" : "4h",
     "shutdown_command": "IF EXIST a:\\run-sysprep.cmd (CALL a:\\run-sysprep.cmd) ELSE (IF EXIST e:\\run-sysprep.cmd (CALL e:\\run-sysprep.cmd) ELSE (CALL f:\\run-sysprep.cmd)) &IF \"%ERRORLEVEL%\" == \"0\" (ECHO \"Shutdown script succeeded with exit code = %ERRORLEVEL%\" &EXIT 0) ELSE (ECHO \"Shutdown script failed with exit code = %ERRORLEVEL%\" &EXIT %ERRORLEVEL%)",
-    "ram_size_mb": 2048,
-    "cpu": 2,
+    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "cpu": "{{user `cpu`}}",
     "generation": 2,
     "switch_name":"{{user `hyperv_switchname`}}",
     "enable_secure_boot":true

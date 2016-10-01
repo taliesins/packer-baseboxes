@@ -1,21 +1,28 @@
 {
   "variables": {
+    "vm_name": "pfsense",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "009ABCEBC2FEE1A57A61631B9CD3D9FE5AC33F37",    
     "hyperv_switchname": "{{env `hyperv_switchname`}}"
   },
   "builders": [
   {
-    "vm_name":"pfsense",
+    "vm_name":"{{user `vm_name`}}",
     "type": "hyperv-iso",
-    "disk_size": 20000,
+    "disk_size": "{{user `disk_size`}}",
     "floppy_files": [],
     "secondary_iso_images": [
       "./pfSense-CE-2.3.2-RELEASE-amd64.iso"
     ],
     "headless": false,
     "guest_additions_mode":"disable",
-    "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "009ABCEBC2FEE1A57A61631B9CD3D9FE5AC33F37",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -66,8 +73,8 @@
       "<wait>y<enter>"
     ],
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -p now",
-    "ram_size_mb": 2048,
-    "cpu": 2,
+    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "cpu": "{{user `cpu`}}",
     "generation": 1,
     "switch_name":"{{user `hyperv_switchname`}}",
     "enable_secure_boot":false

@@ -1,10 +1,19 @@
 {
+  "variables": {
+    "vm_name": "windows10",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "41440",
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/2/5/4/254230E8-AEA5-43C5-94F6-88CE222A5846/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "A86AE3D664553CD0EE9A6BCD83A5DBE92E3DC41A"    
+  },  
   "builders": [
   {
-    "vm_name":"windows10",
+    "vm_name":"{{user `vm_name`}}",
     "type": "virtualbox-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": "{{user `disk_size`}}",
     "headless": true,
     "guest_additions_mode":"disable",
     "floppy_files": [
@@ -20,9 +29,9 @@
       "./windows/common/fixnetwork.ps1"
     ],    
     "http_directory": "./windows/common/http/",
-    "iso_url": "http://care.dlservice.microsoft.com/dl/download/2/5/4/254230E8-AEA5-43C5-94F6-88CE222A5846/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "A86AE3D664553CD0EE9A6BCD83A5DBE92E3DC41A",					 
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",				 
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
@@ -31,10 +40,10 @@
     "guest_os_type": "Windows2012_64",
     "vboxmanage": [
       [
-        "modifyvm","{{.Name}}","--memory","2048"
+        "modifyvm","{{.Name}}","--memory","{{user `ram_size_mb`}}"
       ],
       [
-        "modifyvm","{{.Name}}","--cpus","2"
+        "modifyvm","{{.Name}}","--cpus","{{user `cpu`}}"
       ]
     ]
   }],

@@ -1,10 +1,19 @@
 {
+  "variables": {
+    "vm_name": "windows10",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "41440",
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/2/5/4/254230E8-AEA5-43C5-94F6-88CE222A5846/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "A86AE3D664553CD0EE9A6BCD83A5DBE92E3DC41A"    
+  },  
   "builders": [
   {
-    "vm_name":"windows10",
+    "vm_name":"{{user `vm_name`}}",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": "{{user `disk_size`}}",
     "floppy_files": [
       "./windows/windows-10-amd64/autounattend.xml",
       "./windows/windows-10-amd64/sysprep-unattend.xml",
@@ -19,9 +28,9 @@
     "http_directory": "./windows/common/http/",
     "guest_os_type": "windows8srv-64",
     "headless": true,
-    "iso_url": "http://care.dlservice.microsoft.com/dl/download/2/5/4/254230E8-AEA5-43C5-94F6-88CE222A5846/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "A86AE3D664553CD0EE9A6BCD83A5DBE92E3DC41A",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"winrm",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
@@ -30,8 +39,8 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "2048",
-      "numvcpus": "2",
+      "memsize": "{{user `ram_size_mb`}}",
+      "numvcpus": "{{user `cpu`}}",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "pvscsi",
       "ethernet0.virtualDev": "vmxnet3",

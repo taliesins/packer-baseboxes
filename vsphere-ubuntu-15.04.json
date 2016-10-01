@@ -1,5 +1,12 @@
 {
   "variables": {
+    "vm_name": "ubuntu-trusty",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "ubuntu-15.04-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",    
     "vsphere_host": "{{env `vsphere_host`}}",
     "vsphere_datacenter": "{{env `vsphere_datacenter`}}",
     "vsphere_cluster": "{{env `vsphere_cluster`}}",
@@ -12,18 +19,18 @@
   "builders": 
   [
     {
-      "vm_name":"ubuntu-trusty",
+      "vm_name":"ubuntu-vivid",
       "type": "vmware-iso",
       "boot_wait": "5s",
-      "disk_size": 61440,
+      "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "./linux/ubuntu/http/preseed.cfg"
       ],   
       "guest_os_type": "ubuntu-64",
       "headless": false,
-      "iso_url": "ubuntu-15.04-server-amd64.iso",
-      "iso_checksum_type": "sha1",
-      "iso_checksum": "D10248965C2C749DF6BCCE9F2F90F16A2E75E843",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "communicator":"ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -43,8 +50,8 @@
       "skip_compaction": false,
       "vmx_data": {
         "gui.fitguestusingnativedisplayresolution": "FALSE",
-        "memsize": "2048",
-        "numvcpus": "2",
+        "memsize": "{{user `ram_size_mb`}}",
+        "numvcpus": "{{user `cpu`}}",
         "virtualHW.version": "10",
         "scsi0.virtualDev": "lsisas1068",
         "ethernet0.virtualDev": "vmxnet3",

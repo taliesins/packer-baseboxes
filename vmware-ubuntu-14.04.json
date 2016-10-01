@@ -1,16 +1,25 @@
 {
+  "variables": {
+    "vm_name": "ubuntu-trusty",
+    "cpu": "2",
+    "ram_size_mb": "2048",
+    "disk_size": "21440",
+    "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F"    
+  },  
   "builders": [
   {
-    "vm_name":"ubuntu-trusty",
+    "vm_name":"{{user `vm_name`}}",
     "type": "vmware-iso",
     "boot_wait": "5s",
-    "disk_size": 61440,
+    "disk_size": "{{user `disk_size`}}",
     "http_directory": "./linux/ubuntu/http/",
     "guest_os_type": "ubuntu-64",
     "headless": true,
-    "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
@@ -30,8 +39,8 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "2048",
-      "numvcpus": "2",
+      "memsize": "{{user `ram_size_mb`}}",
+      "numvcpus": "{{user `cpu`}}",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068",
       "ethernet0.virtualDev": "vmxnet3",
