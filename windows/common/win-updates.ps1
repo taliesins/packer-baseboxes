@@ -28,7 +28,7 @@ function SlurpOutput($l) {
   return $l
 }
 
-function EnableWinRm {
+function EnableWinRm() {
     $taskDescription = "Enable WinRM"
     $taskName = "EnableWinRM"
     $username = "vagrant"
@@ -61,7 +61,7 @@ function EnableWinRm {
     Set-Item WSMan:\localhost\Listener\*\Port -Value 5985 -Force
     stop-service winrm
     cmd /c sc config winrm start= disabled
-    '@
+'@
 
     $commandBytes = [System.Text.Encoding]::Unicode.GetBytes($script)
     $encodedCommand = [Convert]::ToBase64String($commandBytes)
@@ -111,7 +111,7 @@ function EnableWinRm {
         </Exec>
       </Actions>
     </Task>
-    "@
+"@
 
     $f = $s.GetFolder("\")
     $f.RegisterTaskDefinition($name, $t, 6, $username, $password, 1, $null) | Out-Null
