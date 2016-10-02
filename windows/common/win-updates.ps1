@@ -1,7 +1,7 @@
 
 param($global:RestartRequired=0,
         $global:MoreUpdates=0,
-        $global:MaxCycles=5,
+        $global:MaxCycles=100,
         $MaxUpdatesPerCycle=500)
 
 "Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
