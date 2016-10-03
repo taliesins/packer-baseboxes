@@ -30,6 +30,7 @@
         "./windows/common/win-updates.ps1",
         "./windows/common/run-sysprep.ps1",
         "./windows/common/run-sysprep.cmd",
+        "./windows/common/enablewinrm.ps1",
         "./windows/common/fixnetwork.ps1",
         "./windows/common/vmware/drivers/pvscsi64",
         "./windows/common/vmware/drivers/vmxnet3"
