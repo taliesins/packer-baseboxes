@@ -49,6 +49,7 @@
 
       "./windows/common/cleanup.ps1",
       "./windows/common/ultradefrag.ps1",
+      "./windows/common/optimize-drive.ps1",
       "./windows/common/sdelete.ps1"
     ]
   }],
