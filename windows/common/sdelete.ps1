@@ -1,8 +1,7 @@
 $ProgressPreference="SilentlyContinue"
-$msi_file_name = "sdelete64.exe"
-$download_url = "http://live.sysinternals.com/sdelete64.exe"
-$download_path = "C:\Windows\Temp\$msi_file_name"
+$msi_file_name = "sdelete.exe"
 
-(New-Object System.Net.WebClient).DownloadFile($download_url, $download_path)
+$scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+$download_path = join-path $scriptPath $msi_file_name 
 
 &"$download_path" -accepteula -z $($env:SystemDrive)

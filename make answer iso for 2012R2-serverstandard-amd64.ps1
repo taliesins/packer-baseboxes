@@ -21,7 +21,7 @@ copy windows\common\run-sysprep.cmd $isoFolder\
 copy windows\common\oracle-cert.cer $isoFolder\
 copy windows\common\enablewinrm.ps1 $isoFolder\
 copy windows\common\fixnetwork.ps1 $isoFolder\
-
+copy windows\common\sdelete.exe $isoFolder\
 
 #Enable UEFI and disable Non UEFI
 $textFile = "$isoFolder\Autounattend.xml" 
