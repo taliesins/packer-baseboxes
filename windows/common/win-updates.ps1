@@ -9,13 +9,12 @@ $ProgressPreference="SilentlyContinue"
 
 for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
 {  
-    $drive = [char]$c + ':'
-    $variablePath = join-path $drive 'variables.ps1'
+	$variablePath = [char]$c + ':\variables.ps1'
 
-    if (test-path $variablePath) {
-        . $variablePath
-        break
-    }
+	if (test-path $variablePath) {
+		. $variablePath
+		break
+	}
 }
 
 "Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
