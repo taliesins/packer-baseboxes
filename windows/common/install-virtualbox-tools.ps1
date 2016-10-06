@@ -6,9 +6,10 @@ $ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
 $version = '5.1.6'
 $iso_name = "VBoxGuestAdditions_$version.iso"
 
-if ($ENV:HttpIp){
-    $httpIp = $ENV:HttpIp
-    $httpPort = $ENV:HttpPort
+if ($httpIp){
+	if (!$httpPort){
+    	$httpPort = "80"
+    }
     $download_url = "http://$($httpIp):$($httpPort)/$iso_name"
 } else {
     $download_url = "http://download.virtualbox.org/virtualbox/$version/$iso_name"

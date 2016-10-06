@@ -67,9 +67,10 @@ function Execute-Vmware(
 $version = '9.4.15-2827462'
 $iso_name = "VMware-tools-windows-$version.iso"
 
-if ($ENV:HttpIp){
-    $httpIp = $ENV:HttpIp
-    $httpPort = $ENV:HttpPort
+if ($httpIp){
+    if (!$httpPort){
+        $httpPort = "80"
+    }
     $download_url = "http://$($httpIp):$($httpPort)/$iso_name"
 } else {
     $download_url = "https://packages.vmware.com/tools/esx/5.5u3/windows/x64/$iso_name"

@@ -5,13 +5,21 @@ param (
 $ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
 . (Join-Path $ScriptDirectory variables.ps1)
 
-
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 
 # setup openssh
 $version = "7.1p2-1"
-$ssh_download_url = "http://www.mls-software.com/files/setupssh-$($version).exe"
+
+$msi_file_name = "setupssh-$($version).exe"
+if ($httpIp){
+    if (!$httpPort){
+        $httpPort = "80"
+    }
+    $ssh_download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
+} else {
+    $ssh_download_url = "http://www.mls-software.com/files/$msi_file_name"
+}
 
 if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
     Write-Output "Downloading $ssh_download_url"

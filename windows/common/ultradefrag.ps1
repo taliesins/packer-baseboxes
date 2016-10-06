@@ -5,7 +5,16 @@ $ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
 
 $version = '7.0.1'
 $msi_file_name = "ultradefrag-portable-$($version).bin.amd64.zip"
-$download_url = "http://heanet.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"
+
+if ($httpIp){
+	if (!$httpPort){
+    	$httpPort = "80"
+    }
+    $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
+} else {
+    $download_url = "http://heanet.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"
+}
+
 $download_path = "C:\Windows\Temp\$msi_file_name"
 $install_path = "C:\Windows\Temp\ultradefrag"
 

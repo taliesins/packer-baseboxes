@@ -1,0 +1,5 @@
+#$WSUSServer=""
+
+#$proxyServerAddress = ""
+#$proxyServerUsername = ""
+#$proxyServerPassword = ""

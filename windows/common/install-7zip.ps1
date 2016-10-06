@@ -6,9 +6,10 @@ $ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
 $version = '938'
 $msi_file_name = "7z$version-x64.msi"
 
-if ($ENV:HttpIp){
-    $httpIp = $ENV:HttpIp
-    $httpPort = $ENV:HttpPort
+if ($httpIp){
+	if (!$httpPort){
+    	$httpPort = "80"
+    }
     $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
     $download_url = "http://www.7-zip.org/a/$msi_file_name"
