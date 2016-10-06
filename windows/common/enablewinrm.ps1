@@ -24,8 +24,12 @@ if ((Get-Item WSMan:\localhost\Service\AllowUnencrypted).Value -ne $true) {
 	Set-Item WSMan:\localhost\Service\AllowUnencrypted -Value $true -Force  #firewall exception will occur if we have any interfaces that are public (fixnetwork.ps1 should make it private)
 }
 
-if ((Get-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB).Value -lt 300) {
-	Set-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB -Value 300 -Force
+if ((Get-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB).Value -lt 1024) {
+	Set-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB -Value 1024 -Force
+}
+
+if ((Get-Item WSMan:\localhost\Shell\MaxShellsPerUser).Value -lt 60) {
+  Set-Item WSMan:\localhost\Shell\MaxShellsPerUser -Value 60 -Force
 }
 
 if ((Get-Item WSMan:\localhost\Shell\MaxShellRunTime).Value -lt 1800000) {
