@@ -316,6 +316,12 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\Set-ClientWSUSSetting.ps1 ) > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.ps1.scanning.txt</CommandLine>
+                    <Order>96</Order>
+                    <Description>Configure WSUS Server</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>                  
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1 ) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>

@@ -26,7 +26,8 @@
       "./windows/common/run-sysprep.cmd",
       "./windows/common/oracle-cert.cer",
       "./windows/common/enablewinrm.ps1",      
-      "./windows/common/fixnetwork.ps1"
+      "./windows/common/fixnetwork.ps1",
+      "./windows/common/Set-ClientWSUSSetting.ps1"
     ],    
     "http_directory": "./windows/common/http/",
     "iso_url": "{{user `iso_url`}}",

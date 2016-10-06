@@ -32,6 +32,7 @@
         "./windows/common/run-sysprep.cmd",
         "./windows/common/enablewinrm.ps1",      
         "./windows/common/fixnetwork.ps1",
+        "./windows/common/Set-ClientWSUSSetting.ps1",
         "./windows/common/vmware/drivers/pvscsi64",
         "./windows/common/vmware/drivers/vmxnet3"
       ],
