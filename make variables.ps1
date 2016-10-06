@@ -7,7 +7,7 @@ if (test-path $variablesPath){
 $file = @"
 `$WSUSServer = "$($ENV:WSUSServer)"
 `$proxyServerAddress = "$($ENV:proxyServerAddress)"
-`$proxyServerUsername = $("$ENV:proxyServerUsername)"
+`$proxyServerUsername = "$($ENV:proxyServerUsername)"
 `$proxyServerPassword = "$($ENV:proxyServerPassword)"
 `$httpIp = "$($ENV:httpIp)"
 `$httpPort = "$($ENV:httpPort)"
