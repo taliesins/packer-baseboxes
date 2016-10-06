@@ -1,8 +1,16 @@
 $ProgressPreference="SilentlyContinue"
 $ErrorActionPreference = "Stop"
 
-$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
-. (Join-Path $ScriptDirectory variables.ps1)
+for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
+{  
+    $drive = [char]$c + ':'
+    $variablePath = join-path $drive 'variables.ps1'
+
+    if (test-path $variablePath) {
+        . $variablePath
+        break
+    }
+}
 
 function Execute-DownloadUrl(
 	$downloadUrl,

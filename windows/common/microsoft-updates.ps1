@@ -1,7 +1,15 @@
 $ProgressPreference="SilentlyContinue"
 
-$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
-. (Join-Path $ScriptDirectory variables.ps1)
+for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
+{  
+	$drive = [char]$c + ':'
+	$variablePath = join-path $drive 'variables.ps1'
+
+	if (test-path $variablePath) {
+		. $variablePath
+		break
+	}
+}
 
 "Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
 

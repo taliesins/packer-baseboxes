@@ -1,8 +1,16 @@
 $ProgressPreference="SilentlyContinue"
 $ErrorActionPreference = "stop"
 
-$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
-. (Join-Path $ScriptDirectory variables.ps1)
+for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
+{  
+	$drive = [char]$c + ':'
+	$variablePath = join-path $drive 'variables.ps1'
+
+	if (test-path $variablePath) {
+		. $variablePath
+		break
+	}
+}
 
 $tempfolders = @("C:\Windows\Temp\*", "C:\Windows\Prefetch\*", "C:\Documents and Settings\*\Local Settings\temp\*", "C:\Users\*\Appdata\Local\Temp\*")
 Remove-Item $tempfolders -ErrorAction SilentlyContinue -Force -Recurse

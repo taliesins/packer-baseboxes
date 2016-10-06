@@ -2,8 +2,16 @@ param (
   [switch]$AutoStart = $true
 )
 
-$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
-. (Join-Path $ScriptDirectory variables.ps1)
+for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
+{  
+    $drive = [char]$c + ':'
+    $variablePath = join-path $drive 'variables.ps1'
+
+    if (test-path $variablePath) {
+        . $variablePath
+        break
+    }
+}
 
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
