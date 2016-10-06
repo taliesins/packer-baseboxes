@@ -12,7 +12,7 @@ mkdir $isoFolder
 
 copy windows\$osFolder\Autounattend.xml $isoFolder\
 copy windows\$osFolder\sysprep-unattend.xml $isoFolder\
-copy windows\$osFolder\variables.ps1 $isoFolder\
+copy windows\common\variables.ps1 $isoFolder\
 
 copy windows\common\set-power-config.ps1 $isoFolder\
 copy windows\common\microsoft-updates.ps1 $isoFolder\
