@@ -4,15 +4,13 @@ param (
 
 for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
 {  
-    $drive = [char]$c + ':'
-    $variablePath = join-path $drive 'variables.ps1'
+    $variablePath = [char]$c + ':\variables.ps1'
 
     if (test-path $variablePath) {
         . $variablePath
         break
     }
 }
-
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 
