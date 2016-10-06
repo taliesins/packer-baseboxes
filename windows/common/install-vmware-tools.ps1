@@ -1,6 +1,9 @@
 $ProgressPreference="SilentlyContinue"
 $ErrorActionPreference = "Stop"
 
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 function Execute-DownloadUrl(
 	$downloadUrl,
     $downloadPath

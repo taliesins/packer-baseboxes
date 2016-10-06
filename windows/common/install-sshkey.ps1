@@ -1,6 +1,9 @@
 $ProgressPreference="SilentlyContinue"
 $ErrorActionPreference = "Stop"
 
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 if (Test-Path a:\vagrant.pub) {
 	Copy-Item a:\vagrant.pub C:\Users\vagrant\.ssh\authorized_keys -Force
 } elseif (Test-Path d:\vagrant.pub) {

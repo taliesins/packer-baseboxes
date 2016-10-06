@@ -25,6 +25,7 @@
       "floppy_files": [
         "./windows/windows-2016-serverstandard-amd64/autounattend.xml",
         "./windows/windows-2016-serverstandard-amd64/sysprep-unattend.xml",
+        "./windows/common/variables.ps1",
         "./windows/common/set-power-config.ps1",
         "./windows/common/microsoft-updates.ps1",
         "./windows/common/win-updates.ps1",

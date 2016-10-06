@@ -1,4 +1,8 @@
 ﻿$ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 #http://gregramsey.net
 #more info here:
 #http://support.microsoft.com/kb/253597

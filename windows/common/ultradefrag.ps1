@@ -1,4 +1,8 @@
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 $version = '7.0.1'
 $msi_file_name = "ultradefrag-portable-$($version).bin.amd64.zip"
 $download_url = "http://heanet.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"

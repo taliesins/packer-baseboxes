@@ -1,4 +1,8 @@
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 #http://support.microsoft.com/kb/2570538
 #http://robrelyea.wordpress.com/2007/07/13/may-be-helpful-ngen-exe-executequeueditems/
 

@@ -1,4 +1,8 @@
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 $version = '5.1.6'
 $iso_name = "VBoxGuestAdditions_$version.iso"
 

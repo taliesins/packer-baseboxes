@@ -1,4 +1,8 @@
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 $version = '12.5.1-1'
 $msi_file_name = "chef-client-$($version)-x86.msi"
 

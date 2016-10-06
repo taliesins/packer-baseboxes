@@ -1,4 +1,8 @@
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 $version = '938'
 $msi_file_name = "7z$version-x64.msi"
 

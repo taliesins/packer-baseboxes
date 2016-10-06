@@ -2,6 +2,10 @@ param (
   [switch]$AutoStart = $true
 )
 
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
+
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 

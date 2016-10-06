@@ -1,6 +1,9 @@
 $ProgressPreference="SilentlyContinue"
 $ErrorActionPreference = "stop"
 
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
 $tempfolders = @("C:\Windows\Temp\*", "C:\Windows\Prefetch\*", "C:\Documents and Settings\*\Local Settings\temp\*", "C:\Users\*\Appdata\Local\Temp\*")
 Remove-Item $tempfolders -ErrorAction SilentlyContinue -Force -Recurse
 

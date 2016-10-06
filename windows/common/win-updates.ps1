@@ -4,10 +4,13 @@ param($global:RestartRequired=0,
         $global:MaxCycles=100,
         $MaxUpdatesPerCycle=500)
 
-"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
-        
 $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
+
+$ScriptDirectory = Split-Path $MyInvocation.MyCommand.Path
+. (Join-Path $ScriptDirectory variables.ps1)
+
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
 
 $Logfile = "$env:TEMP\\win-updates.log"
 
