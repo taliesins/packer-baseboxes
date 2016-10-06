@@ -30,7 +30,7 @@
     "remote_username":"{{user `vsphere_username`}}",
     "remote_password": "{{user `vsphere_password`}}",
     "type": "vmware-iso",
-    "boot_wait": "1m",
+    "boot_wait": "5s",
     "disk_size": "{{user `disk_size`}}",
     "disk_type_id": "thin",
     "floppy_files": [
