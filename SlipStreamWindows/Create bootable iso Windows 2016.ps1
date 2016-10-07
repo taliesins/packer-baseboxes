@@ -1,9 +1,9 @@
 $OsName = "14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US"
-$BootImagePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OsName + "\boot\etfsboot.com")
-$EfiBootImagePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OsName + "\efi\Microsoft\boot\efisys.bin")
-$SlipStreamFolder = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OsName + "\")
-$SlipStreamIsoPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OsName + "_Slipstream.iso")
-$OscdImgPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("oscdimg.exe")
+$BootImagePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\" + $OsName + "\boot\etfsboot.com")
+$EfiBootImagePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\" +$OsName + "\efi\Microsoft\boot\efisys.bin")
+$SlipStreamFolder = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\" +$OsName + "\")
+$SlipStreamIsoPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\" +$OsName + "_Slipstream.iso")
+$OscdImgPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(".\oscdimg.exe")
 
 if (Test-Path $SlipStreamIsoPath){
 	Remove-Item $SlipStreamIsoPath -Force
