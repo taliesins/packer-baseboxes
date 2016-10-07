@@ -83,9 +83,9 @@ function Install-WindowsUpdates() {
     LogWrite "Evaluating Available Updates with limit of $($MaxUpdatesPerCycle):"
     $UpdatesToDownload = New-Object -ComObject 'Microsoft.Update.UpdateColl'
     $script:i = 0;
-    $CurrentUpdates = $SearchResult.Updates | Select-Object
+    $CurrentUpdates = $SearchResult.Updates
     while($script:i -lt $CurrentUpdates.Count -and $script:CycleUpdateCount -lt $MaxUpdatesPerCycle) {
-        $Update = $CurrentUpdates[$script:i]
+        $Update = $CurrentUpdates.Item($script:i)
         if (($Update -ne $null) -and (!$Update.IsDownloaded)) {
             [bool]$addThisUpdate = $false
             if ($Update.InstallationBehavior.CanRequestUserInput) {
@@ -117,6 +117,7 @@ function Install-WindowsUpdates() {
         $ok = 0;
         while (! $ok) {
             try {
+            	LogWrite 'Starting download...'
                 $Downloader = $UpdateSession.CreateUpdateDownloader()
                 $Downloader.Updates = $UpdatesToDownload
                 $Downloader.Download()
@@ -128,6 +129,7 @@ function Install-WindowsUpdates() {
                 Start-Sleep -s 30
             }
         }
+        LogWrite 'Finished Downloading Updates...'
     }
 
     $UpdatesToInstall = New-Object -ComObject 'Microsoft.Update.UpdateColl'
@@ -173,6 +175,9 @@ function Install-WindowsUpdates() {
                 Title = $UpdatesToInstall.Item($i).Title
                 Result = $InstallationResult.GetUpdateResult($i).ResultCode
             }
+
+			LogWrite "Item: " $UpdatesToInstall.Item($i).Title
+			LogWrite "Result: " $InstallationResult.GetUpdateResult($i).ResultCode;
         }
     }
     Check-ContinueRestartOrEnd
@@ -209,7 +214,13 @@ function Check-WindowsUpdates() {
         $Message = "There are " + $SearchResult.Updates.Count + " more updates."
         LogWrite $Message
         try {
-            $script:SearchResult.Updates |Select-Object -Property Title, Description, SupportUrl, UninstallationNotes, RebootRequired, EulaAccepted |Format-List
+			for($i=0; $i -lt $script:SearchResult.Updates.Count; $i++) {
+				LogWrite script:SearchResult.Updates.Item($i).Title
+				LogWrite $script:SearchResult.Updates.Item($i).Description
+				LogWrite $script:SearchResult.Updates.Item($i).RebootRequired
+				LogWrite $script:SearchResult.Updates.Item($i).EulaAccepted
+			}
+
             $global:MoreUpdates=1
         } catch {
             LogWrite $_.Exception | Format-List -force
