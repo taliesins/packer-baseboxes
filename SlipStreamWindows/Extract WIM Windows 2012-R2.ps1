@@ -4,7 +4,7 @@ $IsoPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPa
 $SevenZipPath = "C:\Program Files\7-Zip\7z.exe"
 
 if (Test-Path $IsoExtractPath){
-	Remove-Item $IsoExtractPath -Recurse -Force
+	Write-Host "ISO already extraced."
+} else {
+	&$SevenZipPath x $IsoPath -o"$($IsoExtractPath)" -aoa | Out-Host	
 }
-
-&$SevenZipPath x $IsoPath -o"$($IsoExtractPath)" -aoa | Out-Host
