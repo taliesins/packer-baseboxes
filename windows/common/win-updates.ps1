@@ -72,6 +72,7 @@ function Check-ContinueRestartOrEnd() {
         }
         default {
             LogWrite "Unsure If A Restart Is Required"
+            Restart-Computer
             break
         }
     }
@@ -165,8 +166,6 @@ function Install-WindowsUpdates() {
         LogWrite 'Listing of updates installed and individual installation results:'
         if ($InstallationResult.RebootRequired) {
             $global:RestartRequired=1
-        } else {
-            $global:RestartRequired=0
         }
 
         for($i=0; $i -lt $UpdatesToInstall.Count; $i++) {
