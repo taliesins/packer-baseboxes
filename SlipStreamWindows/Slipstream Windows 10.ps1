@@ -1,10 +1,4 @@
-$ScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-try {
-    . ("$ScriptDirectory\Update-WindowsImage.ps1")
-}
-catch {
-    Write-Host "Error while loading supporting PowerShell Scripts" 
-}
+. .\Update-WindowsImage.ps1
 
 $OsName = '14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US'
 $TargetPath = 'Windows 10'
