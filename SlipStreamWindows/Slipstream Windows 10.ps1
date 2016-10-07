@@ -390,6 +390,20 @@ $OsName = '14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN
 $TargetPath = 'Windows 10'
 $WsusContentFolder = 'E:\WSUS\WsusContent'
 $WsusServerName = 'localhost'
+$WsusServerPort = 8530
+
+if ($ENV:WsusContentFolder){
+	$WsusContentFolder = $ENV:WsusContentFolder
+}
+
+if ($ENV:WsusServerName){
+	$WsusServerName = $ENV:WsusServerName
+}
+
+if ($ENV:WsusServerPort){
+	$WsusServerPort = $ENV:WsusServerPort
+}
+
 
 $IsoPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\$OsName")
 $OfflineMountFolder = $IsoPath + "_Slipstream"
@@ -410,4 +424,4 @@ if (!(Test-Path $WsusContentFolder)) {
 	}
 }
 
-Update-WindowsImage -Images $Images -TargetProduct $TargetPath -WsusContentFolder $WsusContentFolder -WsusServerName $WsusServerName -OfflineMountFolder $OfflineMountFolder
+Update-WindowsImage -Images $Images -TargetProduct $TargetPath -WsusContentFolder $WsusContentFolder -WsusServerName $WsusServerName -WsusServerPort $WsusServerPort -OfflineMountFolder $OfflineMountFolder
