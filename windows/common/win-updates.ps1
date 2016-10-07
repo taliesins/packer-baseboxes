@@ -175,6 +175,9 @@ function Install-WindowsUpdates() {
                 Title = $UpdatesToInstall.Item($i).Title
                 Result = $InstallationResult.GetUpdateResult($i).ResultCode
             }
+
+			LogWrite "Item: " $UpdatesToInstall.Item($i).Title
+			LogWrite "Result: " $InstallationResult.GetUpdateResult($i).ResultCode;
         }
     }
     Check-ContinueRestartOrEnd
