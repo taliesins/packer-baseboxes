@@ -1,0 +1,26 @@
+; txtsetup.oem file.
+; Required to install the vmscsi driver at install time on Windows 2003.
+
+[Disks]
+;"directory" should specify the full-path as per the documentation, but only
+; relative paths worked during testing.
+
+disk = "VMware VMSCSI Controller Disk",\txtsetup.oem,\
+
+[Defaults]
+SCSI = vmscsi
+
+[SCSI]
+vmscsi = "VMware VMSCSI Controller"
+
+[Files.SCSI.vmscsi]
+driver = disk,vmscsi.sys,vmscsi
+inf = disk,vmscsi.inf
+catalog = disk,vmscsi.cat
+
+[Config.vmscsi]
+value = Parameters\PnpInterface, 5, REG_DWORD, 1
+value = Parameters, BusType, REG_DWORD, 1
+
+[HardwareIds.scsi.vmscsi]
+id = "PCI\VEN_104B&DEV_1040", "vmscsi"

@@ -12,7 +12,7 @@
 
 
 
-disk = "VMware PVSCSI Controller Disk",\txtsetup.oem,\
+disk = "VMware PVSCSI Controller Disk",\amd64\txtsetup.oem,\
 
 
 

@@ -5,7 +5,7 @@
 
 ; vmxnet3ndis6.inf
 
-; Copyright (c) 2008 - 2013 VMware, Inc.
+; Copyright (c) 2008 - 2014 VMware, Inc.
 ;
 
 [version]
@@ -13,7 +13,7 @@ Signature   	  = "$Windows NT$"
 Class       	  = Net
 ClassGUID   	  = {4d36e972-e325-11ce-bfc1-08002be10318}
 Provider   	  = %VMware%
-DriverVer	  = 08/28/2013, 1.5.2.0
+DriverVer	  = 11/10/2015, 1.6.7.0
 DriverPackageType = PlugAndPlay
 
 
@@ -22,7 +22,7 @@ CatalogFile       = vmxnet3ndis6.cat
 
 
 [Manufacturer]
-%VMware%     = vmxnet3,NTx86,NTx86.6.0.1,NTx86.6.0,NTx86.6.1,NTia64,NTamd64,NTamd64.6.0.1,NTamd64.6.0,NTamd64.6.1
+%VMware%     = vmxnet3,NTx86,NTx86.6.0.1,NTx86.6.0,NTx86.6.1,NTx86.6.2,NTia64,NTamd64,NTamd64.6.0.1,NTamd64.6.0,NTamd64.6.1,NTamd64.6.2
 
 [ControlFlags]
 ExcludeFromSelect = *
@@ -67,6 +67,13 @@ ExcludeFromSelect = *
 %vmxnet3.DeviceDesc% = vmxnet3.ndis620.x86.ndi,   PCI\VEN_15AD&DEV_07B0
 
 
+; Win 8 x86
+[vmxnet3.NTx86.6.2]
+
+
+%vmxnet3.DeviceDesc% = vmxnet3.ndis630.x86.ndi,   PCI\VEN_15AD&DEV_07B0
+
+
 ; pre-Vista x64
 [vmxnet3.NTamd64]
 
@@ -93,6 +100,13 @@ ExcludeFromSelect = *
 
 
 %vmxnet3.DeviceDesc% = vmxnet3.ndis620.x64.ndi,   PCI\VEN_15AD&DEV_07B0
+
+
+; Win 8 / Server 2012 x64
+[vmxnet3.NTamd64.6.2]
+
+
+%vmxnet3.DeviceDesc% = vmxnet3.ndis630.x64.ndi,   PCI\VEN_15AD&DEV_07B0
 
 
 [vmxnet3.NTia64]
@@ -323,6 +337,62 @@ AddReg             = enableMSI.reg
 AddService = vmxnet3ndis6, 2, vmxnet3.ndis6.x64.Service, common.EventLog
 
 ;
+; NDIS6.30 x86
+;
+
+[vmxnet3.ndis630.x86.ndi.NT]
+Characteristics    = 0x84
+BusType            = 5
+AddReg             = vmxnet3.ndis6.reg,vmxnet3.commonSettings.reg
+AddReg             = vmxnet3.ndis6Settings.reg
+AddReg             = vmxnet3.ndis620Settings.reg
+AddReg             = vmxnet3.ndis630Settings.reg
+AddReg             = rss.reg, vmxnet3.ndis620RssSettings.reg
+; AddReg             = vmxnet3.advancedSettings.reg
+DelReg             = Pre620RssSettings.remove.reg
+DelReg             = OldAdaptiveRing.remove.reg
+CopyFiles          = vmxnet3.ndis6.x86.CopyFiles
+*IfType            = 6		; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0		; NdisMedium802_3
+*PhysicalMediaType = 14		; NdisPhysicalMedium802_3
+
+[vmxnet3.ndis630.x86.ndi.NT.HW]
+Include            = machine.inf
+Needs              = PciIoSpaceNotRequired
+AddReg             = enableMSI.reg
+
+[vmxnet3.ndis630.x86.ndi.NT.Services]
+AddService = vmxnet3ndis6, 2, vmxnet3.ndis6.x86.Service, common.EventLog
+
+;
+; NDIS6.30 x64
+;
+
+[vmxnet3.ndis630.x64.ndi.NT]
+Characteristics    = 0x84
+BusType            = 5
+AddReg             = vmxnet3.ndis6.reg,vmxnet3.commonSettings.reg
+AddReg             = vmxnet3.ndis6Settings.reg
+AddReg             = vmxnet3.ndis620Settings.reg
+AddReg             = vmxnet3.ndis630Settings.reg
+AddReg             = rss.reg, vmxnet3.ndis620RssSettings.reg
+; AddReg             = vmxnet3.advancedSettings.reg
+DelReg             = Pre620RssSettings.remove.reg
+DelReg             = OldAdaptiveRing.remove.reg
+CopyFiles          = vmxnet3.ndis6.x64.CopyFiles
+*IfType            = 6		; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0		; NdisMedium802_3
+*PhysicalMediaType = 14		; NdisPhysicalMedium802_3
+
+[vmxnet3.ndis630.x64.ndi.NT.HW]
+Include            = machine.inf
+Needs              = PciIoSpaceNotRequired
+AddReg             = enableMSI.reg
+
+[vmxnet3.ndis630.x64.ndi.NT.Services]
+AddService = vmxnet3ndis6, 2, vmxnet3.ndis6.x64.Service, common.EventLog
+
+;
 ; NDIS6 common.  Driver now has support for NDIS 6.20
 ; but the filename remains 'n61' to eliminate the
 ; need to update the installer and other components.
@@ -452,8 +522,24 @@ HKR, Ndi\params\RxThrottle, Min,       0, "0"
 HKR, Ndi\params\RxThrottle, Max,       0, "5000"
 HKR, Ndi\params\RxThrottle, Step,      0, "10"
 
+[vmxnet3.ndis630Settings.reg]
+
+HKR, Ndi\params\*RscIPv4, ParamDesc, 0, %RscIPv4%
+HKR, Ndi\params\*RscIPv4, Type,      0, "enum"
+HKR, Ndi\params\*RscIPv4, Default,   0, "1"
+HKR, Ndi\params\*RscIPv4, Optional,  0, "0"
+HKR, Ndi\params\*RscIPv4\enum, "0",  0, %Disabled%
+HKR, Ndi\params\*RscIPv4\enum, "1",  0, %Enabled%
+
+HKR, Ndi\params\*RscIPv6, ParamDesc, 0, %RscIPv6%
+HKR, Ndi\params\*RscIPv6, Type,      0, "enum"
+HKR, Ndi\params\*RscIPv6, Default,   0, "1"
+HKR, Ndi\params\*RscIPv6, Optional,  0, "0"
+HKR, Ndi\params\*RscIPv6\enum, "0",  0, %Disabled%
+HKR, Ndi\params\*RscIPv6\enum, "1",  0, %Enabled%
+
 ;
-; Pre-NDIS 6.20 uses 'MaxRxQueues' to constrain the 
+; Pre-NDIS 6.20 uses 'MaxRxQueues' to constrain the
 ; number of rx queues.  NDIS 6.20 and later use
 ; standardized *MaxRssProcessors since this caps
 ; the number of RSS processors, which in turn caps
@@ -854,7 +940,6 @@ TxEnabled = "Tx Enabled"
 RxEnabled = "Rx Enabled"
 TxRxEnabled = "Rx & Tx Enabled"
 EnableAdaptiveRing = "Enable adaptive rx ring sizing"
-
 TCPChecksumOffloadIPv4 = "TCP Checksum Offload (IPv4)"
 UDPChecksumOffloadIPv4 = "UDP Checksum Offload (IPv4)"
 OffloadIpOptions  = "Offload IP Options"
@@ -869,6 +954,8 @@ RSS = "Receive Side Scaling"
 RssBaseProcNumber = "RSS Base Processor Number"
 MaxRssProcessors  = "Maximum number of RSS Processors"
 RxThrottle = "Receive Throttle"
+RscIPv4 ="Recv Segment Coalescing (IPv4)"
+RscIPv6 ="Recv Segment Coalescing (IPv6)"
 
 num1    = "1"
 num2    = "2"

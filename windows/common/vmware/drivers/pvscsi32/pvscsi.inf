@@ -1,14 +1,14 @@
 
 ;pvscsi.inf
 ;This file contains the information required to load the driver for the VMware PVSCSI Controller
-; Copyright (c) 2001 - 2013, VMware, Inc.
+; Copyright (c) 2001 - 2014, VMware, Inc.
 
 [version]
 Signature="$Windows NT$"
 Class=SCSIAdapter
 ClassGuid={4D36E97B-E325-11CE-BFC1-08002BE10318}
 Provider=%VMWARE%
-DriverVer=09/28/2012,1.2.3.0
+DriverVer=11/03/2014,1.3.4.0
 CatalogFile=pvscsi.cat
 
 [ControlFlags]
