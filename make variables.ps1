@@ -4,8 +4,25 @@ if (test-path $variablesPath){
 	remove-item $variablesPath -Force
 }
 
+$WSUSServer = $ENV:WSUSServer
+
+if (!$WSUSServer){
+	if ($ENV:WsusServerName) {
+		$protocol = 'http://'
+		$port = '8530'
+		if ($ENV:WsusServerPort) {
+			$port = $ENV:WsusServerPort
+			if ($port -eq '8531'){
+				$protocol = 'https://'
+			}
+		}
+
+		$WSUSServer = "$($protocol)$($ENV:WsusServerName):$($port)"
+	}
+}
+
 $file = @"
-`$WSUSServer = "$($ENV:WSUSServer)"
+`$WSUSServer = "$($WSUSServer)"
 `$proxyServerAddress = "$($ENV:proxyServerAddress)"
 `$proxyServerUsername = "$($ENV:proxyServerUsername)"
 `$proxyServerPassword = "$($ENV:proxyServerPassword)"

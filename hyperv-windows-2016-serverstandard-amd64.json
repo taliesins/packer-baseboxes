@@ -44,6 +44,7 @@
     "elevated_user":"vagrant",
     "elevated_password":"vagrant",
     "scripts": [
+      "./windows/common/Reset-ClientWSUSSetting.ps1",
       "./windows/common/install-7zip.ps1",
       "./windows/common/install-chef.ps1",
       "./windows/common/compile-dotnet-assemblies.ps1",
