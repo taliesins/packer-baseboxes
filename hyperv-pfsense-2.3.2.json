@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "pfsense",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "21440",
     "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
     "iso_checksum_type": "sha1",
@@ -18,7 +18,6 @@
     "secondary_iso_images": [
       "./pfSense-CE-2.3.2-RELEASE-amd64.iso"
     ],
-    "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -73,7 +72,7 @@
       "<wait>y<enter>"
     ],
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -p now",
-    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "ram_size": "{{user `ram_size`}}",
     "cpu": "{{user `cpu`}}",
     "generation": 1,
     "switch_name":"{{user `hyperv_switchname`}}",

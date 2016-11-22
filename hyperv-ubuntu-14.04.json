@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "ubuntu-trusty",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "21440",
     "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
     "iso_checksum_type": "sha1",
@@ -14,7 +14,6 @@
     "vm_name":"{{user `vm_name`}}",
     "type": "hyperv-iso",
     "disk_size": "{{user `disk_size`}}",
-    "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -39,7 +38,7 @@
       "boot<enter>"
     ],
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
-    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "ram_size": "{{user `ram_size`}}",
     "cpu": "{{user `cpu`}}",
     "generation": 2,
     "switch_name":"{{user `hyperv_switchname`}}",

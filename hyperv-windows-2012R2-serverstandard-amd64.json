@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "windows2012r2",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "41440",
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
     "iso_checksum_type": "sha1",
@@ -23,7 +23,6 @@
     "boot_command": [
       "a<enter><wait>a<enter><wait>a<enter><wait>a<enter>"
     ],
-    "headless": false,
     "guest_additions_mode":"disable",
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -33,7 +32,7 @@
     "winrm_password": "vagrant",
     "winrm_timeout" : "4h",
     "shutdown_command": "IF EXIST a:\\run-sysprep.cmd (CALL a:\\run-sysprep.cmd) ELSE (IF EXIST e:\\run-sysprep.cmd (CALL e:\\run-sysprep.cmd) ELSE (CALL f:\\run-sysprep.cmd)) &IF \"%ERRORLEVEL%\" == \"0\" (ECHO \"Shutdown script succeeded with exit code = %ERRORLEVEL%\" &EXIT 0) ELSE (ECHO \"Shutdown script failed with exit code = %ERRORLEVEL%\" &EXIT %ERRORLEVEL%)",
-    "ram_size_mb": "{{user `ram_size_mb`}}",
+    "ram_size": "{{user `ram_size`}}",
     "cpu": "{{user `cpu`}}",
     "generation": 2,
     "switch_name":"{{user `hyperv_switchname`}}",
