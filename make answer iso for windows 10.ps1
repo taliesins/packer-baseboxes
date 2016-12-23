@@ -29,6 +29,15 @@ copy windows\common\Reset-ClientWSUSSetting.ps1 $isoFolder\
 #Enable UEFI and disable Non UEFI
 $textFile = "$isoFolder\Autounattend.xml" 
 $c = Get-Content -Encoding UTF8 $textFile
+
+if ($ENV:VagrantUsername) {
+	$c = $c | % { $_ -replace '<Name>vagrant</Name>',"<Name>$($ENV:VagrantUsername)</Name>" } | % { $_ -replace '<DisplayName>vagrant</DisplayName>',"<DisplayName>$($ENV:VagrantUsername)</DisplayName>" } | % { $_ -replace '<Description>vagrant</Description>',"<Description>$($ENV:VagrantUsername)</Description>" } | % { $_ -replace '<Username>vagrant</Username>',"<Username>$($ENV:VagrantUsername)</Username>" } | % { $_ -replace '<FullName>vagrant</FullName>',"<FullName>$($ENV:VagrantUsername)</FullName>" } | % { $_ -replace '<Organization>vagrant</Organization>',"<Organization>$($ENV:VagrantUsername)</Organization>" } | % { $_ -replace 'name=''vagrant''',"name='$($ENV:VagrantUsername)'" }
+}
+
+if ($ENV:VagrantPassword) {
+	$c = $c | % { $_ -replace '<Value>vagrant</Value>',"<Value>$($ENV:VagrantPassword)</Value>" }
+}
+
 $c | % { $_ -replace '<!-- Start Non UEFI -->','<!-- Start Non UEFI' } | % { $_ -replace '<!-- Finish Non UEFI -->','Finish Non UEFI -->' } | % { $_ -replace '<!-- Start UEFI compatible','<!-- Start UEFI compatible -->' } | % { $_ -replace 'Finish UEFI compatible -->','<!-- Finish UEFI compatible -->' } | % { $_ -replace '<!-- Start floppy for drivers -->','<!-- Start floppy for drivers' } | % { $_ -replace '<!-- Finish floppy for drivers -->','Finish floppy for drivers -->' } | % { $_ -replace '<!-- Start cdrom for drivers','<!-- Start cdrom for drivers -->' } | % { $_ -replace 'Finish cdrom for drivers -->','<!-- Finish cdrom for drivers -->' } | sc -Path $textFile
 
 & .\mkisofs.exe -r -iso-level 4 -UDF -o windows\$osFolder\answer.iso $isoFolder

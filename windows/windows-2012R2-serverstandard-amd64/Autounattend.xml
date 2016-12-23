@@ -155,8 +155,8 @@
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
-                <FullName>Vagrant</FullName>
-                <Organization>Vagrant</Organization>
+                <FullName>vagrant</FullName>
+                <Organization>vagrant</Organization>
             </UserData>
         </component>
     </settings>
@@ -361,9 +361,9 @@
                             <PlainText>true</PlainText>
                         </Password>
                         <Group>administrators</Group>
-                        <DisplayName>Vagrant</DisplayName>
+                        <DisplayName>vagrant</DisplayName>
                         <Name>vagrant</Name>
-                        <Description>Vagrant User</Description>
+                        <Description>vagrant</Description>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
