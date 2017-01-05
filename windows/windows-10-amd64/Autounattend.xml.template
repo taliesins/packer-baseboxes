@@ -14,17 +14,17 @@
         <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DriverPaths>
                 <PathAndCredentials wcm:keyValue="1" wcm:action="add">
-                    <!-- Start floppy for drivers
+                    <!-- Start floppy for drivers -->
                     <Path>a:\</Path> 
-                    Finish floppy for drivers -->
-                    <!-- Start cdrom for drivers -->
+                    <!-- Finish floppy for drivers -->
+                    <!-- Start cdrom for drivers
                     <Path>f:\</Path> 
-                    <!-- Finish cdrom for drivers -->
+                    Finish cdrom for drivers -->
                 </PathAndCredentials>
             </DriverPaths>
-        </component>    
+        </component> 
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <!-- Start Non UEFI
+            <!-- Start Non UEFI -->
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -66,7 +66,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows Server 2016 SERVERSTANDARDCORE</Value>
+                            <Value>Windows 10 Enterprise Evaluation Technical Preview</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -75,8 +75,8 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            Finish Non UEFI -->
-            <!-- Start UEFI compatible -->
+            <!-- Finish Non UEFI -->
+            <!-- Start UEFI compatible
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -136,7 +136,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows Server 2016 SERVERSTANDARDCORE</Value>
+                            <Value>Windows 10 Enterprise Evaluation</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -145,13 +145,13 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            <!-- Finish UEFI compatible -->
+            Finish UEFI compatible -->
             <UserData>
                 <!-- Product Key from http://technet.microsoft.com/en-us/library/jj612867.aspx -->
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <!--<Key>WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY</Key>-->
+                    <!--<Key>VTNMT-2FMYP-QCY43-QR9VK-WTVCK</Key>-->
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -165,7 +165,7 @@
             <OEMInformation>
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
-            <ComputerName>nl-ams-basebox1</ComputerName>
+            <ComputerName>win-10</ComputerName>
             <TimeZone>Coordinated Universal Time</TimeZone>
             <RegisteredOwner />
         </component>
@@ -176,11 +176,11 @@
             <IEHardenAdmin>false</IEHardenAdmin>
             <IEHardenUser>false</IEHardenUser>
         </component>
-        <component name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <DoNotOpenInitialConfigurationTasksAtLogon>true</DoNotOpenInitialConfigurationTasksAtLogon>
-        </component>
         <component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <SkipAutoActivation>true</SkipAutoActivation>
+        </component>
+        <component name="Security-Malware-Windows-Defender" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance ">
+            <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -189,13 +189,13 @@
             <POLICYProxySettingsPerUser>0</POLICYProxySettingsPerUser>
             <HKLMProxyEnable>true</HKLMProxyEnable>
             <HKLMProxyServer>cachingproxy:3142</HKLMProxyServer>
-        </component>    
+        </component>        
         Finish Setup cache proxy during installation --> 
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <AutoLogon>
                 <Password>
                     <Value>vagrant</Value>
-                    <PlainText>true</PlainText>                    
+                    <PlainText>true</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
                 <Username>vagrant</Username>
@@ -212,14 +212,14 @@
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>          
-                <SynchronousCommand wcm:action="add">
+                </SynchronousCommand>
+		        <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f > c:\windows\temp\03-BoxImageCreation.txt</CommandLine>
                     <Description>Network prompt</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
-                <SynchronousCommand wcm:action="add">
+                </SynchronousCommand>				
+              <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\fixnetwork.ps1 ) > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.scanning.txt</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
@@ -232,10 +232,9 @@
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                      
+                </SynchronousCommand>
 
-
-                <!-- FIREWALL SETTINGS -->
+				<!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c netsh advfirewall firewall set rule group="remote administration" new enable=yes > c:\windows\temp\30-BoxImageCreation.txt</CommandLine>
                     <Description>Win RM adv firewall enable</Description>
@@ -273,7 +272,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
 
-                <!-- WINDOWS SETTINGS -->
+				<!-- WINDOWS SETTINGS -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f > c:\windows\temp\50-BoxImageCreation.txt</CommandLine>
                     <Order>50</Order>
@@ -321,15 +320,15 @@
                     <Order>96</Order>
                     <Description>Configure WSUS Server</Description>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                  
+                </SynchronousCommand>                
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1 ) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1 ) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -377,5 +376,5 @@
             <EnableLUA>false</EnableLUA>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US.ISO/sources/install.wim#Windows Server 2016 SERVERSTANDARDCORE" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO/sources/install.wim#Windows 10 Enterprise Evaluation Technical Preview" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>

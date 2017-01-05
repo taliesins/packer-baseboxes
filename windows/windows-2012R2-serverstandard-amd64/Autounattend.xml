@@ -14,17 +14,17 @@
         <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DriverPaths>
                 <PathAndCredentials wcm:keyValue="1" wcm:action="add">
-                    <!-- Start floppy for drivers -->
+                    <!-- Start floppy for drivers
                     <Path>a:\</Path> 
-                    <!-- Finish floppy for drivers -->
-                    <!-- Start cdrom for drivers
+                    Finish floppy for drivers -->
+                    <!-- Start cdrom for drivers -->
                     <Path>f:\</Path> 
-                    Finish cdrom for drivers -->
+                    <!-- Finish cdrom for drivers -->
                 </PathAndCredentials>
             </DriverPaths>
         </component>    
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <!-- Start Non UEFI -->
+            <!-- Start Non UEFI
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -75,8 +75,8 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            <!-- Finish Non UEFI -->
-            <!-- Start UEFI compatible
+            Finish Non UEFI -->
+            <!-- Start UEFI compatible -->
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -145,7 +145,7 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            Finish UEFI compatible -->
+            <!-- Finish UEFI compatible -->
             <UserData>
                 <!-- Product Key from http://technet.microsoft.com/en-us/library/jj612867.aspx -->
                 <ProductKey>

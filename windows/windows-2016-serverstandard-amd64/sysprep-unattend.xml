@@ -43,9 +43,9 @@
                             <PlainText>true</PlainText>
                         </Password>
                         <Group>administrators</Group>
-                        <DisplayName>Vagrant</DisplayName>
+                        <DisplayName>vagrant</DisplayName>
                         <Name>vagrant</Name>
-                        <Description>Vagrant User</Description>
+                        <Description>vagrant</Description>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>

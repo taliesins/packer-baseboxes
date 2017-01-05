@@ -14,17 +14,17 @@
         <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DriverPaths>
                 <PathAndCredentials wcm:keyValue="1" wcm:action="add">
-                    <!-- Start floppy for drivers
+                    <!-- Start floppy for drivers -->
                     <Path>a:\</Path> 
-                    Finish floppy for drivers -->
-                    <!-- Start cdrom for drivers -->
+                    <!-- Finish floppy for drivers -->
+                    <!-- Start cdrom for drivers
                     <Path>f:\</Path> 
-                    <!-- Finish cdrom for drivers -->
+                    Finish cdrom for drivers -->
                 </PathAndCredentials>
             </DriverPaths>
         </component>    
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <!-- Start Non UEFI
+            <!-- Start Non UEFI -->
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -66,7 +66,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows Server 2016 SERVERSTANDARDCORE</Value>
+                            <Value>Windows Server 2012 R2 SERVERSTANDARD</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -75,8 +75,8 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            Finish Non UEFI -->
-            <!-- Start UEFI compatible -->
+            <!-- Finish Non UEFI -->
+            <!-- Start UEFI compatible
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -136,7 +136,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME </Key>
-                            <Value>Windows Server 2016 SERVERSTANDARDCORE</Value>
+                            <Value>Windows Server 2012 R2 SERVERSTANDARD</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -145,13 +145,13 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
-            <!-- Finish UEFI compatible -->
+            Finish UEFI compatible -->
             <UserData>
                 <!-- Product Key from http://technet.microsoft.com/en-us/library/jj612867.aspx -->
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <!--<Key>WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY</Key>-->
+                    <!--<Key>D2N9P-3P6X9-2R39C-7RTCD-MDVJX</Key>-->
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -212,7 +212,7 @@
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>          
+                </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f > c:\windows\temp\03-BoxImageCreation.txt</CommandLine>
                     <Description>Network prompt</Description>
@@ -232,8 +232,7 @@
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                      
-
+                </SynchronousCommand>                          
 
                 <!-- FIREWALL SETTINGS -->
                 <SynchronousCommand wcm:action="add">
@@ -323,13 +322,13 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>                  
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1 ) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1 ) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -377,5 +376,5 @@
             <EnableLUA>false</EnableLUA>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US.ISO/sources/install.wim#Windows Server 2016 SERVERSTANDARDCORE" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:c:/projects/baseboxes/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO/sources/install.wim#Windows Server 2012 R2 SERVERDATACENTER" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
