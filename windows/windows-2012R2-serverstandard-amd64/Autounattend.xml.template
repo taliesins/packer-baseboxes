@@ -192,154 +192,6 @@
         </component>    
         Finish Setup cache proxy during installation --> 
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <AutoLogon>
-                <Password>
-                    <Value>vagrant</Value>
-                    <PlainText>true</PlainText>                    
-                </Password>
-                <Enabled>true</Enabled>
-                <Username>vagrant</Username>
-            </AutoLogon>
-            <FirstLogonCommands>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\01-BoxImageCreation_PowershellExecutionPolicy32.txt</CommandLine>
-                    <Description>Set Execution Policy 64 Bit</Description>
-                    <Order>1</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>c:\windows\SysWOW64\cmd.exe /c powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force" > c:\windows\temp\02-BoxImageCreation_PowershellExecutionPolicy64.txt</CommandLine>
-                    <Description>Set Execution Policy 32 Bit</Description>
-                    <Order>2</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f > c:\windows\temp\03-BoxImageCreation.txt</CommandLine>
-                    <Description>Network prompt</Description>
-                    <Order>3</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\fixnetwork.ps1 ) > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.scanning.txt</CommandLine>
-                    <Description>Fix public network</Description>
-                    <Order>4</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-
-                <!-- WINRM SETTINGS -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enable-winrm.task.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\enable-winrm.task.ps1 ) > c:\windows\temp\05-BoxImageCreation_enable-winrm.task.ps1.scanning.txt</CommandLine>
-                    <Description>Enable WinRm</Description>
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                          
-
-                <!-- FIREWALL SETTINGS -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall set rule group="remote administration" new enable=yes > c:\windows\temp\30-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM adv firewall enable</Description>
-                    <Order>30</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow > c:\windows\temp\31-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>31</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh firewall add portopening TCP 5985 "Port 5985" > c:\windows\temp\32-BoxImageCreation.txt </CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>32</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>               
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow > c:\windows\temp\33-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>33</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh firewall add portopening TCP 5986 "Port 5986" > c:\windows\temp\34-BoxImageCreation.txt</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>34</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>           
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow > c:\windows\temp\35-BoxImageCreation.txt</CommandLine>
-                    <Description>ICMP open for ping</Description>
-                    <Order>35</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-
-                <!-- WINDOWS SETTINGS -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f > c:\windows\temp\50-BoxImageCreation.txt</CommandLine>
-                    <Order>50</Order>
-                    <Description>Show file extensions in Explorer</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f > c:\windows\temp\51-BoxImageCreation.txt</CommandLine>
-                    <Order>51</Order>
-                    <Description>Enable QuickEdit mode</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f > c:\windows\temp\52-BoxImageCreation.txt</CommandLine>
-                    <Order>52</Order>
-                    <Description>Show Run command in Start Menu</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f > c:\windows\temp\53-BoxImageCreation.txt</CommandLine>
-                    <Order>53</Order>
-                    <Description>Show Administrative Tools in Start Menu</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f > c:\windows\temp\54-BoxImageCreation.txt</CommandLine>
-                    <Order>54</Order>
-                    <Description>Zero Hibernation File</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f > c:\windows\temp\55-BoxImageCreation.txt</CommandLine>
-                    <Order>55</Order>
-                    <Description>Disable Hibernation Mode</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE > c:\windows\temp\56-BoxImageCreation.txt</CommandLine>
-                    <Order>56</Order>
-                    <Description>Disable password expiration for vagrant user</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>reg ADD "HKLM\System\CurrentControlSet\Services\Netlogon\Parameters" /v DisablePasswordChange /t REG_DWORD /d 1 /f > c:\windows\temp\57-BoxImageCreation.txt</CommandLine>
-                    <Description>Turn off computer password</Description>
-                    <Order>57</Order>
-                </SynchronousCommand>
-
-                <!-- WITH WINDOWS UPDATES -->
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\Set-ClientWSUSSetting.task.ps1 ) > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.task.ps1.scanning.txt</CommandLine>
-                    <Order>96</Order>
-                    <Description>Configure WSUS Server</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>                  
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\set-power-config.ps1 ) > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt</CommandLine>
-                    <Order>97</Order>
-                    <Description>Turn off all power saving and timeouts</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\microsoft-updates.ps1 ) > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt</CommandLine>
-                    <Order>98</Order>
-                    <Description>Enable Microsoft Updates</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\win-updates.ps1 ) > c:\windows\temp\99-BoxImageCreation_win-updates.ps1.scanning.txt</CommandLine>
-                    <Description>Install Windows Updates</Description>
-                    <Order>99</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-            </FirstLogonCommands>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
                 <HideLocalAccountScreen>true</HideLocalAccountScreen>
@@ -369,6 +221,154 @@
             </UserAccounts>
             <RegisteredOwner />
             <TimeZone>Coordinated Universal Time</TimeZone>
+            <AutoLogon>
+                <Password>
+                    <Value>vagrant</Value>
+                    <PlainText>true</PlainText>                    
+                </Password>
+                <Enabled>true</Enabled>
+                <Username>vagrant</Username>
+            </AutoLogon>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\01-BoxImageCreation_PowershellExecutionPolicy32.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
+                    <Description>Set Execution Policy 64 Bit</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>c:\windows\SysWOW64\cmd.exe /c > c:\windows\temp\02-BoxImageCreation_PowershellExecutionPolicy64.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
+                    <Description>Set Execution Policy 32 Bit</Description>
+                    <Order>2</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\03-BoxImageCreation.txt 2>$1 (reg add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff" /f)</CommandLine>
+                    <Description>Network prompt</Description>
+                    <Order>3</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>               
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\fixnetwork.ps1 ))</CommandLine>
+                    <Description>Fix public network</Description>
+                    <Order>4</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+
+                <!-- WINRM SETTINGS -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\05-BoxImageCreation_enable-winrm.task.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enable-winrm.task.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\enable-winrm.task.ps1 )) </CommandLine>
+                    <Description>Enable WinRm</Description>
+                    <Order>5</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>                          
+
+                <!-- FIREWALL SETTINGS -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\30-BoxImageCreation.txt 2>$1 (netsh advfirewall firewall set rule group="remote administration" new enable=yes)</CommandLine>
+                    <Description>Win RM adv firewall enable</Description>
+                    <Order>30</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\31-BoxImageCreation.txt 2>$1 (netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow) </CommandLine>
+                    <Description>Win RM port open</Description>
+                    <Order>31</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\32-BoxImageCreation.txt 2>$1 (netsh firewall add portopening TCP 5985 "Port 5985")  </CommandLine>
+                    <Description>Win RM port open</Description>
+                    <Order>32</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>               
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\33-BoxImageCreation.txt 2>$1 (netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow)</CommandLine>
+                    <Description>Win RM port open</Description>
+                    <Order>33</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\34-BoxImageCreation.txt 2>$1 (netsh firewall add portopening TCP 5986 "Port 5986") </CommandLine>
+                    <Description>Win RM port open</Description>
+                    <Order>34</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>           
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\35-BoxImageCreation.txt 2>$1 (netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow) </CommandLine>
+                    <Description>ICMP open for ping</Description>
+                    <Order>35</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+
+                <!-- WINDOWS SETTINGS -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\50-BoxImageCreation.txt 2>$1 (reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f)</CommandLine>
+                    <Order>50</Order>
+                    <Description>Show file extensions in Explorer</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\51-BoxImageCreation.txt 2>$1 (reg ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f) </CommandLine>
+                    <Order>51</Order>
+                    <Description>Enable QuickEdit mode</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\52-BoxImageCreation.txt 2>$1 (reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f)</CommandLine>
+                    <Order>52</Order>
+                    <Description>Show Run command in Start Menu</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\53-BoxImageCreation.txt 2>$1 (reg ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f)</CommandLine>
+                    <Order>53</Order>
+                    <Description>Show Administrative Tools in Start Menu</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\54-BoxImageCreation.txt 2>$1 (reg ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f)</CommandLine>
+                    <Order>54</Order>
+                    <Description>Zero Hibernation File</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\55-BoxImageCreation.txt 2>$1 (reg ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f)</CommandLine>
+                    <Order>55</Order>
+                    <Description>Disable Hibernation Mode</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\56-BoxImageCreation.txt 2>$1 (wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE) </CommandLine>
+                    <Order>56</Order>
+                    <Description>Disable password expiration for vagrant user</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>> c:\windows\temp\57-BoxImageCreation.txt 2>$1 (reg ADD "HKLM\System\CurrentControlSet\Services\Netlogon\Parameters" /v DisablePasswordChange /t REG_DWORD /d 1 /f)</CommandLine>
+                    <Description>Turn off computer password</Description>
+                    <Order>57</Order>
+                </SynchronousCommand>
+
+                <!-- WITH WINDOWS UPDATES -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.task.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\Set-ClientWSUSSetting.task.ps1 ))</CommandLine>
+                    <Order>96</Order>
+                    <Description>Configure WSUS Server</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>                  
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\set-power-config.ps1 ))</CommandLine>
+                    <Order>97</Order>
+                    <Description>Turn off all power saving and timeouts</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\microsoft-updates.ps1 ))</CommandLine>
+                    <Order>98</Order>
+                    <Description>Enable Microsoft Updates</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c > c:\windows\temp\99-BoxImageCreation_win-updates.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (%i:\elevate.exe -w C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -noprofile -File %i:\win-updates.ps1 ))</CommandLine>
+                    <Description>Install Windows Updates</Description>
+                    <Order>99</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+            </FirstLogonCommands>			
         </component>
     </settings>
     <settings pass="offlineServicing">
