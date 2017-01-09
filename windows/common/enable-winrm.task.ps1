@@ -11,7 +11,7 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
   }
 }
 
-"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
+"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "c:\windows\temp\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
 
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
@@ -66,7 +66,7 @@ $t.XmlText = @"
   <Actions Context="Author">
     <Exec>
       <Command>cmd</Command>
-	  <Arguments>/c powershell.exe -File $scriptToExecute &gt; %TEMP%\$($taskName).out 2&gt;&amp;1</Arguments>
+	  <Arguments>/c powershell.exe -executionpolicy bypass -noprofile -File $scriptToExecute &gt; %TEMP%\$($taskName).out 2&gt;&amp;1</Arguments>
     </Exec>
   </Actions>
 </Task>
@@ -102,6 +102,6 @@ do {
 $result = $t.LastTaskResult
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($s) | Out-Null
 
-cmd /c schtasks.exe /delete /TN "$name" /f
+#cmd /c schtasks.exe /delete /TN "$name" /f
 
 exit $result
