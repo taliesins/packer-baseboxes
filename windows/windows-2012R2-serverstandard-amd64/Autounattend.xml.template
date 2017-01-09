@@ -353,7 +353,7 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\96-Set-ClientWSUSSetting.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\Set-ClientWSUSSetting.task.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\96-Set-ClientWSUS.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\Set-ClientWSUSSetting.task.ps1 ))</CommandLine>
                     <Order>96</Order>
                     <Description>Configure WSUS Server</Description>
                     <RequiresUserInput>true</RequiresUserInput>
