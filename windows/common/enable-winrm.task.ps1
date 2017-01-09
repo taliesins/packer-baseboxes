@@ -15,10 +15,7 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
-$username = "vagrant"
-if ($UnAttendWindowsUsername) {
-	$username = $UnAttendWindowsUsername
-}
+$username = "Administrator"
 
 $password = "vagrant"
 if ($UnAttendWindowsPassword) {
