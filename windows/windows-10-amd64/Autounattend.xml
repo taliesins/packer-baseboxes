@@ -192,6 +192,35 @@
         </component>        
         Finish Setup cache proxy during installation --> 
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <NetworkLocation>Work</NetworkLocation>
+                <ProtectYourPC>1</ProtectYourPC>
+            </OOBE>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>vagrant</Value>
+                    <PlainText>true</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>vagrant</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                        <Group>administrators</Group>
+                        <DisplayName>vagrant</DisplayName>
+                        <Name>vagrant</Name>
+                        <Description>vagrant</Description>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <RegisteredOwner />
+            <TimeZone>Coordinated Universal Time</TimeZone>
             <AutoLogon>
                 <Password>
                     <Value>vagrant</Value>
@@ -340,36 +369,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
             </FirstLogonCommands>
-            <OOBE>
-                <HideEULAPage>true</HideEULAPage>
-                <HideLocalAccountScreen>true</HideLocalAccountScreen>
-                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
-                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
-                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-                <NetworkLocation>Work</NetworkLocation>
-                <ProtectYourPC>1</ProtectYourPC>
-            </OOBE>
-            <UserAccounts>
-                <AdministratorPassword>
-                    <Value>vagrant</Value>
-                    <PlainText>true</PlainText>
-                </AdministratorPassword>
-                <LocalAccounts>
-                    <LocalAccount wcm:action="add">
-                        <Password>
-                            <Value>vagrant</Value>
-                            <PlainText>true</PlainText>
-                        </Password>
-                        <Group>administrators</Group>
-                        <DisplayName>vagrant</DisplayName>
-                        <Name>vagrant</Name>
-                        <Description>vagrant</Description>
-                    </LocalAccount>
-                </LocalAccounts>
-            </UserAccounts>
-            <RegisteredOwner />
-            <TimeZone>Coordinated Universal Time</TimeZone>
-        </component>
+		</component>
     </settings>
     <settings pass="offlineServicing">
         <component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
