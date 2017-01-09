@@ -45,6 +45,11 @@ if ($ENV:UnAttendUseCdrom) {
 	$UnAttendUseCdrom = $true
 }
 
+$UnAttendProxy = ""
+if ($ENV:UnAttendProxy) {
+	$UnAttendProxy = $ENV:UnAttendProxy
+}
+
 $UnAttendWindows10ProductKey = ""
 if ($ENV:UnAttendWindows10ProductKey) {
 	$UnAttendWindows10ProductKey = $ENV:UnAttendWindows10ProductKey
@@ -99,6 +104,11 @@ if ($ENV:UnAttendWindows2016ComputerName) {
 		$autounattend = $autounattend | % { $_ -replace '<!-- Start floppy for drivers -->','<!-- Start floppy for drivers' } | % { $_ -replace '<!-- Finish floppy for drivers -->','Finish floppy for drivers -->' } | % { $_ -replace '<!-- Start cdrom for drivers','<!-- Start cdrom for drivers -->' } | % { $_ -replace 'Finish cdrom for drivers -->','<!-- Finish cdrom for drivers -->' } 
 	}
 	
+	if ($UnAttendProxy) {
+		#Use a proxy
+		$autounattend = $autounattend | % { $_ -replace '<!-- Start Setup cache proxy during installation','<!-- Start Setup cache proxy during installation -->' } | % { $_ -replace 'Finish Setup cache proxy during installation -->','<!-- Finish Setup cache proxy during installation -->' } | % { $_ -replace '<HKLMProxyServer>cachingproxy:3142</HKLMProxyServer>',"<HKLMProxyServer>$UnAttendProxy</HKLMProxyServer>"}  
+	}
+	
 	if ($osDirectory -eq "windows-10-amd64") {
 		if ($UnAttendWindows10ProductKey) {
 			$autounattend = $autounattend | % { $_ -replace '<!--<Key>VTNMT-2FMYP-QCY43-QR9VK-WTVCK</Key>-->',"<Key>$UnAttendWindows10ProductKey</Key>" }
@@ -142,6 +152,11 @@ if ($ENV:UnAttendWindows2016ComputerName) {
 	$sysprepunattend = $sysprepunattend | % { $_ -replace '<Organization>vagrant</Organization>',"<Organization>$UnAttendWindowsOrganization</Organization>" } 
 	$sysprepunattend = $sysprepunattend | % { $_ -replace 'name=''vagrant''',"name='$UnAttendWindowsUsername'" }
 	$sysprepunattend = $sysprepunattend | % { $_ -replace '<Value>vagrant</Value>',"<Value>$UnAttendWindowsPassword</Value>" }
+	
+	if ($UnAttendProxy) {
+		#We using a proxy so disable it afterwards
+		$sysprepunattend = $sysprepunattend | % { $_ -replace '<!-- Setup proxy after sysprep','<!-- Setup proxy after sysprep -->' } | % { $_ -replace 'Finish proxy after sysprep -->','<!-- Finish proxy after sysprep -->' }   
+	}
 	
 	$sysprepunattend | sc -Path $sysprepunattendPath
 }
