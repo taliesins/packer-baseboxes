@@ -228,7 +228,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enablewinrm.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\enablewinrm.ps1 ) > c:\windows\temp\05-BoxImageCreation_enablewinrm.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enable-winrm.task.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\enable-winrm.task.ps1 ) > c:\windows\temp\05-BoxImageCreation_enable-winrm.task.ps1.scanning.txt</CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -317,7 +317,7 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\Set-ClientWSUSSetting.ps1 ) > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.ps1.scanning.txt</CommandLine>
+                    <CommandLine>cmd /c FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File %i:\Set-ClientWSUSSetting.task.ps1 ) > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.task.ps1.scanning.txt</CommandLine>
                     <Order>96</Order>
                     <Description>Configure WSUS Server</Description>
                     <RequiresUserInput>true</RequiresUserInput>

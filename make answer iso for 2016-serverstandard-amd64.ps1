@@ -25,10 +25,12 @@ copy windows\common\win-updates.ps1 $isoFolder\
 copy windows\common\run-sysprep.ps1 $isoFolder\
 copy windows\common\run-sysprep.cmd $isoFolder\
 copy windows\common\oracle-cert.cer $isoFolder\
-copy windows\common\enablewinrm.ps1 $isoFolder\
+copy windows\common\enable-winrm.ps1 $isoFolder\
+copy windows\common\enable-winrm.task.ps1 $isoFolder\
 copy windows\common\fixnetwork.ps1 $isoFolder\
 copy windows\common\sdelete.exe $isoFolder\
 copy windows\common\Set-ClientWSUSSetting.ps1 $isoFolder\
+copy windows\common\Set-ClientWSUSSetting.task.ps1 $isoFolder\
 copy windows\common\Reset-ClientWSUSSetting.ps1 $isoFolder\
 
 & .\mkisofs.exe -r -iso-level 4 -UDF -o windows\$osFolder\answer.iso $isoFolder

@@ -23,9 +23,11 @@
       "./windows/common/win-updates.ps1",
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd",
-      "./windows/common/enablewinrm.ps1",      
+      "./windows/common/enable-winrm.ps1",
+	  "./windows/common/enable-winrm.task.ps1",
       "./windows/common/fixnetwork.ps1",
-      "./windows/common/Set-ClientWSUSSetting.ps1"
+      "./windows/common/Set-ClientWSUSSetting.ps1",
+	  "./windows/common/Set-ClientWSUSSetting.task.ps1"
     ],
     "http_directory": "./windows/common/http/",
     "guest_os_type": "windows8srv-64",
