@@ -83,7 +83,7 @@ $arguments = "/c powershell.exe -File $scriptToExecute &gt; $out_file 2&gt;&amp;
 
 $task_xml = $task_xml.Replace("{arguments}", $arguments)
 $task_xml = $task_xml.Replace("{username}", $username)
-$task_xml = $task_xml.Replace("{execution_time_limit}", $execution_time_limit)
+$task_xml = $task_xml.Replace("{execution_time_limit}", "PT5M")
 
 $schedule.Connect()
 $task = $schedule.NewTask($null)
