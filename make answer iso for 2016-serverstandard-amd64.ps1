@@ -8,12 +8,10 @@ if (test-path windows\$osFolder\answer.iso){
 	remove-item windows\$osFolder\answer.iso -Force
 }
 
-&.\windows\update-variables.ps1
-
 $ENV:UnAttendUseUefi = $true
 $ENV:UnAttendUseCdrom = $true
 
-&.\windows\update-unattended.ps1
+&.\windows\update-variables.ps1
 
 mkdir $isoFolder
 

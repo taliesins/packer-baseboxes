@@ -11,6 +11,12 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
         break
     }
 }
+
+$username = "vagrant"
+if ($UnAttendWindowsUsername) {
+	$username = $UnAttendWindowsUsername
+}
+
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 
@@ -39,11 +45,11 @@ if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
 Stop-Service "OpenSSHd" -Force
 
 # ensure vagrant can log in
-Write-Output "Setting vagrant user file permissions"
-New-Item -ItemType Directory -Force -Path "C:\Users\vagrant\.ssh"
-C:\Windows\System32\icacls.exe "C:\Users\vagrant" /grant "vagrant:(OI)(CI)F"
-C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\bin" /grant "vagrant:(OI)RX"
-C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\usr\sbin" /grant "vagrant:(OI)RX"
+Write-Output "Setting $username user file permissions"
+New-Item -ItemType Directory -Force -Path "C:\Users\$username\.ssh"
+C:\Windows\System32\icacls.exe "C:\Users\$username" /grant "$username:(OI)(CI)F"
+C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\bin" /grant "$username:(OI)RX"
+C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\usr\sbin" /grant "$username:(OI)RX"
 
 Write-Output "Setting SSH home directories"
     (Get-Content "C:\Program Files\OpenSSH\etc\passwd") |
@@ -77,7 +83,7 @@ Remove-Item -Force -ErrorAction SilentlyContinue "C:\Program Files\OpenSSH\etc\s
 Write-Output "Setting temp directory location"
 Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "C:\Program Files\OpenSSH\tmp"
 C:\Program` Files\OpenSSH\bin\junction.exe /accepteula "C:\Program Files\OpenSSH\tmp" "C:\Windows\Temp"
-C:\Windows\System32\icacls.exe "C:\Windows\Temp" /grant "vagrant:(OI)(CI)F"
+C:\Windows\System32\icacls.exe "C:\Windows\Temp" /grant "$username:(OI)(CI)F"
 
 # add 64 bit environment variables missing from SSH
 Write-Output "Setting SSH environment"
@@ -89,7 +95,7 @@ if ($is_64bit) {
         "CommonProgramW6432=C:\Program Files\Common Files"
     $sshenv = $sshenv + "`r`n" + ($env_vars -join "`r`n")
 }
-Set-Content C:\Users\vagrant\.ssh\environment $sshenv
+Set-Content C:\Users\$username\.ssh\environment $sshenv
 
 # record the path for provisioners (without the newline)
 Write-Output "Recording PATH for provisioners"

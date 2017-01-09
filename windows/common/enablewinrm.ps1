@@ -16,7 +16,14 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
 $username = "vagrant"
+if ($UnAttendWindowsUsername) {
+	$username = $UnAttendWindowsUsername
+}
+
 $password = "vagrant"
+if ($UnAttendWindowsPassword) {
+	$password = $UnAttendWindowsPassword
+}
 
 $script = @'
 Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name LocalAccountTokenFilterPolicy -Value 1 -Type DWord

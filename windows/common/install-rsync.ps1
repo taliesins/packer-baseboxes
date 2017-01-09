@@ -11,6 +11,11 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
+$username = "vagrant"
+if ($UnAttendWindowsUsername) {
+	$username = $UnAttendWindowsUsername
+}
+
 $version = '3.1.1-1'
 $rsync_file_name = "rsync-$version.tar"
 $rsync_tar_file_name = "$rsync_file_name.xz"
@@ -30,5 +35,5 @@ if ($httpIp){
 
 Copy-Item c:\windows\temp\rsync\usr\bin\rsync.exe "C:\Program Files\OpenSSH\bin\rsync.exe" -Force
 
-Write-Host "make symlink for c:/vagrant share"
-&cmd /c mklink /D "C:\Program Files\OpenSSH\vagrant" "C:\vagrant"
+Write-Host "make symlink for c:/$username share"
+&cmd /c mklink /D "C:\Program Files\OpenSSH\$username" "C:\$username"
