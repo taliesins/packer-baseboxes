@@ -23,23 +23,30 @@ if ($UnAttendWindowsPassword) {
 $CurrentPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 $scriptToExecute = "$CurrentPath\enable-winrm.ps1"
 
-Write-Host "Creating scheduled task to execute $scriptToExecute with the user $username"
+# Try to get the Schedule.Service object. If it fails, we are probably
+# on an older version of Windows. On old versions, we can just execute
+# directly since priv. escalation isn't a thing.
+$schedule = $null
+Try {
+  $schedule = New-Object -ComObject "Schedule.Service"
+  Write-Host "Scheduled task created"
+} Catch [System.Management.Automation.PSArgumentException] {
+  exit $LASTEXITCODE
+}
 
-$name = $taskName
-$log = "$env:TEMP\$name.out"
-$s = New-Object -ComObject "Schedule.Service"
-$s.Connect()
-$t = $s.NewTask($null)
+$task_name = "WinRM_Elevated_Shell"
+$out_file = "$env:SystemRoot\Temp\WinRM_Elevated_Shell.log"
 
-$t.XmlText = @"
+if (Test-Path $out_file) {
+  del $out_file
+}
+
+$task_xml = @'
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
-  <RegistrationInfo>
-	<Description>$taskDescription</Description>
-  </RegistrationInfo>
   <Principals>
     <Principal id="Author">
-      <UserId>$username</UserId>
+      <UserId>{username}</UserId>
       <LogonType>Password</LogonType>
       <RunLevel>HighestAvailable</RunLevel>
     </Principal>
@@ -60,27 +67,36 @@ $t.XmlText = @"
     <Hidden>false</Hidden>
     <RunOnlyIfIdle>false</RunOnlyIfIdle>
     <WakeToRun>false</WakeToRun>
-    <ExecutionTimeLimit>PT24H</ExecutionTimeLimit>
+    <ExecutionTimeLimit>{execution_time_limit}</ExecutionTimeLimit>
     <Priority>4</Priority>
   </Settings>
   <Actions Context="Author">
     <Exec>
       <Command>cmd</Command>
-	  <Arguments>/c powershell.exe -executionpolicy bypass -noprofile -File $scriptToExecute &gt; %TEMP%\$($taskName).out 2&gt;&amp;1</Arguments>
+      <Arguments>{arguments}</Arguments>
     </Exec>
   </Actions>
 </Task>
-"@
+'@
 
-$f = $s.GetFolder("\")
-$f.RegisterTaskDefinition($name, $t, 6, $username, $password, 1, $null) | Out-Null
-Write-Host "Scheduled task created"
+$arguments = "/c powershell.exe -File $scriptToExecute &gt; $out_file 2&gt;&amp;1"
 
-$t = $f.GetTask("\$name")
-$t.Run($null) | Out-Null
-$timeout = 30
+$task_xml = $task_xml.Replace("{arguments}", $arguments)
+$task_xml = $task_xml.Replace("{username}", $username)
+$task_xml = $task_xml.Replace("{execution_time_limit}", $execution_time_limit)
+
+$schedule.Connect()
+$task = $schedule.NewTask($null)
+$task.XmlText = $task_xml
+$folder = $schedule.GetFolder("\")
+$folder.RegisterTaskDefinition($task_name, $task, 6, $username, $password, 1, $null) | Out-Null
+
+$registered_task = $folder.GetTask("\$task_name")
+$registered_task.Run($null) | Out-Null
+
+$timeout = 10
 $sec = 0
-while ((!($t.state -eq 4)) -and ($sec -lt $timeout)) {
+while ( (!($registered_task.state -eq 4)) -and ($sec -lt $timeout) ) {
   Start-Sleep -s 1
   $sec++
 }
@@ -92,27 +108,26 @@ if ($timeout -lt $sec){
 	Write-Host "Scheduled task running"
 }
 
-function SlurpOutput($l) {
-  if (Test-Path $log) {
-    Get-Content $log | select -skip $l | ForEach {
-      $l += 1
-      "$_" | Out-File -Filepath "$($env:TEMP)\enablewinrm.log" -Append
+function SlurpOutput($out_file, $cur_line) {
+  if (Test-Path $out_file) {
+    get-content $out_file | select -skip $cur_line | ForEach {
+      $cur_line += 1
+      Write-Host "$_"
     }
   }
-  return $l
+  return $cur_line
 }
 
-$line = 0
+$cur_line = 0
 do {
   Start-Sleep -m 100
-  $line = SlurpOutput $line
-} while (!($t.state -eq 3))
+  $cur_line = SlurpOutput $out_file $cur_line
+} while (!($registered_task.state -eq 3))
 
-$result = $t.LastTaskResult
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($s) | Out-Null
-Write-Host "Scheduled task done"
+$exit_code = $registered_task.LastTaskResult
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($schedule) | Out-Null
 
-cmd /c schtasks.exe /delete /TN "$name" /f
+cmd /c schtasks.exe /delete /TN "$task_name" /f
 Write-Host "Removed scheduled task"
 
-exit $result
+exit $exit_code

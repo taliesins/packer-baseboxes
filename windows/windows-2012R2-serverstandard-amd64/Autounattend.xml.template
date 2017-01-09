@@ -231,13 +231,13 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\01-BoxImageCreation_PowershellExecutionPolicy32.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\01-PowershellExecutionPolicy32.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>c:\windows\SysWOW64\cmd.exe /c > c:\windows\temp\02-BoxImageCreation_PowershellExecutionPolicy64.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
+                    <CommandLine>c:\windows\SysWOW64\cmd.exe /c > c:\windows\temp\02_PowershellExecutionPolicy64.txt 2>$1 (powershell -Command "$ErrorActionPreference = 'Stop';$ProgressPreference='SilentlyContinue';Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force")</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -249,7 +249,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>               
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\04-BoxImageCreation_fixnetwork.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\fixnetwork.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\04-fixnetwork.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\fixnetwork.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\fixnetwork.ps1 ))</CommandLine>
                     <Description>Fix public network</Description>
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -257,7 +257,7 @@
 
                 <!-- WINRM SETTINGS -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\05-BoxImageCreation_enable-winrm.task.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enable-winrm.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\enable-winrm.task.ps1 )) </CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\05-enable-winrm.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\enable-winrm.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\enable-winrm.task.ps1 )) </CommandLine>
                     <Description>Enable WinRm</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -353,25 +353,25 @@
 
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\96-BoxImageCreation_Set-ClientWSUSSetting.task.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\Set-ClientWSUSSetting.task.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\96-Set-ClientWSUSSetting.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\Set-ClientWSUSSetting.task.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\Set-ClientWSUSSetting.task.ps1 ))</CommandLine>
                     <Order>96</Order>
                     <Description>Configure WSUS Server</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>                  
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\97-BoxImageCreation_set-power-config.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\set-power-config.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\97-set-power-config.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\set-power-config.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\set-power-config.ps1 ))</CommandLine>
                     <Order>97</Order>
                     <Description>Turn off all power saving and timeouts</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\98-BoxImageCreation_microsoft-updates.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\microsoft-updates.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\98-microsoft-updates.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\microsoft-updates.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\microsoft-updates.ps1 ))</CommandLine>
                     <Order>98</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd /c > c:\windows\temp\99-BoxImageCreation_win-updates.ps1.scanning.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\win-updates.ps1 ))</CommandLine>
+                    <CommandLine>cmd /c > c:\windows\temp\99-win-updates.txt 2>$1 (FOR %i IN (A B C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\win-updates.ps1 (powershell -executionpolicy bypass -noprofile -File %i:\win-updates.ps1 ))</CommandLine>
                     <Description>Install Windows Updates</Description>
                     <Order>99</Order>
                     <RequiresUserInput>true</RequiresUserInput>
