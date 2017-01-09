@@ -11,8 +11,6 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
   }
 }
 
-"Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "c:\windows\temp\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
-
 $taskDescription = "Enable WinRM"
 $taskName = "EnableWinRM"
 $username = "Administrator"
@@ -24,6 +22,8 @@ if ($UnAttendWindowsPassword) {
 
 $CurrentPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 $scriptToExecute = "$CurrentPath\enable-winrm.ps1"
+
+Write-Host "Creating scheduled task to execute $scriptToExecute with the user $username"
 
 $name = $taskName
 $log = "$env:TEMP\$name.out"
@@ -74,13 +74,22 @@ $t.XmlText = @"
 
 $f = $s.GetFolder("\")
 $f.RegisterTaskDefinition($name, $t, 6, $username, $password, 1, $null) | Out-Null
+Write-Host "Scheduled task created"
+
 $t = $f.GetTask("\$name")
 $t.Run($null) | Out-Null
-$timeout = 10
+$timeout = 30
 $sec = 0
 while ((!($t.state -eq 4)) -and ($sec -lt $timeout)) {
   Start-Sleep -s 1
   $sec++
+}
+
+if ($timeout -lt $sec){
+	throw "Task timed out"
+	exit 9999
+} else {
+	Write-Host "Scheduled task running"
 }
 
 function SlurpOutput($l) {
@@ -101,7 +110,9 @@ do {
 
 $result = $t.LastTaskResult
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($s) | Out-Null
+Write-Host "Scheduled task done"
 
-#cmd /c schtasks.exe /delete /TN "$name" /f
+cmd /c schtasks.exe /delete /TN "$name" /f
+Write-Host "Removed scheduled task"
 
 exit $result
