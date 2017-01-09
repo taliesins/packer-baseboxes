@@ -23,6 +23,22 @@ if (!$WSUSServer){
 	}
 }
 
+if (!$WSUSServer){
+	#Read WSUS Server from registry
+
+	Push-Location
+	Set-Location HKLM:
+	
+	$WSUSEnv = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+	$WSUSServer = Get-ItemProperty -Path $WSUSEnv -Name "WUServer"
+	
+	if ($WSUSServer) {
+		$WSUSServer = $WSUSServer.WUServer
+	}
+	
+	Pop-Location
+}
+
 $file = @"
 `$WSUSServer = "$($WSUSServer)"
 `$proxyServerAddress = "$($ENV:proxyServerAddress)"
