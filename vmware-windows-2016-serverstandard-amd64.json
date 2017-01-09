@@ -26,6 +26,9 @@
       "./windows/common/enable-winrm.ps1",
 	  "./windows/common/enable-winrm.task.ps1",
       "./windows/common/fixnetwork.ps1",
+	  "./windows/common/elevate.exe",
+	  "./windows/common/sdelete.exe",
+	  "./windows/common/sdelete.ps1",	  
       "./windows/common/Set-ClientWSUSSetting.ps1",
 	  "./windows/common/Set-ClientWSUSSetting.task.ps1"
     ],

@@ -29,6 +29,8 @@ copy windows\common\enable-winrm.ps1 $isoFolder\
 copy windows\common\enable-winrm.task.ps1 $isoFolder\
 copy windows\common\fixnetwork.ps1 $isoFolder\
 copy windows\common\sdelete.exe $isoFolder\
+copy windows\common\sdelete.ps1 $isoFolder\
+copy windows\common\elevate.exe $isoFolder\
 copy windows\common\Set-ClientWSUSSetting.ps1 $isoFolder\
 copy windows\common\Set-ClientWSUSSetting.task.ps1 $isoFolder\
 copy windows\common\Reset-ClientWSUSSetting.ps1 $isoFolder\
