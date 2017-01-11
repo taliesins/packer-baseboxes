@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "ubuntu-trusty",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "21440",
     "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
     "iso_checksum_type": "sha1",
@@ -60,7 +60,7 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "{{user `ram_size_mb`}}",
+      "memsize": "{{user `ram_size`}}",
       "numvcpus": "{{user `cpu`}}",
       "virtualHW.version": "10",
       "scsi0.virtualDev": "lsisas1068",

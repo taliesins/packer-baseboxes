@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "windows10",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "41440",   
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/2/5/4/254230E8-AEA5-43C5-94F6-88CE222A5846/14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
     "iso_checksum_type": "sha1",
@@ -66,7 +66,7 @@
     "skip_compaction": false,
     "vmx_data": {
       "gui.fitguestusingnativedisplayresolution": "FALSE",
-      "memsize": "{{user `ram_size_mb`}}",
+      "memsize": "{{user `ram_size`}}",
       "numvcpus": "{{user `cpu`}}",
       "virtualhw.productcompatibility" : "esx",
       "virtualHW.version": "10",

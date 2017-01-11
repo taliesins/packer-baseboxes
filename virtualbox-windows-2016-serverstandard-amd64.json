@@ -2,7 +2,7 @@
   "variables": {
     "vm_name": "windows2016",
     "cpu": "2",
-    "ram_size_mb": "2048",
+    "ram_size": "2048",
     "disk_size": "41440",
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/1/6/F/16FA20E6-4662-482A-920B-1A45CF5AAE3C/14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US.ISO",
     "iso_checksum_type": "sha1",
@@ -47,7 +47,7 @@
     "guest_os_type": "Windows2012_64",
     "vboxmanage": [
       [
-        "modifyvm","{{.Name}}","--memory","{{user `ram_size_mb`}}"
+        "modifyvm","{{.Name}}","--memory","{{user `ram_size`}}"
       ],
       [
         "modifyvm","{{.Name}}","--cpus","{{user `cpu`}}"
