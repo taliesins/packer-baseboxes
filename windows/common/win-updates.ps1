@@ -238,8 +238,10 @@ function Check-WindowsUpdates() {
     }
 }
 
-EnableWinRm
-exit 0
+if ($SkipWindowsUpdates){
+	EnableWinRm
+	exit 0
+}
 
 $script:ScriptName = $MyInvocation.MyCommand.ToString()
 $script:ScriptPath = $MyInvocation.MyCommand.Path
