@@ -83,7 +83,7 @@ function Install-WindowsUpdates() {
     LogWrite "Evaluating Available Updates with limit of $($MaxUpdatesPerCycle):"
     $UpdatesToDownload = New-Object -ComObject 'Microsoft.Update.UpdateColl'
     $script:i = 0;
-    $CurrentUpdates = $SearchResult.Updates
+    $CurrentUpdates = $script:SearchResult.Updates
     while($script:i -lt $CurrentUpdates.Count -and $script:CycleUpdateCount -lt $MaxUpdatesPerCycle) {
         $Update = $CurrentUpdates.Item($script:i)
         if (($Update -ne $null) -and (!$Update.IsDownloaded)) {
@@ -135,7 +135,7 @@ function Install-WindowsUpdates() {
     $UpdatesToInstall = New-Object -ComObject 'Microsoft.Update.UpdateColl'
     [bool]$rebootMayBeRequired = $false
     LogWrite 'The following updates are downloaded and ready to be installed:'
-    foreach ($Update in $SearchResult.Updates) {
+    foreach ($Update in $script:SearchResult.Updates) {
         if (($Update.IsDownloaded)) {
             LogWrite "> $($Update.Title)"
             $UpdatesToInstall.Add($Update) |Out-Null
@@ -161,7 +161,7 @@ function Install-WindowsUpdates() {
 
         $Installer = $script:UpdateSession.CreateUpdateInstaller()
         $Installer.Updates = $UpdatesToInstall
-        $InstallationResult = $Installer.Install()
+		$InstallationResult = $Installer.Install()
 
         LogWrite "Installation Result: $($InstallationResult.ResultCode)"
         LogWrite "Reboot Required: $($InstallationResult.RebootRequired)"
@@ -200,7 +200,7 @@ function Check-WindowsUpdates() {
     $script:maxAttempts = 12
     while(-not $script:successful -and $script:attempts -lt $script:maxAttempts) {
         try {
-            $script:SearchResult = $script:UpdateSearcher.Search("IsInstalled=0 and Type='Software' and IsHidden=0")
+            $script:SearchResult = $script:UpdateSearcher.Search("IsAssigned=1 and IsInstalled=0 and Type='Software' and IsHidden=0")
             $script:successful = $TRUE
         } catch {
             LogWrite $_.Exception | Format-List -force
@@ -210,8 +210,8 @@ function Check-WindowsUpdates() {
         }
     }
 
-    if ($SearchResult.Updates.Count -ne 0) {
-        $Message = "There are " + $SearchResult.Updates.Count + " more updates."
+    if ($script:SearchResult.Updates.Count -ne 0) {
+        $Message = "There are " + $script:SearchResult.Updates.Count + " more updates."
         LogWrite $Message
         try {
 			for($i=0; $i -lt $script:SearchResult.Updates.Count; $i++) {
