@@ -6,7 +6,9 @@
     "disk_size": "21440",
     "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F"
+    "iso_checksum": "5E567024C385CC8F90C83D6763C6E4F1CD5DEB6F",
+	"username" : "vagrant",
+	"password" : "vagrant"
   },
   "builders": [
   {
@@ -21,8 +23,8 @@
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",			 
     "communicator":"ssh",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
+    "ssh_username": "{{user `username`}}",
+    "ssh_password": "{{user `password`}}",
     "ssh_timeout": "4h",
     "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",   
     "boot_command": [

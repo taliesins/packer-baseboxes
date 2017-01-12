@@ -16,7 +16,9 @@
     "vsphere_cache_directory": "iso_cache",
     "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
     "vsphere_username": "{{env `vsphere_username`}}",
-    "vsphere_password": "{{env `vsphere_password`}}"
+    "vsphere_password": "{{env `vsphere_password`}}",
+	"username" : "vagrant",
+	"password" : "vagrant"
   },
   "builders": [
   {
@@ -42,8 +44,8 @@
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
+    "ssh_username": "{{user `username`}}",
+    "ssh_password": "{{user `password`}}",
     "ssh_timeout": "4h",
     "boot_command": [
       "<esc><esc><enter><wait>",

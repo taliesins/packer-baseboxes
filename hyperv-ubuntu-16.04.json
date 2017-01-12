@@ -7,7 +7,9 @@
     "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso",
     "iso_checksum_type": "sha1",
     "iso_checksum": "DE5EE8665048F009577763EFBF4A6F0558833E59",
-    "hyperv_switchname": "{{env `hyperv_switchname`}}"
+    "hyperv_switchname": "{{env `hyperv_switchname`}}",
+	"username" : "vagrant",
+	"password" : "vagrant"
   },
   "builders": [
   {
@@ -19,8 +21,8 @@
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
+    "ssh_username": "{{user `username`}}",
+    "ssh_password": "{{user `password`}}",	
     "ssh_timeout" : "4h",
     "http_directory": "./linux/ubuntu/http/",
     "boot_wait": "5s",

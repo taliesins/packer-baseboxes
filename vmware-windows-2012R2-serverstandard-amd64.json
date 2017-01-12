@@ -6,7 +6,9 @@
     "disk_size": "41440",
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C"    
+    "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C",
+	"username" : "vagrant",
+	"password" : "vagrant"	
   },
   "builders": [
   {
@@ -39,8 +41,8 @@
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"winrm",
-    "winrm_username": "vagrant",
-    "winrm_password": "vagrant",
+    "winrm_username": "{{user `username`}}",
+    "winrm_password": "{{user `password`}}",
     "winrm_timeout": "4h",
     "shutdown_command": "a:\\run-sysprep.cmd",   
     "skip_compaction": false,
