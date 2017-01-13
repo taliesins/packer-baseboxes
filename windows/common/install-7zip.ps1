@@ -10,7 +10,7 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
-$version = '938'
+$version = '1604'
 $msi_file_name = "7z$version-x64.msi"
 
 if ($httpIp){
