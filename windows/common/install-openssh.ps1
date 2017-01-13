@@ -17,11 +17,16 @@ if ($UnAttendWindowsUsername) {
 	$username = $UnAttendWindowsUsername
 }
 
+$password = "vagrant"
+if ($UnAttendWindowsPassword) {
+	$password = $UnAttendWindowsPassword
+}
+
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 
 # setup openssh
-$version = "7.1p2-1"
+$version = "7.4p1-1"
 
 $msi_file_name = "setupssh-$($version).exe"
 if ($httpIp){
@@ -39,7 +44,7 @@ if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
 
     # initially set the port to 2222 so that there is not a race
     # condition in which packer connects to SSH before we can disable the service
-    Start-Process "C:\Windows\Temp\openssh.exe" "/S /port=2222 /privsep=1 /password=D@rj33l1ng" -NoNewWindow -Wait
+    Start-Process "C:\Windows\Temp\openssh.exe" "/S /port=2222 /privsep=1 /password=$password" -NoNewWindow -Wait
 }
 
 Stop-Service "OpenSSHd" -Force
@@ -47,9 +52,9 @@ Stop-Service "OpenSSHd" -Force
 # ensure vagrant can log in
 Write-Output "Setting $username user file permissions"
 New-Item -ItemType Directory -Force -Path "C:\Users\$username\.ssh"
-C:\Windows\System32\icacls.exe "C:\Users\$username" /grant "$username:(OI)(CI)F"
-C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\bin" /grant "$username:(OI)RX"
-C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\usr\sbin" /grant "$username:(OI)RX"
+C:\Windows\System32\icacls.exe "C:\Users\$username" /grant "$($username):(OI)(CI)F"
+C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\bin" /grant "$($username):(OI)RX"
+C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\usr\sbin" /grant "$($username):(OI)RX"
 
 Write-Output "Setting SSH home directories"
     (Get-Content "C:\Program Files\OpenSSH\etc\passwd") |
@@ -83,7 +88,7 @@ Remove-Item -Force -ErrorAction SilentlyContinue "C:\Program Files\OpenSSH\etc\s
 Write-Output "Setting temp directory location"
 Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "C:\Program Files\OpenSSH\tmp"
 C:\Program` Files\OpenSSH\bin\junction.exe /accepteula "C:\Program Files\OpenSSH\tmp" "C:\Windows\Temp"
-C:\Windows\System32\icacls.exe "C:\Windows\Temp" /grant "$username:(OI)(CI)F"
+C:\Windows\System32\icacls.exe "C:\Windows\Temp" /grant "$($username):(OI)(CI)F"
 
 # add 64 bit environment variables missing from SSH
 Write-Output "Setting SSH environment"

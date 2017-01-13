@@ -16,7 +16,7 @@ if ($UnAttendWindowsUsername) {
 	$username = $UnAttendWindowsUsername
 }
 
-$version = '3.1.1-1'
+$version = '3.1.2-1'
 $rsync_file_name = "rsync-$version.tar"
 $rsync_tar_file_name = "$rsync_file_name.xz"
 
