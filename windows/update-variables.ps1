@@ -80,6 +80,11 @@ if ($ENV:UnAttendWindows2016ComputerName) {
 	$UnAttendWindows2016ComputerName = $ENV:UnAttendWindows2016ComputerName
 }
 
+$SkipWindowsUpdates = $false
+if ($ENV:SkipWindowsUpdates) {
+	$SkipWindowsUpdates = $true
+}
+
 @("windows-10-amd64", "windows-2012R2-serverstandard-amd64", "windows-2016-serverstandard-amd64") | %{
 	$osDirectory = $_
 	$autounattendPath = "$CurrentPath\$osDirectory\Autounattend.xml" 
@@ -208,6 +213,7 @@ $file = @"
 `$proxyServerPassword = '$($ENV:proxyServerPassword)'
 `$httpIp = '$($ENV:httpIp)'
 `$httpPort = '$($ENV:httpPort)'
+`$SkipWindowsUpdates = '$($SkipWindowsUpdates)'
 
 if (`$ENV:UnAttendWindowsUsername) {
 	`$UnAttendWindowsUsername = `$ENV:UnAttendWindowsUsername
@@ -239,6 +245,10 @@ if (`$ENV:httpIp) {
 
 if (`$ENV:httpPort) {
 	`$httpPort = `$ENV:httpPort
+}
+
+if (`$ENV:SkipWindowsUpdates) {
+	`$SkipWindowsUpdates = `$ENV:SkipWindowsUpdates
 }
 "@
 
