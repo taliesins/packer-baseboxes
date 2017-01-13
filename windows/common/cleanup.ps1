@@ -15,6 +15,11 @@ Write-Host "Removing temp folders"
 $tempfolders = @("C:\Windows\Temp\*", "C:\Windows\Prefetch\*", "C:\Documents and Settings\*\Local Settings\temp\*", "C:\Users\*\Appdata\Local\Temp\*")
 Remove-Item $tempfolders -ErrorAction SilentlyContinue -Force -Recurse
 
+if ($SkipWindowsUpdates){
+	Write-Host "Skipping cleanup"
+	exit 0
+}
+
 try{
 	Write-Host "Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase"
 	Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase

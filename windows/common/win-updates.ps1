@@ -239,6 +239,7 @@ function Check-WindowsUpdates() {
 }
 
 if ($SkipWindowsUpdates){
+	Write-Host "Skipping windows updates"
 	EnableWinRm
 	exit 0
 }

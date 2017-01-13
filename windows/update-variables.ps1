@@ -85,6 +85,21 @@ if ($ENV:SkipWindowsUpdates) {
 	$SkipWindowsUpdates = $true
 }
 
+$SkipCleanup = $false
+if ($ENV:SkipCleanup) {
+	$SkipCleanup = $true
+}
+
+$SkipCompileDotNetAssemblies = $false
+if ($ENV:SkipCompileDotNetAssemblies) {
+	$SkipCompileDotNetAssemblies = $true
+}
+
+$SkipDefrag = $false
+if ($ENV:SkipDefrag) {
+	$SkipDefrag = $true
+}
+
 @("windows-10-amd64", "windows-2012R2-serverstandard-amd64", "windows-2016-serverstandard-amd64") | %{
 	$osDirectory = $_
 	$autounattendPath = "$CurrentPath\$osDirectory\Autounattend.xml" 
@@ -214,6 +229,9 @@ $file = @"
 `$httpIp = '$($ENV:httpIp)'
 `$httpPort = '$($ENV:httpPort)'
 `$SkipWindowsUpdates = '$($SkipWindowsUpdates)'
+`$SkipCleanup = '$($SkipCleanup)'
+`$SkipCompileDotNetAssemblies = '$($SkipCompileDotNetAssemblies)'
+`$SkipDefrag = '$($SkipDefrag)'
 
 if (`$ENV:UnAttendWindowsUsername) {
 	`$UnAttendWindowsUsername = `$ENV:UnAttendWindowsUsername
@@ -249,6 +267,18 @@ if (`$ENV:httpPort) {
 
 if (`$ENV:SkipWindowsUpdates) {
 	`$SkipWindowsUpdates = `$ENV:SkipWindowsUpdates
+}
+
+if (`$ENV:SkipCleanup) {
+	`$SkipCleanup = `$ENV:SkipCleanup
+}
+
+if (`$ENV:SkipCompileDotNetAssemblies) {
+	`$SkipCompileDotNetAssemblies = `$ENV:SkipCompileDotNetAssemblies
+}
+
+if (`$ENV:SkipDefrag) {
+	`$SkipDefrag = `$ENV:SkipDefrag
 }
 "@
 

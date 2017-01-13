@@ -10,6 +10,11 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
+if ($SkipCompileDotNetAssemblies){
+	Write-Host "Skipping compile .net assemblies"
+	exit 0
+}
+
 #http://support.microsoft.com/kb/2570538
 #http://robrelyea.wordpress.com/2007/07/13/may-be-helpful-ngen-exe-executequeueditems/
 
