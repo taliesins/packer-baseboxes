@@ -10,7 +10,7 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
-$version = '7.0.1'
+$version = '7.0.2'
 $msi_file_name = "ultradefrag-portable-$($version).bin.amd64.zip"
 
 if ($httpIp){
