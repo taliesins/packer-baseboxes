@@ -37,12 +37,12 @@ if ($ENV:UnAttendWindowsOrganization) {
 
 $UnAttendUseUefi = $false
 if ($ENV:UnAttendUseUefi) {
-	$UnAttendUseUefi = $true
+	$UnAttendUseUefi = [System.Convert]::ToBoolean($ENV:UnAttendUseUefi)
 }
 
 $UnAttendUseCdrom = $false
 if ($ENV:UnAttendUseCdrom) {
-	$UnAttendUseCdrom = $true
+	$UnAttendUseCdrom = [System.Convert]::ToBoolean($ENV:UnAttendUseCdrom)
 }
 
 $UnAttendProxy = ""
@@ -82,22 +82,27 @@ if ($ENV:UnAttendWindows2016ComputerName) {
 
 $SkipWindowsUpdates = $false
 if ($ENV:SkipWindowsUpdates) {
-	$SkipWindowsUpdates = $true
+	$SkipWindowsUpdates = [System.Convert]::ToBoolean($ENV:SkipWindowsUpdates)
 }
 
 $SkipCleanup = $false
 if ($ENV:SkipCleanup) {
-	$SkipCleanup = $true
+	$SkipCleanup = [System.Convert]::ToBoolean($ENV:SkipCleanup)
 }
 
 $SkipCompileDotNetAssemblies = $false
 if ($ENV:SkipCompileDotNetAssemblies) {
-	$SkipCompileDotNetAssemblies = $true
+	$SkipCompileDotNetAssemblies = [System.Convert]::ToBoolean($ENV:SkipCompileDotNetAssemblies)
 }
 
 $SkipDefrag = $false
 if ($ENV:SkipDefrag) {
-	$SkipDefrag = $true
+	$SkipDefrag = [System.Convert]::ToBoolean($ENV:SkipDefrag)
+}
+
+$SkipSDelete = $false
+if ($ENV:SkipSDelete) {
+	$SkipSDelete = [System.Convert]::ToBoolean($ENV:SkipSDelete)
 }
 
 @("windows-10-amd64", "windows-2012R2-serverstandard-amd64", "windows-2016-serverstandard-amd64") | %{
@@ -228,10 +233,10 @@ $file = @"
 `$proxyServerPassword = '$($ENV:proxyServerPassword)'
 `$httpIp = '$($ENV:httpIp)'
 `$httpPort = '$($ENV:httpPort)'
-`$SkipWindowsUpdates = '$($SkipWindowsUpdates)'
-`$SkipCleanup = '$($SkipCleanup)'
-`$SkipCompileDotNetAssemblies = '$($SkipCompileDotNetAssemblies)'
-`$SkipDefrag = '$($SkipDefrag)'
+`$SkipWindowsUpdates = [System.Convert]::ToBoolean('$($SkipWindowsUpdates)')
+`$SkipCleanup = [System.Convert]::ToBoolean('$($SkipCleanup)')
+`$SkipCompileDotNetAssemblies = [System.Convert]::ToBoolean('$($SkipCompileDotNetAssemblies)')
+`$SkipDefrag = [System.Convert]::ToBoolean('$($SkipDefrag)')
 
 if (`$ENV:UnAttendWindowsUsername) {
 	`$UnAttendWindowsUsername = `$ENV:UnAttendWindowsUsername
@@ -266,19 +271,19 @@ if (`$ENV:httpPort) {
 }
 
 if (`$ENV:SkipWindowsUpdates) {
-	`$SkipWindowsUpdates = `$ENV:SkipWindowsUpdates
+	`$SkipWindowsUpdates = [System.Convert]::ToBoolean(`$ENV:SkipWindowsUpdates)
 }
 
 if (`$ENV:SkipCleanup) {
-	`$SkipCleanup = `$ENV:SkipCleanup
+	`$SkipCleanup = [System.Convert]::ToBoolean(`$ENV:SkipCleanup)
 }
 
 if (`$ENV:SkipCompileDotNetAssemblies) {
-	`$SkipCompileDotNetAssemblies = `$ENV:SkipCompileDotNetAssemblies
+	`$SkipCompileDotNetAssemblies = [System.Convert]::ToBoolean(`$ENV:SkipCompileDotNetAssemblies)
 }
 
 if (`$ENV:SkipDefrag) {
-	`$SkipDefrag = `$ENV:SkipDefrag
+	`$SkipDefrag = [System.Convert]::ToBoolean(`$ENV:SkipSDelete)
 }
 "@
 
