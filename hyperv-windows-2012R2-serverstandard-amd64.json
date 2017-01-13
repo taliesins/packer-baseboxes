@@ -42,8 +42,8 @@
   }],
   "provisioners": [{
     "type": "powershell",
-    "elevated_user":"vagrant",
-    "elevated_password":"vagrant",
+    "elevated_user": "{{user `username`}}",
+    "elevated_password": "{{user `password`}}",
     "scripts": [
       "./windows/common/Reset-ClientWSUSSetting.ps1",
       "./windows/common/install-7zip.ps1",

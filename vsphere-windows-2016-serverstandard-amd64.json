@@ -94,8 +94,8 @@
   "provisioners": [
     {
       "type": "powershell",
-      "elevated_user":"vagrant",
-      "elevated_password":"vagrant",
+      "elevated_user": "{{user `username`}}",
+      "elevated_password": "{{user `password`}}",
       "scripts": [
         "./windows/common/install-7zip.ps1",
         "./windows/common/install-vmware-tools.ps1"
@@ -106,8 +106,8 @@
     },
     {
       "type": "powershell",
-      "elevated_user":"vagrant",
-      "elevated_password":"vagrant",
+      "elevated_user": "{{user `username`}}",
+      "elevated_password": "{{user `password`}}",
       "scripts": [
         "./windows/common/install-7zip.ps1",
         "./windows/common/install-vmware-tools.ps1",    
