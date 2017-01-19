@@ -6,7 +6,7 @@ Push-Location $CurrentPath
 try {
 	$WsusServer = Get-WsusServer
 } catch {
-	Write-Error "Is this user member of WSUS Administrator group"
+	Write-Host "Is this user member of WSUS Administrator group"
 	throw $_
 }
 
