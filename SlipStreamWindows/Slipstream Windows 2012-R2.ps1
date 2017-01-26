@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 <#
 .SYNOPSIS
 	Updates an offline WIM or VHDX from WSUS contents.
@@ -343,37 +344,42 @@ function Update-WindowsImage						#Uncomment this line to use this script dot-so
 			    $PermanentLog += $CurrentMessage
 			    break
 		    }
-	 
-			$CurrentFile = 0
-			foreach($UpdateFile in $UpdateFiles)
-			{
-				$CurrentFile += 1
-				$CurrentFilePercent = 100 - ((($UpdateFiles.Count - $CurrentFile) / $UpdateFiles.Count) * 100)
-				if(-not ("$($ImageToUpdate.Index):$($UpdateFile.Title)" -in $PermanentLog))
-				{
-					Write-Progress -Activity 'Updating image' -CurrentOperation "Applying $($UpdateFile.Title)" -Status "Applying images to $($ImageToUpdate.Path)" -PercentComplete $CurrentFilePercent
-					try
-					{
-						$OutNull = Add-WindowsPackage -PackagePath $UpdateFile.Path -Path $OfflineMountFolder -ErrorAction Stop
-						$CurrentImageLog += "$($ImageToUpdate.Index):$($UpdateFile.Title)`r`n"
-					}
-					catch
-					{
-						# Add-WindowsPackage will write a warning, we're just ensuring that we don't write an unsuccessful patch to the log
-					}
-				}
-			}
-			Write-Progress -Activity 'Updating image' -Completed
 			try
 			{
-				$OutNull = Dismount-WindowsImage -Path $OfflineMountFolder -Save -ErrorAction Stop
+				$CurrentFile = 0
+				foreach($UpdateFile in $UpdateFiles)
+				{
+					$CurrentFile += 1
+					$CurrentFilePercent = 100 - ((($UpdateFiles.Count - $CurrentFile) / $UpdateFiles.Count) * 100)
+					if(-not ("$($ImageToUpdate.Index):$($UpdateFile.Title)" -in $PermanentLog))
+					{
+						Write-Progress -Activity 'Updating image' -CurrentOperation "Applying $($UpdateFile.Title)" -Status "Applying images to $($ImageToUpdate.Path)" -PercentComplete $CurrentFilePercent
+						try
+						{
+							$OutNull = Add-WindowsPackage -PackagePath $UpdateFile.Path -Path $OfflineMountFolder -ErrorAction Stop
+							$CurrentImageLog += "$($ImageToUpdate.Index):$($UpdateFile.Title)`r`n"
+						}
+						catch
+						{
+							# Add-WindowsPackage will write a warning, we're just ensuring that we don't write an unsuccessful patch to the log
+						}
+					}
+				}
+				Write-Progress -Activity 'Updating image' -Completed
 			}
-			catch
+			finally 
 			{
-				$CurrentMessage = "Unable to save changes to $($ImageToUpdate.Path): $($_.Message)"
-				Write-Error -Message $CurrentMessage
-				$CurrentImageLog = @("$CurrentMessage`r`n") #note the re-assignment; the updates will not be logged because they never really happened
-				$OutNull = Dismount-WindowsImage -Path $OfflineMountFolder -Discard
+				try
+				{
+					$OutNull = Dismount-WindowsImage -Path $OfflineMountFolder -Save -ErrorAction Stop
+				}
+				catch
+				{
+					$CurrentMessage = "Unable to save changes to $($ImageToUpdate.Path): $($_.Message)"
+					Write-Error -Message $CurrentMessage
+					$CurrentImageLog = @("$CurrentMessage`r`n") #note the re-assignment; the updates will not be logged because they never really happened
+					$OutNull = Dismount-WindowsImage -Path $OfflineMountFolder -Discard
+				}
 			}
 
 		    $PermanentLog = $PermanentLog | select -Unique
