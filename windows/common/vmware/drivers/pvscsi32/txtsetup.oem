@@ -1,6 +1,6 @@
 
 ; txtsetup.oem file.
-; Required to install the pvscsi driver at install time on Windows 2003.
+; Required to install the pvscsi driver at install time.
 
 [Disks]
 ;"directory" should specify the full-path as per the documentation, but only
@@ -8,7 +8,7 @@
 
 
 
-disk = "VMware PVSCSI Controller Disk",\txtsetup.oem,\
+
 
 
 
