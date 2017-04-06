@@ -17,8 +17,8 @@
     "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
     "vsphere_username": "{{env `vsphere_username`}}",
     "vsphere_password": "{{env `vsphere_password`}}",
-	"username" : "vagrant",
-	"password" : "vagrant"
+    "username" : "vagrant",
+    "password" : "vagrant"
   },
   "builders": [
   {
@@ -45,13 +45,13 @@
       "./windows/common/run-sysprep.ps1",
       "./windows/common/run-sysprep.cmd",
       "./windows/common/enable-winrm.ps1",
-	  "./windows/common/enable-winrm.task.ps1",
+      "./windows/common/enable-winrm.task.ps1",
       "./windows/common/fixnetwork.ps1",
       "./windows/common/Set-ClientWSUSSetting.ps1",
-	  "./windows/common/Set-ClientWSUSSetting.task.ps1",
-	  "./windows/common/elevate.exe",
-	  "./windows/common/sdelete.exe",
-	  "./windows/common/sdelete.ps1",	  
+      "./windows/common/Set-ClientWSUSSetting.task.ps1",
+      "./windows/common/elevate.exe",
+      "./windows/common/sdelete.exe",
+      "./windows/common/sdelete.ps1",	  
       "./windows/common/vmware/drivers/pvscsi64",
       "./windows/common/vmware/drivers/vmxnet3"
     ],
