@@ -10,7 +10,7 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
-$version = '5.1.14'
+$version = '5.1.18'
 $iso_name = "VBoxGuestAdditions_$version.iso"
 
 if ($httpIp){
