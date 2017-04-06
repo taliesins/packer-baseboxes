@@ -22,11 +22,14 @@ if ($UnAttendWindowsPassword) {
 	$password = $UnAttendWindowsPassword
 }
 
+# openssh insists on a secure password
+$password = ([guid]::NewGuid()).ToString()
+
 Write-Output "AutoStart: $AutoStart"
 $is_64bit = [IntPtr]::size -eq 8
 
 # setup openssh
-$version = "7.4p1-1"
+$version = "7.5p1-1"
 
 $msi_file_name = "setupssh-$($version).exe"
 if ($httpIp){
@@ -35,7 +38,7 @@ if ($httpIp){
     }
     $ssh_download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
-    $ssh_download_url = "http://www.mls-software.com/files/$msi_file_name"
+    $ssh_download_url = "https://www.mls-software.com/files/$msi_file_name"
 }
 
 if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
@@ -44,10 +47,10 @@ if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
 
     # initially set the port to 2222 so that there is not a race
     # condition in which packer connects to SSH before we can disable the service
-    Start-Process "C:\Windows\Temp\openssh.exe" "/S /port=2222 /privsep=1 /password=$password" -NoNewWindow -Wait
+    Start-Process "C:\Windows\Temp\openssh.exe" "/port=2222 /password=$password /S " -NoNewWindow -Wait
 }
 
-Stop-Service "OpenSSHd" -Force
+Get-Service | ?{$_.Name -eq 'OpenSSHd'} | Stop-Service -Force
 
 # ensure vagrant can log in
 Write-Output "Setting $username user file permissions"
@@ -76,7 +79,7 @@ $sshd_config = $sshd_config -replace '#PermitUserEnvironment no', 'PermitUserEnv
 $sshd_config = $sshd_config -replace '#UseDNS yes', 'UseDNS no'
 # disable the login banner
 $sshd_config = $sshd_config -replace 'Banner /etc/banner.txt', '#Banner /etc/banner.txt'
-# next time OpenSSH starts have it listen on th eproper port
+# next time OpenSSH starts have it listen on the proper port
 $sshd_config = $sshd_config -replace 'Port 2222', "Port 22"
 Set-Content "C:\Program Files\OpenSSH\etc\sshd_config" $sshd_config
 

@@ -112,7 +112,6 @@
       "./windows/common/install-vmware-tools.ps1",    
       "./windows/common/install-chef.ps1",
       "./windows/common/install-openssh.ps1",
-      "./windows/common/install-rsync.ps1",
       "./windows/common/install-sshkey.ps1",
       "./windows/common/compile-dotnet-assemblies.ps1",
       "./windows/common/cleanup.ps1",
