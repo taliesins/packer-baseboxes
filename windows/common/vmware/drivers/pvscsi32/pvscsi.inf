@@ -1,14 +1,23 @@
 
 ;pvscsi.inf
 ;This file contains the information required to load the driver for the VMware PVSCSI Controller
-; Copyright (c) 2001 - 2014, VMware, Inc.
+; Copyright (C) 2001 - 2016, VMware, Inc.
+
+
+
+
+
+
+
+
+
 
 [version]
 Signature="$Windows NT$"
 Class=SCSIAdapter
 ClassGuid={4D36E97B-E325-11CE-BFC1-08002BE10318}
 Provider=%VMWARE%
-DriverVer=11/03/2014,1.3.4.0
+DriverVer=01/04/2016,1.3.8.0
 CatalogFile=pvscsi.cat
 
 [ControlFlags]
@@ -20,29 +29,22 @@ ExcludeFromSelect = *
 [SourceDisksFiles]
 pvscsi.sys = 1,,
 
-
-
-
-
-
-
-
 [Manufacturer]
-%VMWARE%=pvscsi,NTx86.5.2,NTx86.6
 
 
 
 
 
 
+
+%VMWARE%=pvscsi,NTx86.6.2
 
 
 
 
 ; ##################################################
 
-; IA-64 is unsupported, as are older versions of Windows on all platforms.
-
+; Other architectures are unsupported, as are older versions of Windows on all platforms.
 [pvscsi]
 
 
@@ -54,11 +56,6 @@ pvscsi.sys = 1,,
 
 
 
-[pvscsi.NTx86.5.2]
-%DEVICE%=DDInstall.x86,         PCI\VEN_15AD&DEV_07C0
-
-[pvscsi.NTx86.6]
-%DEVICE%=DDInstall.x86.vista,   PCI\VEN_15AD&DEV_07C0
 
 
 
@@ -67,6 +64,10 @@ pvscsi.sys = 1,,
 
 
 
+
+
+[pvscsi.NTx86.6.2]
+%DEVICE%=DDInstall.x86.vista, PCI\VEN_15AD&DEV_07C0
 
 
 
@@ -74,26 +75,14 @@ pvscsi.sys = 1,,
 
 
 
-[DDInstall.x86.NT]
-CopyFiles=pvscsi.x86.CopyFiles
+
+
 
 [DDInstall.x86.vista.NT]
 CopyFiles=pvscsi.x86.CopyFiles
 
 
-
-
-
-
-
-
-
-
-
 ; ##################################################
-
-
-
 
 [DDInstall.x86.vista.NT.HW]
 AddReg=enableMSI.reg
@@ -102,31 +91,13 @@ Needs=PciIoSpaceNotRequired
 
 
 
-
-
-
-
-
-
-
-
 ; ##################################################
-
-
 
 [pvscsi.x86.CopyFiles]
 pvscsi.sys,,,2
 
 
-
-
-
-
-
-
 ; ##################################################
-
-
 
 [DDInstall.x86.NT.Services]
 AddService=pvscsi,2,Service_Install.x86,EventLog_Install
@@ -135,32 +106,15 @@ AddService=pvscsi,2,Service_Install.x86,EventLog_Install
 AddService=pvscsi,2,Service_Install.x86,EventLog_Install
 
 
-
-
-
-
-
-
-
-
-
 ; ##################################################
 
 [DestinationDirs]
-
 pvscsi.x86.CopyFiles = 12
-
-
-
 DefaultDestDir=12
 
 ; ##################################################
 
-
 [Service_Install.x86]
-
-
-
 DisplayName=%pvscsi.DiskName%
 ServiceType=1     ; %SERVICE_KERNEL_DRIVER%
 StartType=0       ; %SERVICE_BOOT_START%
