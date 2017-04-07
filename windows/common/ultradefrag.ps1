@@ -19,7 +19,7 @@ if ($httpIp){
     }
     $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
-    $download_url = "http://heanet.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"
+    $download_url = "http://netix.dl.sourceforge.net/project/ultradefrag/stable-release/$($version)/$($msi_file_name)"
 }
 
 $download_path = "C:\Windows\Temp\$msi_file_name"
