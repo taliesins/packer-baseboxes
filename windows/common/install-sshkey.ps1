@@ -16,7 +16,9 @@ if ($UnAttendWindowsUsername) {
 	$username = $UnAttendWindowsUsername
 }
 
-if (Test-Path a:\vagrant.pub) {
+if ($AuthorizedKeys) {
+	Set-Content -Path "C:\Users\$username\.ssh\authorized_keys" -Value $AuthorizedKeys -Encoding Ascii
+} elseif (Test-Path a:\vagrant.pub) {
 	Copy-Item a:\vagrant.pub C:\Users\$username\.ssh\authorized_keys -Force
 } elseif (Test-Path d:\vagrant.pub) {
 	Copy-Item d:\vagrant.pub C:\Users\$username\.ssh\authorized_keys -Force

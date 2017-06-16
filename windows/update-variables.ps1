@@ -237,6 +237,7 @@ $file = @"
 `$SkipCleanup = [System.Convert]::ToBoolean('$($SkipCleanup)')
 `$SkipCompileDotNetAssemblies = [System.Convert]::ToBoolean('$($SkipCompileDotNetAssemblies)')
 `$SkipDefrag = [System.Convert]::ToBoolean('$($SkipDefrag)')
+`$AuthorizedKeys = '$($ENV:AuthorizedKeys)'
 
 if (`$ENV:UnAttendWindowsUsername) {
 	`$UnAttendWindowsUsername = `$ENV:UnAttendWindowsUsername
@@ -284,6 +285,10 @@ if (`$ENV:SkipCompileDotNetAssemblies) {
 
 if (`$ENV:SkipDefrag) {
 	`$SkipDefrag = [System.Convert]::ToBoolean(`$ENV:SkipSDelete)
+}
+
+if (`$ENV:AuthorizedKeys) {
+	`$AuthorizedKeys = `$ENV:AuthorizedKeys
 }
 "@
 
