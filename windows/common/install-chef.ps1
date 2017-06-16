@@ -10,8 +10,9 @@ for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)
 	}
 }
 
-$version = '12.5.1-1'
-$msi_file_name = "chef-client-$($version)-x86.msi"
+$version = '13.1.31'
+$build = '-1'
+$msi_file_name = "chef-client-$($version)$($build)-x64.msi"
 
 if ($httpIp){
 	if (!$httpPort){
@@ -19,7 +20,7 @@ if ($httpIp){
     }
     $download_url = "http://$($httpIp):$($httpPort)/$msi_file_name"
 } else {
-    $download_url = "http://opscode-omnibus-packages.s3.amazonaws.com/windows/2008r2/i386/$msi_file_name"
+    $download_url = "https://packages.chef.io/files/stable/chef/$($version)/windows/2012/$msi_file_name"
 }
 
 (New-Object System.Net.WebClient).DownloadFile($download_url, "C:\Windows\Temp\$msi_file_name")
