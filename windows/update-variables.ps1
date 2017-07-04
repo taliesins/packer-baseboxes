@@ -147,6 +147,7 @@ if ($ENV:SkipSDelete) {
 	if ($osDirectory -eq "windows-2012R2-serverstandard-amd64") {
 		if ($UnAttendWindows2012ProductKey) {
 			$autounattend = $autounattend | % { $_ -replace '<!--<Key>D2N9P-3P6X9-2R39C-7RTCD-MDVJX</Key>-->',"<Key>$UnAttendWindows2012ProductKey</Key>" }
+			$autounattend = $autounattend | % { $_ -replace '<!--<ProductKey>D2N9P-3P6X9-2R39C-7RTCD-MDVJX</ProductKey>-->',"<ProductKey>$UnAttendWindows2012ProductKey</ProductKey>" }
 		}
 		
 		if ($UnAttendWindows2012ComputerName) {
