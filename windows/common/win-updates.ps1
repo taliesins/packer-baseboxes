@@ -8,13 +8,13 @@ $ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
 
 for ([byte]$c = [char]'A'; $c -le [char]'Z'; $c++)  
-{  
-	$variablePath = [char]$c + ':\variables.ps1'
+{
+    $variablePath = [char]$c + ':\variables.ps1'
 
-	if (test-path $variablePath) {
-		. $variablePath
-		break
-	}
+    if (test-path $variablePath) {
+        . $variablePath
+        break
+    }
 }
 
 "Starting $($MyInvocation.MyCommand.Name)" | Out-File -Filepath "$($env:TEMP)\BoxImageCreation_$($MyInvocation.MyCommand.Name).started.txt" -Append
@@ -29,9 +29,34 @@ function LogWrite {
 }
 
 function EnableWinRm {
-    $configureServiceStartup = "sc.exe config winrm start= auto"
-    Invoke-Expression -Command $configureServiceStartup -ErrorAction Stop
-    start-service winrm
+    if (Test-DismActivationRequired){
+        Invoke-DismActivation
+    } else {
+        $configureServiceStartup = "sc.exe config winrm start= auto"
+        Invoke-Expression -Command $configureServiceStartup -ErrorAction Stop
+        start-service winrm
+    }
+}
+
+function Test-DismActivationRequired {
+    if ($UnAttendWindowsDismProductKey -and $UnAttendWindowsDismProductEdition){
+        $dismCurrentEdition = &DISM /online /Get-CurrentEdition
+        $edition = ($dismCurrentEdition -match "Current Edition : (.*)") -replace "Current Edition : ", ""
+        if ($edition -eq $UnAttendWindowsDismProductEdition) {
+            $activationRequired = $false
+        } else {
+            $activationRequired = $true
+        }
+        return $activationRequired
+    } else {
+        return $false
+    }
+}
+
+function Invoke-DismActivation {
+    &DISM /online /Set-Edition:$UnAttendWindowsDismProductEdition /AcceptEula /ProductKey:$UnAttendWindowsDismProductKey /NoRestart
+    $global:RestartRequired = 1
+    Check-ContinueRestartOrEnd
 }
 
 function Check-ContinueRestartOrEnd() {
@@ -117,7 +142,7 @@ function Install-WindowsUpdates() {
         $ok = 0;
         while (! $ok) {
             try {
-            	LogWrite 'Starting download...'
+                LogWrite 'Starting download...'
                 $Downloader = $UpdateSession.CreateUpdateDownloader()
                 $Downloader.Updates = $UpdatesToDownload
                 $Downloader.Download()
@@ -161,7 +186,7 @@ function Install-WindowsUpdates() {
 
         $Installer = $script:UpdateSession.CreateUpdateInstaller()
         $Installer.Updates = $UpdatesToInstall
-		$InstallationResult = $Installer.Install()
+        $InstallationResult = $Installer.Install()
 
         LogWrite "Installation Result: $($InstallationResult.ResultCode)"
         LogWrite "Reboot Required: $($InstallationResult.RebootRequired)"
@@ -176,8 +201,8 @@ function Install-WindowsUpdates() {
                 Result = $InstallationResult.GetUpdateResult($i).ResultCode
             }
 
-			LogWrite "Item: " $UpdatesToInstall.Item($i).Title
-			LogWrite "Result: " $InstallationResult.GetUpdateResult($i).ResultCode;
+            LogWrite "Item: " $UpdatesToInstall.Item($i).Title
+            LogWrite "Result: " $InstallationResult.GetUpdateResult($i).ResultCode;
         }
     }
     Check-ContinueRestartOrEnd
@@ -214,12 +239,12 @@ function Check-WindowsUpdates() {
         $Message = "There are " + $script:SearchResult.Updates.Count + " more updates."
         LogWrite $Message
         try {
-			for($i=0; $i -lt $script:SearchResult.Updates.Count; $i++) {
-				LogWrite script:SearchResult.Updates.Item($i).Title
-				LogWrite $script:SearchResult.Updates.Item($i).Description
-				LogWrite $script:SearchResult.Updates.Item($i).RebootRequired
-				LogWrite $script:SearchResult.Updates.Item($i).EulaAccepted
-			}
+            for($i=0; $i -lt $script:SearchResult.Updates.Count; $i++) {
+                LogWrite script:SearchResult.Updates.Item($i).Title
+                LogWrite $script:SearchResult.Updates.Item($i).Description
+                LogWrite $script:SearchResult.Updates.Item($i).RebootRequired
+                LogWrite $script:SearchResult.Updates.Item($i).EulaAccepted
+            }
 
             $global:MoreUpdates=1
         } catch {
@@ -239,9 +264,9 @@ function Check-WindowsUpdates() {
 }
 
 if ($SkipWindowsUpdates){
-	Write-Host "Skipping windows updates"
-	EnableWinRm
-	exit 0
+    Write-Host "Skipping windows updates"
+    EnableWinRm
+    exit 0
 }
 
 $script:ScriptName = $MyInvocation.MyCommand.ToString()

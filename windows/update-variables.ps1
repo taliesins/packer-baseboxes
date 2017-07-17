@@ -65,6 +65,16 @@ if ($ENV:UnAttendWindows2016ProductKey) {
 	$UnAttendWindows2016ProductKey = $ENV:UnAttendWindows2016ProductKey
 }
 
+$UnAttendWindowsDismProductKey = ""
+if ($ENV:UnAttendWindowsDismProductKey) {
+	$UnAttendWindowsDismProductKey = $ENV:UnAttendWindowsDismProductKey
+}
+
+$UnAttendWindowsDismProductEdition = ""
+if ($ENV:UnAttendWindowsDismProductEdition) {
+	$UnAttendWindowsDismProductEdition = $ENV:UnAttendWindowsDismProductEdition
+}
+
 $UnAttendWindows10ComputerName = "win-10"
 if ($ENV:UnAttendWindows10ComputerName) {
 	$UnAttendWindows10ComputerName = $ENV:UnAttendWindows10ComputerName
@@ -228,6 +238,8 @@ if (!$WSUSServer){
 $file = @"
 `$UnAttendWindowsUsername = '$($UnAttendWindowsUsername)'
 `$UnAttendWindowsPassword = '$($UnAttendWindowsPassword)'
+`$UnAttendWindowsDismProductKey = '$($UnAttendWindowsDismProductKey)'
+`$UnAttendWindowsDismProductEdition = '$($UnAttendWindowsDismProductEdition)'
 `$WSUSServer = '$($WSUSServer)'
 `$proxyServerAddress = '$($ENV:proxyServerAddress)'
 `$proxyServerUsername = '$($ENV:proxyServerUsername)'
@@ -246,6 +258,14 @@ if (`$ENV:UnAttendWindowsUsername) {
 
 if (`$ENV:UnAttendWindowsPassword) {
 	`$UnAttendWindowsPassword = `$ENV:UnAttendWindowsPassword
+}
+
+if (`$ENV:UnAttendWindowsDismProductKey) {
+	`$UnAttendWindowsDismProductKey = `$ENV:UnAttendWindowsDismProductKey
+}
+
+if (`$ENV:UnAttendWindowsDismProductEdition) {
+	`$UnAttendWindowsDismProductEdition = `$ENV:UnAttendWindowsDismProductEdition
 }
 
 if (`$ENV:WSUSServer) {
