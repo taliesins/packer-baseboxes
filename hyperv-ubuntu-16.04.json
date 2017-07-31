@@ -51,6 +51,8 @@
     "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
     "scripts": [
       "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/hyperv-xenial.sh",
+      "./linux/ubuntu/hyperv-gen2.sh",
       "./linux/ubuntu/network.sh",
       "./linux/common/vagrant.sh",
       "./linux/common/chef.sh",
