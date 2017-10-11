@@ -165,6 +165,7 @@
             <OEMInformation>
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
+            <!--<ProductKey>D2N9P-3P6X9-2R39C-7RTCD-MDVJX</ProductKey>-->
             <ComputerName>nl-ams-basebox1</ComputerName>
             <TimeZone>Coordinated Universal Time</TimeZone>
             <RegisteredOwner />

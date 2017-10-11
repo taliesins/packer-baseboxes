@@ -128,7 +128,8 @@ if ($ENV:SkipSDelete) {
 	$autounattend = $autounattend | % { $_ -replace '<Organization>vagrant</Organization>',"<Organization>$UnAttendWindowsOrganization</Organization>" } 
 	$autounattend = $autounattend | % { $_ -replace 'name=''vagrant''',"name='$UnAttendWindowsUsername'" }
 	$autounattend = $autounattend | % { $_ -replace '<Value>vagrant</Value>',"<Value>$UnAttendWindowsPassword</Value>" }
-
+	$autounattend = $autounattend | % { $_ -replace '/d vagrant',"/d $UnAttendWindowsPassword" }
+	
 	if ($UnAttendUseUefi) {
 		#Enable UEFI and disable Non UEFI
 		$autounattend = $autounattend | % { $_ -replace '<!-- Start Non UEFI -->','<!-- Start Non UEFI' } | % { $_ -replace '<!-- Finish Non UEFI -->','Finish Non UEFI -->' } | % { $_ -replace '<!-- Start UEFI compatible','<!-- Start UEFI compatible -->' } | % { $_ -replace 'Finish UEFI compatible -->','<!-- Finish UEFI compatible -->' } 
@@ -226,7 +227,7 @@ if (!$WSUSServer){
 	Set-Location HKLM:
 	
 	$WSUSEnv = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
-	$WSUSServer = Get-ItemProperty -Path $WSUSEnv -Name "WUServer"
+	$WSUSServer = Get-ItemProperty -Path $WSUSEnv -Name "WUServer" -ErrorAction SilentlyContinue
 	
 	if ($WSUSServer) {
 		$WSUSServer = $WSUSServer.WUServer
