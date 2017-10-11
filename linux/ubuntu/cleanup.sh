@@ -1,8 +1,9 @@
 #!/bin/sh
 
 # Clean up
-apt-get -y remove dkms
-apt-get -y autoremove
+purge-old-kernels
+apt-get -y remove dkms 
+apt-get -y autoremove --purge
 apt-get -y clean
 
 # Remove temporary files
