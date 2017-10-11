@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$OsName = "14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US"
+$OsName = "15063.0.170317-1834.RS2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US"
 $IsoExtractPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\$OsName")
 $IsoPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\$($OsName).iso")
 $SevenZipPath = "C:\Program Files\7-Zip\7z.exe"

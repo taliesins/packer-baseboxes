@@ -391,7 +391,7 @@ function Update-WindowsImage						#Uncomment this line to use this script dot-so
     }
 }															#uncomment this line to use this script dot-sourced or in a profile. Also the function definition lines at the beginning.
 
-$OsName = '14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US'
+$OsName = '15063.0.170317-1834.RS2_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US'
 $TargetPath = 'Windows 10'
 $WsusContentFolder = 'E:\WSUS\WsusContent'
 $WsusServerName = 'localhost'
