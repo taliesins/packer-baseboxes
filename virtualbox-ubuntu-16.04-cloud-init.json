@@ -3,7 +3,7 @@
     "vm_name": "ubuntu-xenial",
     "cpu": "2",
     "ram_size": "2048",
-    "disk_size": "21440",
+    "disk_size": "3072",
     "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
     "iso_checksum": "F3532991E031CAE75BCF5E695AFB844DD278FFF9",
@@ -55,10 +55,7 @@
     "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
     "scripts": [
       "./linux/ubuntu/update.sh",
-      "./linux/ubuntu/network.sh",
-      "./linux/common/vagrant.sh",
-      "./linux/common/chef.sh",
-      "./linux/common/motd.sh",
+      "./linux/ubuntu/cloud-init.sh",
       "./linux/ubuntu/cleanup.sh"
     ]
   }],

@@ -4,12 +4,12 @@
     "cpu": "2",
     "ram_size": "2048",
     "disk_size": "21440",
-    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "F529548FA7468F2D8413B8427D8E383B830DF5F6",
+    "iso_checksum": "F3532991E031CAE75BCF5E695AFB844DD278FFF9",
     "hyperv_switchname": "{{env `hyperv_switchname`}}",
-	"username" : "vagrant",
-	"password" : "vagrant"
+    "username" : "vagrant",
+    "password" : "vagrant"
   },
   "builders": [
   {

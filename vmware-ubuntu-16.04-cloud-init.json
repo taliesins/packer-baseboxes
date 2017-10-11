@@ -4,28 +4,28 @@
     "cpu": "2",
     "ram_size": "2048",
     "disk_size": "3072",
-    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "F529548FA7468F2D8413B8427D8E383B830DF5F6",
-    "hyperv_switchname": "{{env `hyperv_switchname`}}",
-	"username" : "ubuntu",
-	"password" : "ubuntu"
-  },
+    "iso_checksum": "F3532991E031CAE75BCF5E695AFB844DD278FFF9",
+    "username" : "vagrant",
+    "password" : "vagrant"
+  },  
   "builders": [
   {
     "vm_name":"{{user `vm_name`}}",
-    "type": "hyperv-iso",
+    "type": "vmware-iso",
+    "boot_wait": "5s",
     "disk_size": "{{user `disk_size`}}",
-    "guest_additions_mode":"disable",
+    "http_directory": "./linux/ubuntu/http/",
+    "guest_os_type": "ubuntu-64",
+    "headless": true,
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
     "ssh_username": "{{user `username`}}",
     "ssh_password": "{{user `password`}}",
-    "ssh_timeout" : "4h",
-    "http_directory": "./linux/ubuntu/http/",
-    "boot_wait": "5s",
+    "ssh_timeout": "4h",
     "boot_command": [
       "<esc><wait10><esc><esc><enter><wait>",
       "set gfxpayload=1024x768<enter>",
@@ -38,28 +38,35 @@
       "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
       "initrd /install/initrd.gz<enter>",
       "boot<enter>"
-    ],
-    "shutdown_command": "echo 'ubuntu' | sudo -S -E shutdown -P now",
-    "ram_size": "{{user `ram_size`}}",
-    "cpu": "{{user `cpu`}}",
-    "generation": 2,
-    "switch_name":"{{user `hyperv_switchname`}}",
-    "enable_secure_boot":false
+    ],  
+    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+    "skip_compaction": false,
+    "vmx_data": {
+      "gui.fitguestusingnativedisplayresolution": "FALSE",
+      "memsize": "{{user `ram_size`}}",
+      "numvcpus": "{{user `cpu`}}",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "lsisas1068",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType":"custom",
+      "ethernet0.vnet":"vmnet8"
+    }
   }],
   "provisioners": [{
     "type": "shell",
-    "execute_command": "echo 'ubuntu' | sudo -S -E sh {{.Path}}",
+    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
     "scripts": [
       "./linux/ubuntu/update.sh",
       "./linux/ubuntu/cloud-init.sh",
-      "./linux/ubuntu/cleanup.sh"
+      "./linux/ubuntu/cleanup.sh"      
     ]
   }],
   "post-processors": [
     {
-      "type": "compress",
-      "output": "{{.BuildName}}_bundle.zip",
-      "compression_level": 9
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
     }
   ]
 }

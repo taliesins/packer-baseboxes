@@ -3,30 +3,29 @@
     "vm_name": "ubuntu-xenial",
     "cpu": "2",
     "ram_size": "2048",
-    "disk_size": "21440",
+    "disk_size": "3072",
     "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
     "iso_checksum_type": "sha1",
     "iso_checksum": "F3532991E031CAE75BCF5E695AFB844DD278FFF9",
-    "username" : "vagrant",
-    "password" : "vagrant"
+    "hyperv_switchname": "{{env `hyperv_switchname`}}",
+    "username" : "ubuntu",
+    "password" : "ubuntu"
   },
   "builders": [
   {
     "vm_name":"{{user `vm_name`}}",
-    "type": "virtualbox-iso",
-    "boot_wait": "5s",
+    "type": "hyperv-iso",
     "disk_size": "{{user `disk_size`}}",
-    "headless": true,
     "guest_additions_mode":"disable",
-    "http_directory": "./linux/ubuntu/http/",
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
-    "iso_checksum": "{{user `iso_checksum`}}",			 
+    "iso_checksum": "{{user `iso_checksum`}}",
     "communicator":"ssh",
     "ssh_username": "{{user `username`}}",
     "ssh_password": "{{user `password`}}",
-    "ssh_timeout": "4h",
-    "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",   
+    "ssh_timeout" : "4h",
+    "http_directory": "./linux/ubuntu/http/",
+    "boot_wait": "5s",
     "boot_command": [
       "<esc><wait10><esc><esc><enter><wait>",
       "set gfxpayload=1024x768<enter>",
@@ -40,33 +39,27 @@
       "initrd /install/initrd.gz<enter>",
       "boot<enter>"
     ],
-    "guest_os_type": "Ubuntu_64",
-    "vboxmanage": [
-      [
-        "modifyvm","{{.Name}}","--memory","{{user `ram_size`}}"
-      ],
-      [
-        "modifyvm","{{.Name}}","--cpus","{{user `cpu`}}"
-      ]
-    ]
+    "shutdown_command": "echo 'ubuntu' | sudo -S -E shutdown -P now",
+    "ram_size": "{{user `ram_size`}}",
+    "cpu": "{{user `cpu`}}",
+    "generation": 2,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
   }],
   "provisioners": [{
     "type": "shell",
-    "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+    "execute_command": "echo 'ubuntu' | sudo -S -E sh {{.Path}}",
     "scripts": [
       "./linux/ubuntu/update.sh",
-      "./linux/ubuntu/network.sh",
-      "./linux/common/vagrant.sh",
-      "./linux/common/chef.sh",
-      "./linux/common/motd.sh",
+      "./linux/ubuntu/cloud-init.sh",
       "./linux/ubuntu/cleanup.sh"
     ]
   }],
   "post-processors": [
     {
-      "type": "vagrant",
-      "keep_input_artifact": false,
-      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
+      "type": "compress",
+      "output": "{{.BuildName}}_bundle.zip",
+      "compression_level": 9
     }
   ]
 }
