@@ -8,7 +8,7 @@
 RootModule = 'PSWsusSpringClean.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.1'
+ModuleVersion = '0.3.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -23,7 +23,7 @@ Author = 'Samuel Leslie'
 # CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2016 Samuel Leslie. All rights reserved.'
+Copyright = '(c) Samuel Leslie. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'Give your WSUS server a thorough spring cleaning'
@@ -65,7 +65,7 @@ RequiredModules = @('UpdateServices')
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('ConvertTo-WsusSpringCleanCatalog', 'Invoke-WsusSpringClean', 'Test-WsusSpringCleanCatalog')
+FunctionsToExport = @('ConvertTo-WsusSpringCleanCatalogue', 'Invoke-WsusSpringClean', 'Test-WsusSpringCleanCatalogue')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

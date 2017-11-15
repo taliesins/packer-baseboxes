@@ -13,6 +13,6 @@ try {
 Import-Module .\PSWsusSpringClean.psm1
 
 
-Invoke-WsusSpringClean -SynchroniseServer -DeclineItaniumUpdates -DeclineUnneededUpdates -DeclineCategoriesInclude @('Superseded','Pre-release') 
+Invoke-WsusSpringClean -SynchroniseServer -DeclineItaniumUpdates -DeclinePrereleaseUpdates -DeclineCategoriesInclude @('Superseded','Pre-release') 
 
 Pop-Location
