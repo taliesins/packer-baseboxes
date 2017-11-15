@@ -63,7 +63,7 @@
     "communicator":"winrm",
     "winrm_username": "{{user `username`}}",
     "winrm_password": "{{user `password`}}",
-    "winrm_timeout": "4h",
+    "winrm_timeout": "6h",
     "shutdown_command": "a:\\run-sysprep.cmd",   
     "skip_compaction": false,
     "vmx_data": {

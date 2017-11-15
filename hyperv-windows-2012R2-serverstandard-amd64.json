@@ -32,7 +32,7 @@
     "communicator":"winrm",
     "winrm_username": "{{user `username`}}",
     "winrm_password": "{{user `password`}}",
-    "winrm_timeout" : "4h",
+    "winrm_timeout" : "6h",
     "shutdown_command": "IF EXIST a:\\run-sysprep.cmd (CALL a:\\run-sysprep.cmd) ELSE (IF EXIST e:\\run-sysprep.cmd (CALL e:\\run-sysprep.cmd) ELSE (CALL f:\\run-sysprep.cmd)) &IF \"%ERRORLEVEL%\" == \"0\" (ECHO \"Shutdown script succeeded with exit code = %ERRORLEVEL%\" &EXIT 0) ELSE (ECHO \"Shutdown script failed with exit code = %ERRORLEVEL%\" &EXIT %ERRORLEVEL%)",
     "ram_size": "{{user `ram_size`}}",
     "cpu": "{{user `cpu`}}",

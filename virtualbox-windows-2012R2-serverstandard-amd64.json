@@ -29,13 +29,13 @@
       "./windows/common/run-sysprep.cmd",
       "./windows/common/oracle-cert.cer",
       "./windows/common/enable-winrm.ps1",
-	  "./windows/common/enable-winrm.task.ps1",
+      "./windows/common/enable-winrm.task.ps1",
       "./windows/common/fixnetwork.ps1",
-	  "./windows/common/elevate.exe",
-	  "./windows/common/sdelete.exe",
-	  "./windows/common/sdelete.ps1",	  
+      "./windows/common/elevate.exe",
+      "./windows/common/sdelete.exe",
+      "./windows/common/sdelete.ps1",	  
       "./windows/common/Set-ClientWSUSSetting.ps1",
-	  "./windows/common/Set-ClientWSUSSetting.task.ps1"
+      "./windows/common/Set-ClientWSUSSetting.task.ps1"
     ],    
     "http_directory": "./windows/common/http/",
     "iso_url": "{{user `iso_url`}}",
@@ -44,7 +44,7 @@
     "communicator":"winrm",
     "winrm_username": "{{user `username`}}",
     "winrm_password": "{{user `password`}}",
-    "winrm_timeout": "4h",
+    "winrm_timeout": "6h",
     "shutdown_command": "a:\\run-sysprep.cmd",   
     "guest_os_type": "Windows2012_64",
     "vboxmanage": [
