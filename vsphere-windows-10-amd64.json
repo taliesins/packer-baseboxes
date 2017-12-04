@@ -45,7 +45,7 @@
         "./windows/common/vmware/drivers/vmxnet3"
       ],
       "guest_os_type": "windows8srv-64",
-      "headless": false,
+      "headless": true,
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -55,7 +55,6 @@
       "winrm_timeout": "4h",
       "shutdown_command": "a:\\run-sysprep.cmd",   
       "skip_compaction": false,
-      "disable_vnc": true,
       "vmx_data": {
         "gui.fitguestusingnativedisplayresolution": "FALSE",
         "memsize": "{{user `ram_size`}}",

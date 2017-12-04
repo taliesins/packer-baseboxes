@@ -57,6 +57,7 @@
     ],
     "guest_os_type": "windows8srv-64",
     "headless": false,
+    "disable_vnc": true,
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
