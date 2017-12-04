@@ -17,6 +17,8 @@
     "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
     "vsphere_username": "{{env `vsphere_username`}}",
     "vsphere_password": "{{env `vsphere_password`}}",
+    "vsphere_ethernet0_dvs_switch_id":"50 21 6c c7 55 a8 c0 ef-e3 64 b4 cd bc 81 c4 a3",
+    "vsphere_ethernet0_dvs_portgroup_id" : "dvportgroup-152",      
     "username" : "vagrant",
     "password" : "vagrant"
   },
@@ -78,8 +80,8 @@
       "ethernet0.present": "TRUE",
       "ethernet0.connectionType":"bridged",
       "ethernet0.startConnected" : "TRUE",
-      "ethernet0.dvs.switchId":"4c 99 22 50 18 10 58 08-b5 82 0b d7 b6 1a 58 4a",
-      "ethernet0.dvs.portgroupId" : "dvportgroup-5911"
+      "ethernet0.dvs.switchId":"{{user `vsphere_ethernet0_dvs_switch_id`}}",
+      "ethernet0.dvs.portgroupId" : "{{user `vsphere_ethernet0_dvs_portgroup_id`}}"
     },
     "vmx_data_post": {
       "ide0:0.startConnected": "FALSE",
