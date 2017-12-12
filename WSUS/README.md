@@ -11,22 +11,28 @@ For the cleanliness obsessed among us, maintaining a pristine WSUS catalogue of 
 The Solution
 ------------
 
-The PSWsusSpringClean module provides several additional options for cleaning your WSUS server:
+The `PSWsusSpringClean` module provides several additional options for cleaning your WSUS server:
 
-- Decline unneeded updates (`DeclineUnneededUpdates`)  
-  Declines updates which are likely unneeded (see the [Unneeded Updates](#unneeded-updates) section for more details).
+- Runs the default set of generally safe clean-up tasks (`RunCommonTasks`)  
+  This consists of all the `Invoke-WsusServerCleanup` tasks and all parameters of this cmdlet prefixed with `-Decline`.
 - Decline failover clustering updates (`-DeclineClusterUpdates`)  
   Updates which only apply to **SQL Server 2000/2005** installations in a *failover clustering* configuration.
 - Decline farm server & deployment updates (`-DeclineFarmUpdates`)  
   Updates which only apply to *Farm Server* products or product installations in a *farm-deployment* configuration.
 - Decline Itanium architecture updates (`-DeclineItaniumUpdates`)  
   Updates which only apply to products installed on *Itanium* architecture systems.
-- Flag for review updates which may be incorrectly declined (`-FindSuspectDeclines`)  
-  Lists updates which may be incorrectly declined (see the [Suspect Declines](#suspect-declines) section for more details).
+- Decline pre-release updates (`-DeclinePrereleaseUpdates`)  
+  Updates which only apply to pre-release products (e.g. release candidates).
+- Decline *Security Only Quality Updates* (`-DeclineSecurityOnlyUpdates`)  
+  Microsoft's new non-cumulative security only updates. The *Security Monthly Quality Rollups* contain everything in these updates and more.
+- All parameters of `Invoke-WsusServerCleanup` for wrapping its functionality  
+  Consult the help of `Invoke-WsusServerCleanup` for a description of these tasks.
+
+Several additional parameters not related to declining updates are also provided:
 - Synchronise the WSUS server catalogue (`-SynchroniseServer`)  
   A synchronisation will be performed before any requested clean-up actions.
-
-The module also provides parameters to wrap the functions of the `Invoke-WsusServerCleanup` cmdlet. The intent is to be able to perform a comprehensive clean-up of the WSUS server catalogue via a single PowerShell cmdlet invocation.
+- Flag for review updates which may be incorrectly declined (`-FindSuspectDeclines`)  
+  Lists updates which may be incorrectly declined. See the [Suspect Declines](#suspect-declines) section for more details.
 
 ## Unneeded Updates
 
@@ -35,9 +41,9 @@ There are many updates which are likely unwanted in WSUS installations but have 
 Two parameters are provided to indicate to the module which unneeded updates should be declined:
 
 - Decline only the updates in the listed categories (`-DeclineCategoriesInclude`) [**Default**]  
-  An array of strings corresponding to the categories (per the CSV file) of unneeded updates to be declined. If an empty array is provided (default) then *no* updates listed in the CSV will be declined.
+  An array of strings corresponding to the categories of unneeded updates to be declined. If an empty array is provided (default) then *no* updates listed in the CSV will be declined.
 - Decline all unneeded updates except those in the listed categories (`-DeclineCategoriesExclude`)  
-  An array of strings corresponding to the categories (per the CSV file) of unneeded updates to exclude from declining. If an empty array is provided (default) then **all** updates listed in the CSV will be declined!
+  An array of strings corresponding to the categories of unneeded updates to exclude from declining. If an empty array is provided then **all** updates listed in the CSV will be declined!
 
 The `-DeclineCategoriesExclude` parameter should be used with caution as it could easily decline updates you did not intend to!
 
@@ -55,6 +61,7 @@ Requirements
 ------------
 
 - PowerShell 3.0 (or later)
+- `UpdateServices` module (included with WSUS)
 
 Installing
 ----------
@@ -92,17 +99,17 @@ Sample Usage
 ------------
 
 ```posh
-# Decline all failover clustering, farm server/deployment & Itanium updates:
+# Runs the default clean-up tasks & checks for declined updates that may not be intentional
+$SuspectDeclines = Invoke-WsusSpringClean -RunDefaultTasks -FindSuspectDeclines
+
+# Decline all failover clustering, farm server/deployment & Itanium updates
 Invoke-WsusSpringClean -DeclineClusterUpdates -DeclineFarmUpdates -DeclineItaniumUpdates
 
-# Decline all unneeded updates in the Superseded & Pre-release categories:
-Invoke-WsusSpringClean -DeclineUnneededUpdates -DeclineCategoriesInclude @('Superseded', 'Pre-release')
+# Declines all unneeded updates in the "Region - US" & "Superseded" categories
+Invoke-WsusSpringClean -DeclineCategoriesInclude @('Region - US', 'Superseded')
 
-# Find all suspect declines using the decline criteria from our previous invocations:
-Invoke-WsusSpringClean -DeclineClusterUpdates -DeclineFarmUpdates -DeclineItaniumUpdates -DeclineUnneededUpdates -DeclineCategoriesInclude @('Superseded','Pre-release') -FindSuspectDeclines
-
-# Show what updates would be declined if we were to decline all unneeded updates:
-Invoke-WsusSpringClean -DeclineUnneededUpdates -DeclineCategoriesExclude @() -WhatIf
+# Show what updates would be declined if we were to decline all unneeded updates
+Invoke-WsusSpringClean -RunDefaultTasks -DeclineCategoriesExclude @() -WhatIf
 ```
 
 License

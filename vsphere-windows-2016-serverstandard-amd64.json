@@ -15,8 +15,8 @@
     "vsphere_vm_network": "{{env `vsphere_vm_network`}}",
     "vsphere_username": "{{env `vsphere_username`}}",
     "vsphere_password": "{{env `vsphere_password`}}",
-	"username" : "vagrant",
-	"password" : "vagrant"
+    "username" : "vagrant",
+    "password" : "vagrant"
   },
   "builders": [
     {
@@ -34,13 +34,13 @@
         "./windows/common/run-sysprep.ps1",
         "./windows/common/run-sysprep.cmd",
         "./windows/common/enable-winrm.ps1",
-		"./windows/common/enable-winrm.task.ps1",
+        "./windows/common/enable-winrm.task.ps1",
         "./windows/common/fixnetwork.ps1",
         "./windows/common/Set-ClientWSUSSetting.ps1",
-		"./windows/common/Set-ClientWSUSSetting.task.ps1",
-		"./windows/common/elevate.exe",
-		"./windows/common/sdelete.exe",
-		"./windows/common/sdelete.ps1",		
+        "./windows/common/Set-ClientWSUSSetting.task.ps1",
+        "./windows/common/elevate.exe",
+        "./windows/common/sdelete.exe",
+        "./windows/common/sdelete.ps1",
         "./windows/common/vmware/drivers/pvscsi64",
         "./windows/common/vmware/drivers/vmxnet3"
       ],
@@ -50,10 +50,10 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "communicator":"winrm",
-	  "winrm_username": "{{user `username`}}",
-	  "winrm_password": "{{user `password`}}",
+      "winrm_username": "{{user `username`}}",
+      "winrm_password": "{{user `password`}}",
       "winrm_timeout": "4h",
-      "shutdown_command": "a:\\run-sysprep.cmd",   
+      "shutdown_command": "a:\\run-sysprep.cmd",
       "skip_compaction": false,
       "vmx_data": {
         "gui.fitguestusingnativedisplayresolution": "FALSE",
