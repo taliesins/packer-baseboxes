@@ -4,12 +4,12 @@
     "cpu": "2",
     "ram_size": "2048",
     "disk_size": "21440",
-    "iso_url": "pfSense-CE-2.3.2-RELEASE-amd64.iso",
+    "iso_url": "pfSense-CE-2.4.2-RELEASE-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "009ABCEBC2FEE1A57A61631B9CD3D9FE5AC33F37",    
+    "iso_checksum": "7c52cce099541c75bc624d79d0b624dfcdce65e5",    
     "hyperv_switchname": "{{env `hyperv_switchname`}}",
-	"username" : "vagrant",
-	"password" : "vagrant"
+    "username" : "vagrant",
+    "password" : "vagrant"
   },
   "builders": [
   {
@@ -18,7 +18,6 @@
     "disk_size": "{{user `disk_size`}}",
     "floppy_files": [],
     "secondary_iso_images": [
-      "./pfSense-CE-2.3.2-RELEASE-amd64.iso"
     ],
     "guest_additions_mode":"disable",
     "iso_url": "{{user `iso_url`}}",
@@ -31,21 +30,17 @@
     "http_directory": "./pfsense/http/",
     "boot_wait": "1s",
     "boot_command": [
+      "<wait><wait><wait>0<enter><wait><wait>",
       "1",
-      "<wait10><wait10><wait10><wait10><wait10><wait10>",
-      "<wait5><tab><tab><tab><wait><enter>",
-      "<wait5><enter>",
-      "<wait5><enter>",
-      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><enter>",
-      "<wait10><wait10><wait10><wait10><wait10><enter>",
+      "<wait10><wait10><wait10><wait10>",
+      "A<wait><wait>",
+      "<enter><wait><wait>",
+      "<enter><wait><wait>",
+      "<enter><wait10><wait10><wait10><wait10><wait10>",
+      "Y<wait><wait><wait>",
+      "cdcontrol eject && shutdown -r now<wait><enter><wait10><wait10><wait10><wait10>",
 
-      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
-      "<wait><leftCtrlOn>c<leftCtrlOff>",
-      "<wait><enter>",
-      "<wait>clear<wait><enter>",
-      "<wait>cdcontrol eject && exit<wait><enter>",
-
-      "<wait10><wait10><wait10><wait10><wait10><wait10>",
+      "<wait><wait><wait>0<enter><wait><wait>",
       "<wait5>n<wait><enter><wait>",
       "<wait>hn0<wait><enter><wait>",
       "<wait><enter><wait>",
@@ -92,7 +87,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "{{.Provider}}_pfsense-2.3.2_chef.box"
+      "output": "{{.Provider}}_pfsense-2.4.2_chef.box"
     }
   ]
 }
