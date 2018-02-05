@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "vm_name": "null",
+    "cpu": "2",
+    "ram_size": "2048",
+    "disk_size": "21440",
+    "iso_url": "http://dl-cdn.alpinelinux.org/alpine/v3.7/releases/x86_64/alpine-virt-3.7.0-x86_64.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "f1cc909114250b702d74cb4d967ebdb29cf59d5a",    
+    "hyperv_switchname": "{{env `hyperv_switchname`}}",
+    "username" : "vagrant",
+    "password" : "vagrant"
+  },
+  "builders": [
+  {
+    "vm_name":"{{user `vm_name`}}",
+    "type": "hyperv-iso",
+    "disk_size": "{{user `disk_size`}}",
+    "guest_additions_mode":"disable",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
+    "communicator":"ssh",
+    "ssh_username": "{{user `username`}}",
+    "ssh_password": "{{user `password`}}",	
+    "ssh_timeout" : "1h",
+    "boot_wait": "5s",
+    "boot_command": [
+      "root<enter><wait>",
+      "passwd -d root<enter><wait>",
+
+      "adduser vagrant<wait5><enter>vagrant<wait5><enter>vagrant<wait><enter>",
+      "echo 'vagrant ALL=(ALL) ALL' >> /etc/sudoers<wait><enter>",
+
+      "echo 'auto eth0' >> /etc/network/interfaces<enter>",
+      "echo 'iface eth0 inet dhcp' >> /etc/network/interfaces<enter>",
+
+      "service networking restart<enter><wait>",
+
+      "echo 'http://dl-3.alpinelinux.org/alpine/v3.7/main/' >> /etc/apk/repositories<enter><wait>",
+      "apk update<enter><wait10>",
+
+      "apk add hvtools<enter><wait10>",
+      "rc-update add hv_fcopy_daemon<enter><wait>",
+      "rc-update add hv_kvp_daemon<enter><wait>",
+      "rc-update add hv_vss_daemon<enter><wait>",
+      
+      "service hv_fcopy_daemon start<enter><wait>",
+      "service hv_kvp_daemon start<enter><wait>",
+      "service hv_vss_daemon start<enter><wait>",
+
+      "apk add openssh<enter><wait10>",
+      "echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config<enter>",
+      "echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config<enter>",
+      "rc-update add sshd<enter>",
+      "service sshd start<enter>"
+    ],
+    "ram_size": "{{user `ram_size`}}",
+    "cpu": "{{user `cpu`}}",
+    "generation": 1,
+    "switch_name":"{{user `hyperv_switchname`}}",
+    "enable_secure_boot":false
+  }],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": true,
+      "output": "{{.Provider}}_null.box"
+    }
+  ]
+}
