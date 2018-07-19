@@ -4,9 +4,9 @@
     "cpu": "2",
     "ram_size": "2048",
     "disk_size": "3072",
-    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "F3532991E031CAE75BCF5E695AFB844DD278FFF9",
+    "iso_checksum": "EE834FBEB94CC55972B38CAAFA2029C29625E2E8",
     "username" : "vagrant",
     "password" : "vagrant"
   },  
