@@ -1,12 +1,12 @@
 {
   "variables": {
-    "vm_name": "ubuntu-xenial",
+    "vm_name": "ubuntu-bionic",
     "cpu": "2",
     "ram_size": "2048",
     "disk_size": "21440",
-    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso",
+    "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.1-server-amd64.iso",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "ee32c555567dd5407c58a1cfc7e668ab37a99d99",
+    "iso_checksum": "87bedd68607f059ca973f86346bbdf1caa6e1077",
     "hyperv_switchname": "{{env `hyperv_switchname`}}",
     "username" : "vagrant",
     "password" : "vagrant"
@@ -30,8 +30,8 @@
       "<esc><wait10><esc><esc><enter><wait>",
       "set gfxpayload=1024x768<enter>",
       "linux /install/vmlinuz ",
-      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/16.04/preseed.cfg ",
-      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/18.04/preseed.cfg ",
+      "debian-installer=en_US.UTF-8 auto locale=en_US.UTF-8 kbd-chooser/method=us ",
       "hostname={{.Name}} ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
@@ -63,7 +63,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "{{.Provider}}_ubuntu-16.04_chef.box"
+      "output": "{{.Provider}}_ubuntu-18.04_chef.box"
     }
   ]
 }
