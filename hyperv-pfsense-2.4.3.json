@@ -41,7 +41,6 @@
       "cdcontrol eject<wait><enter><wait><wait>",
       "shutdown -r now<wait><enter><wait10><wait10><wait10><wait10><wait10>",
 
-      "<wait><wait><wait>0<enter><wait><wait>",
       "<wait5>n<wait><enter><wait>",
       "<wait>hn0<wait><enter><wait>",
       "<wait><enter><wait>",
@@ -67,7 +66,7 @@
       "<wait>14<enter>",
       "<wait>y<enter>",
       "<wait>5<enter>",
-      "<wait>y<enter>"
+      "<wait>y<enter><wait10>"
     ],
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -p now",
     "ram_size": "{{user `ram_size`}}",
