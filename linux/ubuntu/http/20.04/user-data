@@ -1,0 +1,45 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: en
+    variant: us
+  network:
+    network:
+      version: 2
+      ethernets:
+        eth0:
+          dhcp4: true
+  storage:
+    layout:
+      name: lvm
+  identity:
+    hostname: vagrant
+    username: vagrant
+    password: '$2y$12$zfS.Dpm682guriw6fJ5PXu4Kv7GSs7VYHUPGphQdSnT0wb4Rt1tVS'
+  ssh:
+    # For now we install openssh-server during package installs
+    allow-pw: true
+    install-server: yes
+  user-data:
+    disable_root: false
+  early-commands:
+    # Block inbound SSH to stop Packer trying to connect during initial install
+    - iptables -A INPUT -p tcp --dport 22 -j DROP
+  packages:
+    - bc
+    - curl
+    - lsb-release
+    - ntp
+    - wget
+    - linux-azure
+    - openssh-server
+    
+  late-commands:
+    - sed -i 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
+    - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
+    - "echo 'Defaults:vagrant !requiretty' > /target/etc/sudoers.d/vagrant"
+    - "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /target/etc/sudoers.d/vagrant"
+    - "chmod 440 /target/etc/sudoers.d/vagrant"
+    - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
